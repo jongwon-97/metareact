@@ -57,18 +57,18 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-people me-2"></i> {/* 회원관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/admin/users/list">
+          <a className={`${styles.hlink} sidebar-link`} href="/view/admin/users/list">
           회원관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="/view/admin/users/list?role=STUDENT" className={styles.subLink}>
                 학생관리
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="/view/admin/users/list?role=INSTRUCTOR" className={styles.subLink}>
                 강사관리
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="/view/admin/users/list?role=MANAGER" className={styles.subLink}>
                 매니저관리
               </a>
               <a href="/admin/overview" className={styles.subLink}>
@@ -172,7 +172,7 @@ const AdminSideBar = () => {
              onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
-          <i class="bi bi-card-list"></i> {/* 게시판관리 아이콘 */}
+          <i className="bi bi-card-list"></i> {/* 게시판관리 아이콘 */}
           <a className={`${styles.hlink} sidebar-link`} href="/tables">
           게시판관리
           </a>

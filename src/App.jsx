@@ -1,9 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import AdminHeader from "./components/AdminHeader";
 import AdminSideBar from "./components/AdminSideBar";
+import Dashboard from "./pages/Dashboard";
+import UsersList from "./pages/admin/UsersList";
+
 function App() {
   return (
   <Router>
@@ -17,6 +19,7 @@ function App() {
         <div className="main-content">
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/view/admin/users/list" element={<UsersList />} />
         </Routes>
         </div>
       </div>

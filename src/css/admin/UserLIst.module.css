@@ -1,0 +1,60 @@
+.tableContainer {
+    margin: 20px auto;
+    max-width: 90%;
+    border-collapse: collapse;
+  }
+  
+  .tableContainer table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+  }
+  
+  .tableContainer th, 
+  .tableContainer td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .tableContainer th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .actionButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .actionButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .pagination button:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  
