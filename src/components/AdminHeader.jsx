@@ -13,7 +13,7 @@ const AdminHeader = () => {
     return (
     <nav className={`${styles.navbar} navbar navbar-dark bg-dark`}>
       <div className={styles.leftSection}>
-      <a className={`${styles.brand} navbar-brand ps-3`} href="/">
+      <a className={`${styles.brand} navbar-brand ps-3`} href="/view/admin/dashboard">
         메타러닝 관리자 대시보드
       </a>
     

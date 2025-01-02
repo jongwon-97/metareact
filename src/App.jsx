@@ -5,10 +5,13 @@ import AdminHeader from "./components/AdminHeader";
 import AdminSideBar from "./components/AdminSideBar";
 import Dashboard from "./pages/Dashboard";
 import UsersList from "./pages/admin/UsersList";
+import CourseList from "./pages/admin/CourseList";
+import SessionList from "./pages/admin/SessionList";
 
 function App() {
+  
   return (
-  <Router>
+  <Router basename="/view">
     <div className="app-container">
         {/* 고정 헤더 */}
         <AdminHeader />
@@ -18,8 +21,10 @@ function App() {
         {/* 동적인 메인 콘텐츠 */}
         <div className="main-content">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/view/admin/users/list" element={<UsersList />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/users/list" element={<UsersList />} />
+          <Route path="/admin/KDT/list" element={<CourseList />} />
+          <Route path="/admin/KDT/course/:id" element={<SessionList />} />
         </Routes>
         </div>
       </div>

@@ -11,7 +11,7 @@ const AdminSideBar = () => {
         <div className={`${styles.sidebarSection}`}>
            
           {/* Home */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/dashboard">
+          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
           <i className="bi bi-house-door me-2"></i> {/* Home 아이콘 */}
           Home
           </a>
@@ -28,7 +28,7 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-bar-chart me-2"></i>
-          <a className={`${styles.hlink} sidebar-link`} href="/admin/mypage">
+          <a className={`${styles.hlink} sidebar-link`} href="view/admin/userchart">
           통계관리
           </a>
           {showSubMenu && (
@@ -86,18 +86,18 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-book"></i> {/* 국비관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/admin/KDT/list">
+          <a className={`${styles.hlink} sidebar-link`} href="/view/admin/KDT/list">
             국비관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="http://localhost:8091/admin/KDT/course" className={styles.subLink}>
                 국비과정등록
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="http://localhost:8091/admin/KDT/session" className={styles.subLink}>
                 국비회차등록
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="/view/admin/KDT/list" className={styles.subLink}>
                 국비과정조회
               </a>
               <a href="/admin/overview" className={styles.subLink}>
@@ -155,7 +155,7 @@ const AdminSideBar = () => {
               <a href="/admin/teacherchart" className={styles.subLink}>
                 국비회차등록
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="/admin/KDT/list" className={styles.subLink}>
                 국비과정조회
               </a>
               <a href="/admin/overview" className={styles.subLink}>
