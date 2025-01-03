@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -53,9 +54,10 @@ const SessionList = () => {
             <tr>
               <th scope="col">회차 번호</th>
               <th scope="col">회차 제목</th>   
-              <th scope="col">상세 보기</th>
+              <th scope="col">수강생 등록하기</th>
               <th scope="col">매니저 등록하기</th>
               <th scope="col">강사 등록하기</th>
+              <th scope="col">상세보기</th>
               <th scope="col">수정하기</th>
               <th scope="col">삭제하기</th>
             </tr>
@@ -64,16 +66,24 @@ const SessionList = () => {
             {sessions.map((session) => (
               <tr key={session.kdtSessionId}>
                 <td>{session.kdtSessionNum}</td>
-                <td>{session.kdtSessionTitle}</td>
-            
                 <td>
-                  <a href={`/admin/KDT/session/${session.kdtSessionId}`}>상세 보기</a>
+                  <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
+                    {session.kdtSessionTitle}
+                  </Link>
+                </td>
+                <td>
+                  <a href={`/admin/KDT/${session.kdtSessionId}/staff/manager`}>수강생 등록하기</a>
                 </td>
                 <td>
                   <a href={`/admin/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
                 </td>
                 <td>
                   <a href={`/admin/KDT/${session.kdtSessionId}/staff/instructor`}>강사 등록하기</a>
+                </td>
+                <td>
+                  <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
+                    상세 보기
+                  </Link>
                 </td>
                 <td>
                   <a href={`/admin/KDT/session/update/${session.kdtSessionId}`}>수정하기</a>

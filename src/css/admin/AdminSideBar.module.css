@@ -84,7 +84,7 @@
 /* 드롭다운 활성화 시 아래 항목 밀어내기 */
 .dropdown:hover + .link {
   margin-top: 250px; /* 드롭다운 높이만큼 밀어냄 */
-  transition: margin 0.3s ease; /* 부드러운 전환 효과 */
+  transition: margin ease, opacity ease; /* 부드러운 전환 효과 */
 }
 
 /* 하위 메뉴 링크 */

@@ -8,13 +8,10 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]); // 과정 데이터 상태 관리
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태 관리
 
-  // CSRF 토큰 및 헤더를 가져오는 함수
-  const getCsrfToken = () => {
-    return document.querySelector('meta[name="_csrf"]').getAttribute("content");
-  };
-
-  const getCsrfHeaderName = () => {
-    return document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
+  const getCookie = (cookieName) => {
+    const cookies = document.cookie.split("; ");
+    const csrfCookie = cookies.find((row) => row.startsWith(cookieName + "="));
+    return csrfCookie ? csrfCookie.split("=")[1] : null;
   };
 
   // 페이지 로드 시 데이터 가져오기
@@ -54,32 +51,27 @@ const CourseList = () => {
 
   // 과정 삭제 함수
   const deleteCourse = async (courseId) => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+  const csrfToken = getCookie("XSRF-TOKEN"); // Spring Security의 기본 CSRF 쿠키 이름
+  if (!csrfToken) {
+    alert("CSRF 토큰이 없습니다.");
+    return;
+  }
 
-    try {
-      const csrfToken = getCsrfToken();
-      const csrfHeaderName = getCsrfHeaderName();
+  try {
+    const response = await axios.delete(`http://localhost:8091/api/admin/KDT//course/delete/${courseId}`, {
+      headers: {
+        "X-XSRF-TOKEN": csrfToken, // CSRF 토큰 추가
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
 
-      const response = await axios.delete(`http://localhost:8091/api/admin/KDT/course/delete/${courseId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          [csrfHeaderName]: csrfToken, // CSRF 토큰 헤더 추가
-        },
-        withCredentials: true, // 쿠키 포함
-      });
-
-      if (response.data.status === "success") {
-        alert(response.data.message || "과정이 삭제되었습니다.");
-        // 삭제된 과정 필터링
-        setCourses(courses.filter((course) => course.kdtcourseId !== courseId));
-      } else {
-        alert(response.data.message || "삭제에 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("Error deleting course:", error);
-      alert("서버 오류로 삭제에 실패했습니다.");
-    }
-  };
+    console.log("Delete response:", response.data);
+  } catch (error) {
+    console.error("Error deleting course:", error);
+    alert("삭제 요청 실패");
+  }
+};
 
   return (
     <div className="container mt-4">
