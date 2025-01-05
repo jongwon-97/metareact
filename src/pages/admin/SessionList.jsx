@@ -73,13 +73,13 @@ const SessionList = () => {
                 </td>
                 <td>{session.kdtSessionNum}회차</td>
                 <td>
-                  <a href={`/admin/KDT/${session.kdtSessionId}/staff/manager`}>수강생 등록하기</a>
+                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
                 </td>
                 <td>
-                  <a href={`/admin/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
+                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
                 </td>
                 <td>
-                  <a href={`/admin/KDT/${session.kdtSessionId}/staff/instructor`}>강사 등록하기</a>
+                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
                 </td>
                 <td>
                   <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
@@ -87,7 +87,7 @@ const SessionList = () => {
                   </Link>
                 </td>
                 <td>
-                  <button href={`/admin/KDT/session/update/${session.kdtSessionId}`} 
+                  <button href={`http://localhost:8091/admin/KDT/session/update/${session.kdtSessionId}`} 
                   className={styles.editbtn}>수정</button>
                 </td>
                 <td>
