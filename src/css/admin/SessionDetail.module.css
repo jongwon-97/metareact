@@ -233,9 +233,47 @@
   .cardBody {
     padding: 15px;
   }
-  
-  .thumbnail {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
+
+
+  /* 테이블 스타일 */
+.infoTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.infoTable th, .infoTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.infoTable th {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  width: 25%;
+}
+
+.infoTable td {
+  background-color: #fff;
+}
+
+h3 {
+  margin-top: 30px;
+  color: var(--primary-color);
+  font-family: var(--font-family);
+  border-bottom: 2px solid var(--hover-color);
+  padding-bottom: 10px;
+}
+
+/* 썸네일 컨테이너 스타일 */
+.thumbnailContainer {
+  margin-top: 30px;
+}
+
+.thumbnail {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

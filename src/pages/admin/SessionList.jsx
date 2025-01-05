@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import styles from "/src/css/admin/SessionList.module.css";
 
 const SessionList = () => {
   const {id : courseId } = useParams(); // URL에서 courseId 가져오기
@@ -43,34 +43,35 @@ const SessionList = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center my-4">전체 회차 목록</h1>
+    <div className={styles.sessionlistcontainer}>
 
-      {errorMessage && <div className="text-danger text-center">{errorMessage}</div>}
-
+      {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+      
       {sessions.length > 0 ? (
-        <table className="table table-bordered">
+        <table className={styles.sessionlisttable}>
           <thead>
             <tr>
-              <th scope="col">회차 번호</th>
-              <th scope="col">회차 제목</th>   
+              <th scope="col">번호</th>
+              <th scope="col">회차 제목</th> 
+              <th scope="col">회차</th>    
               <th scope="col">수강생 등록하기</th>
               <th scope="col">매니저 등록하기</th>
               <th scope="col">강사 등록하기</th>
               <th scope="col">상세보기</th>
-              <th scope="col">수정하기</th>
-              <th scope="col">삭제하기</th>
+              <th scope="col">수정</th>
+              <th scope="col">삭제</th>
             </tr>
           </thead>
           <tbody>
-            {sessions.map((session) => (
+            {sessions.map((session,index) => (
               <tr key={session.kdtSessionId}>
-                <td>{session.kdtSessionNum}</td>
+                <td>{index + 1}</td>
                 <td>
                   <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
                     {session.kdtSessionTitle}
                   </Link>
                 </td>
+                <td>{session.kdtSessionNum}회차</td>
                 <td>
                   <a href={`/admin/KDT/${session.kdtSessionId}/staff/manager`}>수강생 등록하기</a>
                 </td>
@@ -86,10 +87,12 @@ const SessionList = () => {
                   </Link>
                 </td>
                 <td>
-                  <a href={`/admin/KDT/session/update/${session.kdtSessionId}`}>수정하기</a>
+                  <button href={`/admin/KDT/session/update/${session.kdtSessionId}`} 
+                  className={styles.editbtn}>수정</button>
                 </td>
                 <td>
-                  <a href={`/admin/KDT/session/delete/${session.kdtSessionId}`}>삭제하기</a>
+                  <button href={`/admin/KDT/session/delete/${session.kdtSessionId}`}
+                  className={styles.deletebtn}>삭제</button>
                 </td>
               </tr>
             ))}

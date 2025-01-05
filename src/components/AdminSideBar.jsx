@@ -58,24 +58,24 @@ const AdminSideBar = () => {
           >
           <i className="bi bi-people me-2"></i> {/* 회원관리 아이콘 */}
           <a className={`${styles.hlink} sidebar-link`} href="/view/admin/users/list">
-          회원관리
+          전체회원관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/view/admin/users/list?role=STUDENT" className={styles.subLink}>
+              <a href="/view/admin/users/list?userRole=STUDENT" className={styles.subLink}>
                 학생관리
               </a>
-              <a href="/view/admin/users/list?role=INSTRUCTOR" className={styles.subLink}>
+              <a href="/view/admin/users/list?userRole=INSTRUCTOR" className={styles.subLink}>
                 강사관리
               </a>
-              <a href="/view/admin/users/list?role=MANAGER" className={styles.subLink}>
+              <a href="/view/admin/users/list?userRole=MANAGER" className={styles.subLink}>
                 매니저관리
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                더미
+                관리
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                더미
+                관리
               </a>
             </div>
           )}
@@ -101,10 +101,10 @@ const AdminSideBar = () => {
                 국비과정조회
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                더미
+                국비
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                더미
+                국비
               </a>
             </div>
           )}
@@ -130,10 +130,10 @@ const AdminSideBar = () => {
                 국비과정조회
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                더미
+                강의
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                더미
+                강의
               </a>
             </div>
           )}

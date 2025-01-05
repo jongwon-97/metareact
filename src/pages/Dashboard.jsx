@@ -34,7 +34,6 @@ function Dashboard() {
   return (
     
         <div className="container mt-4">
-          <h1>Dashboard</h1>
           <DashboardCards />
           <div className="row mt-4">
             <div className="col-md-6">
@@ -45,7 +44,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <h2>Data Table</h2>
+            <h2>문의 현황</h2>
             <DataTable />
           </div> 
         </div>

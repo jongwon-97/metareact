@@ -1,5 +1,5 @@
 /* 컨테이너 스타일 */
-.courselistcontainer {
+.sessionlistcontainer {
     font-family: "Roboto", sans-serif; /* 기본 폰트 */
     background-color: #f9f9f9; /* 전체 배경 */
     border-radius: 10px; /* 테두리 둥글게 */
@@ -7,60 +7,88 @@
     padding: 20px;
     overflow: hidden; /* 내용 넘침 방지 */
     
+    table-layout: fixed; /* 셀 크기 고정 */
   }
   
   /* 테이블 스타일 */
-  .courselisttable {
+  .sessionlisttable {
     width: 100%;
     border-collapse: collapse;
     background-color: white; /* 테이블 배경 */
     border-radius: 8px; /* 테두리 둥글게 */
     overflow: hidden; /* 내용 넘침 방지 */
     white-space: nowrap; /* 줄바꿈 방지 */
-    text-overflow: ellipsis; /* 텍스트 말줄임 */
   }
   
-  .courselisttable th,
-  .courselisttable td {
+  .sessionlisttable th,
+  .sessionlisttable td {
     padding: 14px 10px; /* 셀 간격 */
     text-align: center; /* 가운데 정렬 */
     border-bottom: 1px solid #ddd; /* 셀 구분선 */
     font-size: 14px; /* 폰트 크기 */
-    
-  }
-  .courselisttable td:nth-child(2) {
-    text-align: left;
-    overflow: hidden; /* 내용 넘침 방지 */
     white-space: nowrap; /* 줄바꿈 방지 */
-    text-overflow: ellipsis; /* 텍스트 말줄임 */
   }
   
   /* 테이블 헤더 스타일 */
-  .courselisttable th {
-    background-color: #ff7700; 
+  .sessionlisttable th {
+    background-color: #8fda17; 
     color: white; /* 텍스트 색상 */
     text-transform: uppercase; /* 대문자 */
     font-weight: bold;
   }
 
-  
+  .sessionlisttable td:nth-child(2) {
+
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* 텍스트 말줄임 */
+  }
+  .courselisttable th:nth-child(2), 
+  .courselisttable td:nth-child(2) {
+    width: 50px; /* 번호 */
+  }
+
+  .courselisttable th:nth-child(3), 
+  .courselisttable td:nth-child(3) {
+    width: 100px; /* 번호 */
+  }
+  .courselisttable th:nth-child(4), 
+  .courselisttable td:nth-child(4) {
+    width: 40px; /* 번호 */
+  }
+  .courselisttable th:nth-child(5), 
+  .courselisttable td:nth-child(5) {
+    width: 40px; /* 번호 */
+  }
+  .courselisttable th:nth-child(6), 
+  .courselisttable td:nth-child(6) {
+    width: 40px; /* 번호 */
+  }
+  .courselisttable th:nth-child(7), 
+  .courselisttable td:nth-child(7) {
+    width: 40px; /* 번호 */
+  }
+
+  .courselisttable th:nth-child(8), 
+  .courselisttable td:nth-child(8) {
+    width: 40px; /* 번호 */
+  }
   /* 짝수행 배경색 */
-  .courselisttable tr:nth-child(even) {
+  .sessionlisttable tr:nth-child(even) {
     background-color: #f4f6f8;
   }
   
   /* 행 호버 효과 */
-  .courselisttable tr:hover {
+  .sessionlisttable tr:hover {
     background-color: #eef3fc;
   }
   
   /* 링크 스타일 */
-  .courselisttable td a {
+  .sessionlisttable td a {
     color: #007bff;
     text-decoration: none;
   }
   
-  .courselisttable td a:hover {
+  .sessionlisttable td a:hover {
     text-decoration: underline;
   }
   

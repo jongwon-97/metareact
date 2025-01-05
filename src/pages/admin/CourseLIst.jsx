@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import styles from "/src/css/admin/CourseList.module.css";
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]); // 과정 데이터 상태 관리
@@ -74,64 +73,65 @@ const CourseList = () => {
 };
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center my-4">국비과정 목록</h1>
+    <div className={styles.courselistcontainer}>
 
-      {errorMessage && <div className="text-danger text-center">{errorMessage}</div>}
+    {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">번호</th>
-            <th scope="col">과정명</th>
-            <th scope="col">상태</th>
-            <th scope="col">종류</th>
-            <th scope="col">생성일</th>
-            <th scope="col">수정일</th>
-            <th scope="col">상세보기</th>
-            <th scope="col">수정하기</th>
-            <th scope="col">삭제하기</th>
+    <table className={styles.courselisttable}>
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">과정명</th>
+          <th scope="col">상태</th>
+          <th scope="col">종류</th>
+          <th scope="col">시작일</th>
+          <th scope="col">종료일</th>
+          <th scope="col">상세보기</th>
+          <th scope="col">수정</th>
+          <th scope="col">삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        {courses.map((course , index) => (
+          <tr key={course.kdtCourseId}>
+            <td>{index + 1}</td>
+            <td>
+              <Link to={`/admin/KDT/course/${course.kdtCourseId}`}>
+                {course.kdtCourseTitle || "제목 없음"}
+              </Link>
+            </td>
+            <td>{course.kdtCourseStatus ? "활성" : "비활성"}</td>
+            <td>{course.kdtCourseType || "정보 없음"}</td>
+            <td>{formatDate(course.kdtCourseCreatedAt)}</td>
+            <td>{formatDate(course.kdtCourseUpdatedAt)}</td>
+            <td>
+              <Link to={`/admin/KDT/course/${course.kdtCourseId}`}
+                className={`${styles.btn} ${styles.btnWarning}`}
+              >
+                상세보기
+              </Link>
+            </td>
+            <td>
+              <button
+                href={`http://localhost:8091/admin/KDT/course/update/${course.kdtCourseId}`}
+                className={styles.editbtn}
+              >
+                수정
+              </button>
+            </td>
+            <td>
+              <button
+                className={styles.deletebtn}
+                onClick={() => deleteCourse(course.kdtCourseId)}
+              >
+                삭제
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {courses.map((course) => (
-            <tr key={course.kdtCourseId}>
-              <td>{course.kdtCourseId}</td>
-              <td>
-                <Link to={`/admin/KDT/course/${course.kdtCourseId}`}>
-                    {course.kdtCourseTitle || "제목 없음"}
-                </Link>
-              </td>
-              <td>{course.kdtCourseStatus ? "활성" : "비활성"}</td>
-              <td>{course.kdtCourseType || "정보 없음"}</td>
-              <td>{formatDate(course.kdtCourseCreatedAt)}</td>
-              <td>{formatDate(course.kdtCourseUpdatedAt)}</td>
-              <td>               
-                <Link to={`/admin/KDT/course/${course.kdtCourseId}`} className="btn btn-warning">
-                    상세보기
-                </Link>
-              </td>
-              <td>
-                <a
-                  href={`http://localhost:8091/admin/KDT/course/update/${course.kdtCourseId}`}
-                  className="btn btn-warning"
-                >
-                  수정하기
-                </a>
-              </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteCourse(course.kdtCourseId)}
-                >
-                  삭제하기
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
+  </div>
   );
 };
 

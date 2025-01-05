@@ -2,8 +2,8 @@ import React from "react";
 
 function DataTable() {
   const data = [
-    { name: "Tiger Nixon", position: "System Architect", salary: "$320,800" },
-    { name: "Garrett Winters", position: "Accountant", salary: "$170,750" },
+    { name: "김철수", position: "student", status: "신청중" },
+    { name: "이영희", position: "student", status: "신청중" },
     // Add more rows as needed
   ];
 
@@ -11,9 +11,9 @@ function DataTable() {
     <table className="table table-bordered">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Salary</th>
+          <th>이름</th>
+          <th>직업</th>
+          <th>상태</th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +21,7 @@ function DataTable() {
           <tr key={index}>
             <td>{row.name}</td>
             <td>{row.position}</td>
-            <td>{row.salary}</td>
+            <td>{row.status}</td>
           </tr>
         ))}
       </tbody>

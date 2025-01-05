@@ -31,28 +31,10 @@ const initialUsers = [
 ];
 
 const UserList = () => {
-  const roleMap = {
-    STUDENT: "학생",
-    MANAGER: "매니저",
-    INSTRUCTOR: "강사",
-  };
-
-  const genderMap = {
-    M: "남성",
-    F: "여성",
-  };
-  
-  const statusMap = {
-    ACTIVE: "활동",
-    INACTIVE: "휴면",
-    BANNED: "정지",
-  };
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const roleFilter = searchParams.get("userRole"); // "STUDENT", "TEACHER", "MANAGER" 등
 
-  
   const [users, setUsers] = useState(initialUsers);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10; //한번에 보여줄 목록 갯수수
@@ -65,32 +47,19 @@ const UserList = () => {
  
   // 필터링된 사용자 목록
   const filteredUsers = users.filter((user) => {
-  if (roleFilter) {
-    return user.userRole === roleFilter;
-  }
-
-  if (searchType === "userRole") {
-    const displayRole = roleMap[user.userRole] || ""; // 매핑된 한글 값
-    return displayRole.includes(searchQuery);
-  }
-
-  if (searchType === "userGender") {
-    const displayGender = genderMap[user.userGender] || ""; // 매핑된 한글 값
-    return displayGender.includes(searchQuery);
-  }
-
-  if (searchType === "userStatus") {
-    const displayStatus = statusMap[user.userStatus] || ""; // 매핑된 한글 값
-    return displayStatus.includes(searchQuery);
-  }
-
-  // 다른 검색 조건은 원래 데이터 기준으로 필터링
-  if (searchType === "userId") return user.userId.toString().includes(searchQuery);
-  if (searchType === "userEmail") return user.userEmail.toLowerCase().includes(searchQuery.toLowerCase());
-  if (searchType === "name") return user.name.toLowerCase().includes(searchQuery.toLowerCase());
-
-  return true; // 전체 보기
-});
+    // 검색 조건에 따른 필터링
+    if (searchType === "userId") return user.userId.toString().includes(searchQuery);
+    if (searchType === "userEmail") return user.userEmail.toLowerCase().includes(searchQuery.toLowerCase());
+    if (searchType === "name") return user.name.toLowerCase().includes(searchQuery.toLowerCase());
+    if (searchType === "userGender") return user.userGender.toLowerCase().includes(searchQuery.toLowerCase());
+    if (searchType === "userRole") return user.userRole.toLowerCase().includes(searchQuery.toLowerCase());
+    if (searchType === "userStatus") return user.userStatus.toLowerCase().includes(searchQuery.toLowerCase());
+    return true; // 전체 보기
+  }).filter((user) => {
+    // URL 기반 필터 (roleFilter)
+    if (!roleFilter) return true;
+    return user.role === roleFilter;
+  });
  
   //간단삭제
   const handleDelete = (userId) => {
@@ -130,9 +99,10 @@ const UserList = () => {
 
   return (
     <div className={styles.tableContainer}>
+    <h2>{roleFilter ? `${roleFilter} 관리` : "전체 회원 관리"}</h2>
     {/* 검색창 */}
     <div className={styles.searchBar}>
-        <div className={styles.searchButton}>실시간 검색</div>
+        검색하기
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
@@ -153,7 +123,6 @@ const UserList = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className={styles.searchInput}
         />
-        
       </div>
 
     <table>
@@ -176,7 +145,6 @@ const UserList = () => {
         {currentUsers.map((user) => (
           <tr key={user.userId}>
             <td>{user.userId}</td>
-
             <td>
             {editingUserId === user.userId ? (
                   <input
@@ -184,13 +152,11 @@ const UserList = () => {
                     name="email"
                     value={editedUser.userEmail || user.userEmail}
                     onChange={handleChange}
-                    className={styles.editInput}
                   />
                 ) : (
                   user.userEmail
                 )}
             </td>
-
             <td>
             {editingUserId === user.userId ? (
                   <input
@@ -198,64 +164,28 @@ const UserList = () => {
                     name="name"
                     value={editedUser.name || user.name}
                     onChange={handleChange}
-                    className={styles.editInput}
                   />
                 ) : (
                   user.name
                 )}
             </td>
-
             <td>
-            {editingUserId === user.userId ? (
-              <select
-                name="userGender"
-                value={editedUser.userGender || user.userGender}
-                onChange={handleChange}
-                className={styles.editSelect}
-              >
-                <option value="M">남성</option>
-                <option value="F">여성</option>
-              </select>
-            ) : (
-              genderMap[user.userGender] || "알 수 없음"
-            )}
+              {user.userGender === "M" ? "남성"
+              : user.userGender === "F"? "여성"
+              : "알 수 없음"}
             </td>
-
-            <td>
-            {editingUserId === user.userId ? (
-              <select
-                name="userRole"
-                value={editedUser.userRole || user.userRole}
-                onChange={handleChange}
-                className={styles.editSelect}
-              >
-                <option value="STUDENT">학생</option>
-                <option value="MANAGER">매니저</option>
-                <option value="INSTRUCTOR">강사</option>
-              </select>
-            ) : (
-              roleMap[user.userRole] || "알 수 없음"
-            )}
-            </td>
-            <td>
-            {editingUserId === user.userId ? (
-              <select
-                name="userStatus"
-                value={editedUser.userStatus || user.userStatus}
-                onChange={handleChange}
-                className={styles.editSelect}
-              >
-                <option value="ACTIVE">활동</option>
-                <option value="INACTIVE">휴면</option>
-                <option value="BANNED">정지</option>
-              </select>
-            ) : (
-              statusMap[user.userStatus] || "알 수 없음"
-            )}
-            </td>
+            
+            <td>{user.userRole === "INSTRUCTOR" ? "강사"
+                :user.userRole === "MANAGER" ? "매니저"
+                :user.userRole === "STUDENT" ? "학생"
+                : "알수없음"}</td>
+            <td>{user.userStatus === "INACTIVE" ? "휴면"
+                :user.userStatus === "BANNED" ? "정지"
+                :user.userStatus === "ACTIVE" ? "활동"
+                :"알수없음"}</td>
             <td>{formatDate(user.userCreatedAt)}</td>
             <td>{formatDate(user.userUpdatedAt)}</td>
-            <td><a className={styles.godetail} href="detail">상세정보</a></td>
+            <td><a href="detail">상세정보</a></td>
             <td> 
             {editingUserId === user.userId ? (
                     <button className={styles.editButton} onClick={handleSave}>저장</button>

@@ -23,7 +23,7 @@ function AreaChart() {
       },
       title: {
         display: true,
-        text: "Area Chart Example",
+        text: "월별 회원 증감율",
       },
     },
   };

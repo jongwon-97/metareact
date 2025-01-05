@@ -2,10 +2,10 @@ import React from "react";
 
 function DashboardCards() {
   const cards = [
-    { title: "Primary Card", color: "bg-primary" },
-    { title: "Warning Card", color: "bg-warning" },
-    { title: "Success Card", color: "bg-success" },
-    { title: "Danger Card", color: "bg-danger" },
+    { title: "회원수", color: "bg-primary" },
+    { title: "게시판", color: "bg-warning" },
+    { title: "신청중인 문의", color: "bg-success" },
+    { title: "상담 문의", color: "bg-danger" },
   ];
 
   return (

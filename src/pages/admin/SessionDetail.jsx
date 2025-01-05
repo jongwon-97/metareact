@@ -87,73 +87,110 @@ const SessionDetail = () => {
           </div>  
         </nav>
       </div>
-        <div className={styles.sessionContent}>
-        {sessionDetail ? (
-          <div className={`card ${styles.card}`}>
-            <div className={`card-header ${styles.cardHeader}`}>
-              <h2>{sessionDetail.kdtSessionTitle || "제목 없음"}</h2>
-            </div>
-            <div className={`card-body ${styles.cardBody}`}>
-              <p>
-                <strong>과정 번호:</strong> {sessionDetail.kdtCourseId}
-              </p>
-              <p>
-                <strong>회차 번호:</strong> {sessionDetail.kdtSessionNum}
-              </p>
-              <p>
-                <strong>설명:</strong> {sessionDetail.kdtSessionDescript || "설명 없음"}
-              </p>
-              <p>
-                <strong>카테고리:</strong> {sessionDetail.kdtSessionCategory || "정보 없음"}
-              </p>
-              <p>
-                <strong>시작일:</strong> {sessionDetail.kdtSessionStartDate || "정보 없음"}
-              </p>
-              <p>
-                <strong>종료일:</strong> {sessionDetail.kdtSessionEndDate || "정보 없음"}
-              </p>
-              <p>
-                <strong>시작 시간:</strong> {sessionDetail.kdtSessionStartTime || "정보 없음"}
-              </p>
-              <p>
-                <strong>종료 시간:</strong> {sessionDetail.kdtSessionEndTime || "정보 없음"}
-              </p>
-              <p>
-                <strong>총 교육 일수:</strong> {sessionDetail.kdtSessionTotalDay || 0}일
-              </p>
-              <p>
-                <strong>하루 교육 시간:</strong> {sessionDetail.kdtSessionOnedayTime || 0}시간
-              </p>
-              <p>
-                <strong>총 교육 시간:</strong> {sessionDetail.kdtSessionTotalTime || 0}시간
-              </p>
-              <p>
-                <strong>최대 수강 인원:</strong> {sessionDetail.kdtSessionMaxCapacity || "정보 없음"}
-              </p>
-              <p>
-                <strong>주소:</strong> {sessionDetail.kdtSessionPostcode}{" "}
-                {sessionDetail.kdtSessionAddress} {sessionDetail.kdtSessionAddressDetail}
-              </p>
-              <p>
-                <strong>온라인 여부:</strong> {sessionDetail.kdtSessionOnline ? "온라인" : "오프라인"}
-              </p>
-              {sessionDetail.kdtSessionThumbnail && (
-                <div>
-                  <strong>썸네일:</strong>
-                  <img
-                    src={sessionDetail.kdtSessionThumbnail}
-                    alt="Session Thumbnail"
-                    className={`img-fluid mt-2 ${styles.thumbnail}`}
-                  />
-                </div>
-              )}
-            </div>
+      <div className={styles.sessionContent}>
+  {sessionDetail ? (
+    <div className={`card ${styles.card}`}>
+      <div className={`card-header ${styles.cardHeader}`}>
+        <h2>{sessionDetail.kdtSessionTitle || "제목 없음"}</h2>
+      </div>
+      <div className={`card-body ${styles.cardBody}`}>
+        {/* 기본 정보 섹션 */}
+        <h3>기본 정보</h3>
+        <table className={styles.infoTable}>
+          <tbody>
+            <tr>
+              <th>과정 번호</th>
+              <td>{sessionDetail.kdtCourseId}</td>
+            </tr>
+            <tr>
+              <th>회차 번호</th>
+              <td>{sessionDetail.kdtSessionNum}</td>
+            </tr>
+            <tr>
+              <th>카테고리</th>
+              <td>{sessionDetail.kdtSessionCategory || "정보 없음"}</td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>{sessionDetail.kdtSessionDescript || "설명 없음"}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* 시간 정보 섹션 */}
+        <h3>시간 정보</h3>
+        <table className={styles.infoTable}>
+          <tbody>
+            <tr>
+              <th>시작일</th>
+              <td>{sessionDetail.kdtSessionStartDate || "정보 없음"}</td>
+            </tr>
+            <tr>
+              <th>종료일</th>
+              <td>{sessionDetail.kdtSessionEndDate || "정보 없음"}</td>
+            </tr>
+            <tr>
+              <th>시작 시간</th>
+              <td>{sessionDetail.kdtSessionStartTime || "정보 없음"}</td>
+            </tr>
+            <tr>
+              <th>종료 시간</th>
+              <td>{sessionDetail.kdtSessionEndTime || "정보 없음"}</td>
+            </tr>
+            <tr>
+              <th>총 교육 일수</th>
+              <td>{sessionDetail.kdtSessionTotalDay || 0}일</td>
+            </tr>
+            <tr>
+              <th>하루 교육 시간</th>
+              <td>{sessionDetail.kdtSessionOnedayTime || 0}시간</td>
+            </tr>
+            <tr>
+              <th>총 교육 시간</th>
+              <td>{sessionDetail.kdtSessionTotalTime || 0}시간</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* 장소 정보 섹션 */}
+        <h3>장소 정보</h3>
+        <table className={styles.infoTable}>
+          <tbody>
+            <tr>
+              <th>주소</th>
+              <td>
+                {sessionDetail.kdtSessionPostcode} {sessionDetail.kdtSessionAddress} {sessionDetail.kdtSessionAddressDetail}
+              </td>
+            </tr>
+            <tr>
+              <th>온라인 여부</th>
+              <td>{sessionDetail.kdtSessionOnline ? "온라인" : "오프라인"}</td>
+            </tr>
+            <tr>
+              <th>최대 수강 인원</th>
+              <td>{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* 썸네일 이미지 */}
+        {sessionDetail.kdtSessionThumbnail && (
+          <div className={styles.thumbnailContainer}>
+            <h3>썸네일</h3>
+            <img
+              src={sessionDetail.kdtSessionThumbnail}
+              alt="Session Thumbnail"
+              className={`img-fluid mt-2 ${styles.thumbnail}`}
+            />
           </div>
-        ) : (
-          <div>회차 정보를 찾을 수 없습니다.</div>
         )}
       </div>
     </div>
+  ) : (
+    <div>회차 정보를 찾을 수 없습니다.</div>
+  )}
+</div>
+</div>
   );
 };
 

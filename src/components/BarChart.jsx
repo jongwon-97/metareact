@@ -21,7 +21,7 @@ function BarChart() {
       },
       title: {
         display: true,
-        text: "Bar Chart Example",
+        text: "월별 강의 증감율",
       },
     },
   };
