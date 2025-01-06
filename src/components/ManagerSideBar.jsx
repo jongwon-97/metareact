@@ -167,10 +167,12 @@ const ManagerSideBar = () => {
             </div>
           )}
           </div>
+
           <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
           결제관리
           </a>
+          
         </div>
       </div>
     </div>

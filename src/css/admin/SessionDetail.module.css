@@ -16,12 +16,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: 60px;
-    padding: 20px 50px;
+    align-items: center;
+    height : 70px;
     font-size: 1.5rem;
     margin-bottom: 20px;
     background-color: var(--primary-color);
     color: var(--text-color);
     font-family: var(--font-family);
+    padding-left: 20px
   }
 
 
@@ -78,6 +80,19 @@
     text-decoration: none;
     position: relative; /* 하위 메뉴를 상대적으로 배치 */
     transition: background-color 0.3s ease-in-out;
+    pointer-events: auto; /* 마우스 이벤트 허용 */
+    
+}
+
+.counselsessionNavLink::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* 부모 요소 바로 아래 */
+  left: 0;
+  width: 120%;
+  height: 55%; /* 부모와 하위 메뉴 사이의 연결 영역 */
+  background-color: transparent; /* 투명 영역 */
+  z-index: 1; /* 하위 메뉴와 겹치지 않게 */
 }
 
 .counselsessionNavLink:hover {
@@ -115,6 +130,7 @@
 /* 하위 메뉴 표시 (부모 요소에 hover) */
 .counselsessionNavLink:hover .counseldropdownMenu {
     display: block;
+    pointer-events: auto; /* 마우스 이벤트 허용 */
     
 }
   
@@ -130,6 +146,17 @@
    
     text-decoration: none;
     position: relative; /* 하위 메뉴를 상대적으로 배치 */
+}
+
+.testsessionNavLink:after {
+  content: "";
+  position: absolute;
+  top: 100%; /* 부모 요소 바로 아래 */
+  left: 0;
+  width: 120%;
+  height: 55%; /* 부모와 하위 메뉴 사이의 연결 영역 */
+  background-color: transparent; /* 투명 영역 */
+  z-index: 1; /* 하위 메뉴와 겹치지 않게 */
 }
 
 .testsessionNavLink:hover {
@@ -178,7 +205,16 @@
     font-weight: bold;
     color: var(--text-color);
 }
-
+.boardsessionNavLink:after {
+  content: "";
+  position: absolute;
+  top: 100%; /* 부모 요소 바로 아래 */
+  left: 0;
+  width: 120%;
+  height: 55%; /* 부모와 하위 메뉴 사이의 연결 영역 */
+  background-color: transparent; /* 투명 영역 */
+  z-index: 1; /* 하위 메뉴와 겹치지 않게 */
+}
 .boardsessionNavLink {
     text-decoration: none;
     position: relative; /* 하위 메뉴를 상대적으로 배치 */
@@ -215,6 +251,8 @@
     background-color: #ffff012e;
 }
 
+
+
 /* 하위 메뉴 표시 (부모 요소에 hover) */
 .boardsessionNavLink:hover .boarddropdownMenu {
     display: block;
@@ -225,14 +263,14 @@
     border: 1px solid #ddd;
   }
   
-  .cardHeader {
-    background-color: #f8f9fa;
-    font-weight: bold;
-  }
+.cardHeader {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
   
-  .cardBody {
-    padding: 15px;
-  }
+.cardBody {
+  padding: 15px;
+}
 
 
   /* 테이블 스타일 */
@@ -251,11 +289,12 @@
 .infoTable th {
   background-color: var(--primary-color);
   color: var(--text-color);
-  width: 25%;
+  width: 15%;
 }
 
 .infoTable td {
   background-color: #fff;
+  width: 35%;
 }
 
 h3 {

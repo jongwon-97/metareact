@@ -52,8 +52,9 @@ const SessionList = () => {
           <thead>
             <tr>
               <th scope="col">번호</th>
-              <th scope="col">회차 제목</th> 
-              <th scope="col">회차</th>    
+              <th scope="col" colspan="2">회차 제목</th> 
+              <th scope="col">회차</th>
+              <th scope="col">상태</th>    
               <th scope="col">수강생 등록하기</th>
               <th scope="col">매니저 등록하기</th>
               <th scope="col">강사 등록하기</th>
@@ -66,12 +67,17 @@ const SessionList = () => {
             {sessions.map((session,index) => (
               <tr key={session.kdtSessionId}>
                 <td>{index + 1}</td>
-                <td>
+
+                <td colspan="2">
                   <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
                     {session.kdtSessionTitle}
                   </Link>
                 </td>
+
                 <td>{session.kdtSessionNum}회차</td>
+
+                <td>{session.kdtSessionStatus}</td>
+
                 <td>
                   <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
                 </td>

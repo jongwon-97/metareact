@@ -113,10 +113,10 @@ const CourseList = () => {
             </td>
             <td>
               <button
-                href={`http://localhost:8091/admin/KDT/course/update/${course.kdtCourseId}`}
+               
                 className={styles.editbtn}
-              >
-                수정
+              ><a  href={`http://localhost:8091/admin/KDT/course/update/${course.kdtCourseId}`}>수정</a>
+                
               </button>
             </td>
             <td>

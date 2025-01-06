@@ -77,33 +77,6 @@
 }
 
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  gap: 10px;
-}
-
-.pagination button {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  background-color: white;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: background-color 0.3s ease-in-out, color 0.3s;
-}
-
-.pagination button.active {
-  background-color: #007bff;
-  color: white;
-}
-
-.pagination button:hover {
-  background-color: #0056b3;
-  color: white;
-}
-
 .searchBar {
   display: flex;
   align-items: center;
@@ -204,4 +177,25 @@
 .deleteButton:hover {
   background-color: #c82333; /* 더 어두운 빨간색 */
   
+}
+
+
+/* 목록 개수 선택 드롭다운 */
+.usersPerPageSelector {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.usersPerPageSelector label {
+  margin-right: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.usersPerPageSelector select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }

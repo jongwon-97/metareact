@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from "react";
+import { useParams,Link } from "react-router-dom";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import styles from "/src/css/admin/AttList.module.css";
+import dayjs from "dayjs";
+
+const AttList = () => {
+  const { id: kdtSessionId } = useParams(); // URL 파라미터에서 sessionId 가져오기
+  const [sessionInfo, setSessionInfo] = useState(null); // 회차 정보 상태
+  const [attendanceList, setAttendanceList] = useState([]); // 출석부 데이터
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
+  const statusMap = {
+    ARRIVAL: "입실",
+    DEPARTURE: "출석", // 퇴실을 출석으로 변경
+    OUTGOING: "외출",
+    EARLY_LEAVE: "조퇴",
+    VACATION: "휴가",
+    ABSENT: "결석",
+    SICK_LEAVE: "병결",
+    ERROR: "오류", // 오류 추가
+  };
+  const getCurrentDate = () => {
+    return dayjs().format("YYYY-MM-DD");
+  };
+
+  const formatTime = (isoString) => {
+    if (!isoString) return null;
+    return dayjs(isoString).format("HH:mm"); // 'HH:mm' 형식 반환
+  };
+
+  // 데이터 로드
+  useEffect(() => {
+    const fetchAttendanceList = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/list`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true, // 쿠키 포함
+          }
+        );
+        console.log(response.data);
+        setSessionInfo(response.data.KDTSessionDTO); // 회차 정보
+        setAttendanceList(response.data.attendanceList); // 출석부 데이터
+      } catch (error) {
+        console.error("출석부 데이터를 불러오는 중 오류 발생:", error);
+        setErrorMessage("출석부 데이터를 불러오는 데 실패했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAttendanceList();
+  }, [kdtSessionId]);
+
+  if (loading) return <div className="text-center">로딩 중...</div>;
+  if (errorMessage) return <div className="text-danger text-center">{errorMessage}</div>;
+
+  return (
+    <div className={styles.attListContainer}>
+      {/* 회차 정보 출력 */}
+      {sessionInfo && (
+        <div className={styles.sessionInfo}>
+          <h2>{sessionInfo.kdtSessionTitle || "회차 정보 없음"}</h2>
+          <p>현재 날짜: {getCurrentDate()}</p>
+        </div>
+      )}
+      {/* 출석부 테이블 */}
+      <table className={`table table-bordered ${styles.attendanceTable}`}>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>학생 이름</th>
+            <th>출석 상태</th>
+            <th>출석률</th>
+            <th>입실시간</th>
+            <th>퇴실시간</th>
+            <th>상세정보</th>
+          </tr>
+        </thead>
+        <tbody>
+          {attendanceList.length > 0 ? (
+            attendanceList.map((attendee, index) => (
+              <tr key={attendee.kdtPartId}>
+                <td>{index + 1}</td>
+                <td>{attendee.kdtPartName || "이름 없음"}</td>
+                <td>{statusMap[attendee.kdtAttStatus] || "-"}</td>
+                <td>{attendee.kdtAttRate ? `${parseFloat(attendee.kdtAttRate).toFixed(2)}%`: "-"}</td>
+                <td>{attendee.kdtAttEntryTime ? formatTime(attendee.kdtAttEntryTime) : "-"}</td>
+                <td>{attendee.kdtAttExitTime ? formatTime(attendee.kdtAttExitTime) : "-"}</td>
+                <td>
+                  <Link
+                    to={`/admin/KDT/${kdtSessionId}/att/detail/${attendee.kdtPartId}`}
+                    className={styles.detailLink}
+                  >
+                    상세보기
+                  </Link>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                출석 정보가 없습니다.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default AttList;

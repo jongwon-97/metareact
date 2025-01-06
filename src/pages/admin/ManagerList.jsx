@@ -5,29 +5,6 @@ import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 
 const initialUsers = [
     { userId: 1, userEmail: "chulsoo@example.com", name: "김철수", userGender: "M", userRole: "INSTRUCTOR", userStatus: "ACTIVE", userCreatedAt: "2024.12.05", userUpdatedAt: "2025-01-04 22:00:34.254655" },
-    { userId: 2, userEmail: "younghee@example.com", name: "이영희", userGender: "F", userRole: "MANAGER", userStatus: "BANNED", userCreatedAt: "2024.12.05", userUpdatedAt: "2024.12.05" },
-    { userId: 3, userEmail: "minjoon@example.com", name: "박민준", userGender: "M", userRole: "STUDENT", userStatus: "INACTIVE", userCreatedAt: "2024.12.05", userUpdatedAt: "2024.12.05" },
-    { userId: 4, userEmail: "soojin@example.com", name: "김수진", userGender: "F", userRole: "INSTRUCTOR", userStatus: "ACTIVE", userCreatedAt: "2024.12.06", userUpdatedAt: "2024.12.07" },
-    { userId: 5, userEmail: "hyunwoo@example.com", name: "최현우", userGender: "M", userRole: "STUDENT", userStatus: "ACTIVE", userCreatedAt: "2024.12.08", userUpdatedAt: "2024.12.09" },
-    { userId: 6, userEmail: "jiho@example.com", name: "이지호", userGender: "M", userRole: "MANAGER", userStatus: "INACTIVE", userCreatedAt: "2024.12.10", userUpdatedAt: "2024.12.10" },
-    { userId: 7, userEmail: "yujin@example.com", name: "박유진", userGender: "F", userRole: "STUDENT", userStatus: "ACTIVE", userCreatedAt: "2024.12.11", userUpdatedAt: "2024.12.11" },
-    { userId: 8, userEmail: "seungwoo@example.com", name: "김승우", userGender: "M", userRole: "STUDENT", userStatus: "BANNED", userCreatedAt: "2024.12.12", userUpdatedAt: "2024.12.12" },
-    { userId: 9, userEmail: "eunji@example.com", name: "최은지", userGender: "F", userRole: "MANAGER", userStatus: "ACTIVE", userCreatedAt: "2024.12.13", userUpdatedAt: "2024.12.14" },
-    { userId: 10, userEmail: "taehyun@example.com", name: "조태현", userGender: "M", userRole: "STUDENT", userStatus: "INACTIVE", userCreatedAt: "2024.12.15", userUpdatedAt: "2024.12.16" },
-    { userId: 11, userEmail: "sumin@example.com", name: "한수민", userGender: "F", userRole: "INSTRUCTOR", userStatus: "BANNED", userCreatedAt: "2024.12.17", userUpdatedAt: "2024.12.17" },
-    { userId: 12, userEmail: "jongwoo@example.com", name: "이종우", userGender: "M", userRole: "STUDENT", userStatus: "ACTIVE", userCreatedAt: "2024.12.18", userUpdatedAt: "2024.12.19" },
-    { userId: 13, userEmail: "hyejin@example.com", name: "김혜진", userGender: "F", userRole: "MANAGER", userStatus: "ACTIVE", userCreatedAt: "2024.12.20", userUpdatedAt: "2024.12.21" },
-    { userId: 14, userEmail: "seungho@example.com", name: "박승호", userGender: "M", userRole: "STUDENT", userStatus: "INACTIVE", userCreatedAt: "2024.12.22", userUpdatedAt: "2024.12.22" },
-    { userId: 15, userEmail: "ara@example.com", name: "윤아라", userGender: "F", userRole: "STUDENT", userStatus: "ACTIVE", userCreatedAt: "2024.12.23", userUpdatedAt: "2024.12.23" },
-    { userId: 16, userEmail: "hyeonwoo@example.com", name: "김현우", userGender: "M", userRole: "INSTRUCTOR", userStatus: "INACTIVE", userCreatedAt: "2024.12.24", userUpdatedAt: "2024.12.24" },
-    { userId: 17, userEmail: "jeongmin@example.com", name: "이정민", userGender: "F", userRole: "STUDENT", userStatus: "BANNED", userCreatedAt: "2024.12.25", userUpdatedAtt: "2024.12.25" },
-    { userId: 18, userEmail: "jiwoo@example.com", name: "박지우", userGender: "M", userRole: "MANAGER", userStatus: "ACTIVE", userCreatedAt: "2024.12.26", userUpdatedAt: "2024.12.26" },
-    { userId: 19, userEmail: "sungmin@example.com", name: "최성민", userGender: "M", userRole: "STUDENT", userStatus: "INACTIVE", userCreatedAt: "2024.12.27", userUpdatedAt: "2024.12.27" },
-    { userId: 20, userEmail: "minji@example.com", name: "윤민지", userGender: "F", userRole: "MANAGER", userStatus: "ACTIVE", userCreatedAt: "2024.12.28", userUpdatedAt: "2024.12.28" },
-    { userId: 21, userEmail: "yuna@example.com", name: "강유나", userGender: "F", userRole: "INSTRUCTOR", userStatus: "BANNED", userCreatedAt: "2024.12.29", userUpdatedAt: "2024.12.29" },
-    { userId: 22, userEmail: "woojin@example.com", name: "정우진", userGender: "M", userRole: "INSTRUCTOR", userStatus: "ACTIVE", userCreatedAt: "2024.12.30", userUpdatedAt: "2024.12.30" },
-    { userId: 23, userEmail: "jiyeon@example.com", name: "김지연", userGender: "F", userRole: "STUDENT", userStatus: "INACTIVE", userCreatedAt: "2024.12.31", userUpdatedAt: "2024.12.31" }
-
 ];
 
 const UserList = () => {

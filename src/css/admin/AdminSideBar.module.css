@@ -81,10 +81,32 @@
   display: flex; /* 마우스를 올리면 보이도록 설정 */
 }
 
-/* 드롭다운 활성화 시 아래 항목 밀어내기 */
-.dropdown:hover + .link {
-  margin-top: 250px; /* 드롭다운 높이만큼 밀어냄 */
-  transition: margin ease, opacity ease; /* 부드러운 전환 효과 */
+/* 세 번째 드롭다운에만 적용 */
+.sidebarSection .dropdown:nth-child(3):hover + .link {
+  margin-top: 250px; /* 원하는 높이로 조정 */
+  transition: margin 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebarSection .dropdown:nth-child(4):hover + .link {
+  margin-top: 250px; /* 원하는 높이로 조정 */
+  transition: margin 0.3s ease, opacity 0.3s ease;
+}
+.sidebarSection .dropdown:nth-child(5):hover + .link {
+  margin-top: 160px; /* 원하는 높이로 조정 */
+  transition: margin 0.3s ease, opacity 0.3s ease;
+}
+.sidebarSection .dropdown:nth-child(6):hover + .link {
+  margin-top: 120px; /* 원하는 높이로 조정 */
+  transition: margin 0.3s ease, opacity 0.3s ease;
+}
+.sidebarSection .dropdown:nth-child(7):hover + .link {
+  margin-top: 160px; /* 원하는 높이로 조정 */
+  transition: margin 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebarSection .dropdown:nth-child(8):hover + .link {
+  margin-top: 120px; /* 원하는 높이로 조정 */
+  transition: margin 0.3s ease, opacity 0.3s ease;
 }
 
 /* 하위 메뉴 링크 */

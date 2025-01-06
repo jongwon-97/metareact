@@ -8,6 +8,8 @@ import UsersList from "./pages/admin/UsersList";
 import CourseList from "./pages/admin/CourseList";
 import SessionList from "./pages/admin/SessionList";
 import SessionDetail from "./pages/admin/SessionDetail";
+import AttList from "./pages/admin/AttList"
+import AttListDetail from "./pages/admin/AttListDetail";
 
 import ManagerHeader from "./components/ManagerHeader";
 import ManagerSideBar from "./components/ManagerSideBar";
@@ -44,6 +46,8 @@ function Layout() {
             <Route path="/admin/KDT/list" element={<CourseList />} />
             <Route path="/admin/KDT/course/:id" element={<SessionList />} />
             <Route path="/admin/KDT/session/:id" element={<SessionDetail />} />
+            <Route path="/admin/KDT/:id/att/list" element={<AttList />} />
+            <Route path="/admin/KDT/:kdtSessionId/att/detail/:kdtPartId" element={<AttListDetail />} />
             {/* Manager Routes */}  
             <Route path="/manager/dashboard" element={<Dashboard />} />
             {/* Instructor Routes */}
