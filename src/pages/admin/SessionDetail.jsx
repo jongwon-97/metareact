@@ -173,11 +173,11 @@ const SessionDetail = () => {
             </tr>
             <tr>
               <th>상세주소</th>
-              <td colspan="3">{sessionDetail.kdtSessionAddressDetail}</td>
+              <td colSpan="3">{sessionDetail.kdtSessionAddressDetail}</td>
             </tr>
             <tr>
               <th >온라인 여부</th>
-              <td colspan="3">{sessionDetail.kdtSessionOnline ? "온라인" : "오프라인"}</td>
+              <td colSpan="3">{sessionDetail.kdtSessionOnline ? "온라인" : "오프라인"}</td>
             </tr>
             <tr>
               

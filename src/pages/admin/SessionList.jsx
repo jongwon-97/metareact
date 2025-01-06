@@ -52,7 +52,7 @@ const SessionList = () => {
           <thead>
             <tr>
               <th scope="col">번호</th>
-              <th scope="col" colspan="2">회차 제목</th> 
+              <th scope="col" colSpan="2">회차 제목</th> 
               <th scope="col">회차</th>
               <th scope="col">상태</th>    
               <th scope="col">수강생 등록하기</th>
@@ -68,7 +68,7 @@ const SessionList = () => {
               <tr key={session.kdtSessionId}>
                 <td>{index + 1}</td>
 
-                <td colspan="2">
+                <td colSpan="2">
                   <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
                     {session.kdtSessionTitle}
                   </Link>

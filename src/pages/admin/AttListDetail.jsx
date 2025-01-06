@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction"; // 날짜 클릭 플러그인
+import CustomCalendar from "/src/components/CustomCalendar";
 import styles from "/src/css/admin/AttListDetail.module.css";
 
 const AttListDetail = () => {
@@ -71,29 +68,11 @@ const AttListDetail = () => {
           {/* FullCalendar로 변경된 달력 */}
           <div className={styles.calendarContainer}>
             <h2 className={styles.subHeader}>출석 기록</h2>
-            <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
-            headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-            }}
-            events={events}
-            eventClick={(info) => {
-                setSelectedDate(new Date(info.event.start)); // 선택된 날짜 업데이트
-            }}
-            dateClick={(info) => {
-                setSelectedDate(new Date(info.dateStr)); // 날짜 클릭 시 선택된 날짜 업데이트
-            }}
-            editable={false} // 드래그 비활성화
-            dayCellClassNames={(arg) => {
-                const date = arg.date instanceof Date ? arg.date : new Date(arg.date); // 항상 Date 객체로 변환
-                const isWeekend = date.getDay() === 0 || date.getDay() === 6; // 0: 일요일, 6: 토요일
-                return isWeekend ? "fc-weekend" : ""; // 주말에만 클래스 추가
-            }}
-            height="600px"
-            />
+            <CustomCalendar
+        events={events}
+        onEventClick={(info) => setSelectedDate(new Date(info.event.start))}
+        onDateClick={(info) => setSelectedDate(new Date(info.dateStr))}
+      />
           </div>
           {/* 테이블 */}
           <div className={styles.tableContainer}>
