@@ -11,6 +11,8 @@ const AttList = () => {
   const [attendanceList, setAttendanceList] = useState([]); // 출석부 데이터
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
+  const [selectedDate, setSelectedDate] = useState(dayjs().format("YYYY-MM-DD")); // 선택된 날짜
+
   const statusMap = {
     ARRIVAL: "입실",
     DEPARTURE: "출석", // 퇴실을 출석으로 변경
@@ -31,38 +33,60 @@ const AttList = () => {
   };
 
   // 데이터 로드
-  useEffect(() => {
-    const fetchAttendanceList = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/list`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true, // 쿠키 포함
-          }
-        );
-        console.log(response.data);
-        setSessionInfo(response.data.KDTSessionDTO); // 회차 정보
-        setAttendanceList(response.data.attendanceList); // 출석부 데이터
-      } catch (error) {
-        console.error("출석부 데이터를 불러오는 중 오류 발생:", error);
-        setErrorMessage("출석부 데이터를 불러오는 데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchAttendanceList = async (date) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/list`,
+        {
+          params: { date }, // 선택된 날짜를 쿼리 파라미터로 전달
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // 쿠키 포함
+        }
+      );
+      console.log(response.data);
+      setSessionInfo(response.data.KDTSessionDTO || null); // 회차 정보
+      setAttendanceList(response.data.attendanceList || []); // 출석부 데이터
+      setErrorMessage(""); // 오류 메시지 초기화
+    } catch (error) {
+      console.error("출석부 데이터를 불러오는 중 오류 발생:", error);
+      setSessionInfo(null); // 회차 정보 초기화
+      setAttendanceList([]); // 출석부 초기화
+      setErrorMessage("출석부 데이터를 불러오는 데 실패했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchAttendanceList();
-  }, [kdtSessionId]);
+  // 선택된 날짜나 세션 ID가 변경되면 데이터 로드
+  useEffect(() => {
+    fetchAttendanceList(selectedDate); // 선택된 날짜 전달
+  }, [selectedDate, kdtSessionId]);
+
+
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value); // 선택된 날짜 업데이트
+  };
 
   if (loading) return <div className="text-center">로딩 중...</div>;
   if (errorMessage) return <div className="text-danger text-center">{errorMessage}</div>;
 
   return (
     <div className={styles.attListContainer}>
+      {/* 날짜 선택 */}
+      <div className={styles.dateSelector}>
+        <label htmlFor="date" className="form-label">날짜 선택:</label>
+        <input
+          type="date"
+          id="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          className="form-control"
+        />
+      </div>
+
       {/* 회차 정보 출력 */}
       {sessionInfo && (
         <div className={styles.sessionInfo}>
