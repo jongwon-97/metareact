@@ -13,28 +13,35 @@ import AttListDetail from "./pages/admin/AttListDetail";
 
 import ManagerHeader from "./components/ManagerHeader";
 import ManagerSideBar from "./components/ManagerSideBar";
+
+import StudentHeader from "./components/StudentHeader";
+import StudentSidebar from "./components/StudentSidebar";
+
+import StudentDashboard from "./pages/student/StudentDashboard";
+
 function Layout() {
   const location = useLocation();
+
+  const isStudent = location.pathname.startsWith("/student");
 
   const getHeader = () => {
     if (location.pathname.startsWith("/admin")) return <AdminHeader />;
     if (location.pathname.startsWith("/manager")) return <ManagerHeader />;
     //if (location.pathname.startsWith("/instr")) return <InstrHeader />;
-    //if (location.pathname.startsWith("/student")) return <StudentHeader />;
-
-    return null; // 기본 헤더 (필요 시 추가)
+    if (isStudent) return <StudentHeader />;
+    return null; // 기본 헤더
   };
 
   const getSidebar = () => {
     if (location.pathname.startsWith("/admin")) return <AdminSideBar />;
     if (location.pathname.startsWith("/manager")) return <ManagerSideBar />;
     //if (location.pathname.startsWith("/instr")) return <InstrSideBar />;
-    //if (location.pathname.startsWith("/student")) return <StudentSideBar />;
-    return null; // 기본 사이드바 (필요 시 추가)
+    if (isStudent) return <StudentSidebar />;
+    return null; // 기본 사이드바
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${isStudent ? "student" : ""}`}>
       {getHeader()}
       <div className="content-container">
         {getSidebar()}
@@ -53,6 +60,7 @@ function Layout() {
             {/* Instructor Routes */}
 
             {/* Student Routes */}
+            <Route path="/student/dashboard" element={<StudentDashboard />} />
           </Routes>
         </div>
       </div>

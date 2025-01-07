@@ -40,4 +40,32 @@
   margin: 0 auto; /* 중앙 정렬 */
 }
 
+/* 학생 레이아웃 */
+.app-container.student {
+  grid-template-rows: 80px auto; /* 헤더 높이 80px, 나머지 공간은 auto */
+  grid-template-columns: 230px auto; /* 사이드바 230px, 콘텐츠 auto */
+}
 
+/* 학생 헤더 */
+.app-container.student > nav {
+  grid-row: 1; /* 첫 번째 행에 위치 */
+  grid-column: 2; /* 콘텐츠 열만 차지 */
+  z-index: 1000; /* 항상 상단에 표시 */
+}
+
+/* 학생용 콘텐츠 컨테이너 */
+.app-container.student .content-container {
+  grid-template-columns: 230px auto; /* 사이드바 왼쪽, 콘텐츠 오른쪽 */
+}
+
+/* 학생용 사이드바 */
+.app-container.student .sidebar {
+  grid-column: 1; /* 첫 번째 열 */
+  grid-row: 2; /* 두 번째 행 */
+}
+
+/* 학생용 메인 콘텐츠 */
+.app-container.student .main-content {
+  background-color: rgba(236, 234, 234, 0.401);
+  grid-column: 2; /* 두 번째 열 */
+}

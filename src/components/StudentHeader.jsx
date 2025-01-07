@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../css/manager/ManagerHeader.module.css";
+import styles from "../css/student/StudentHeader.module.css";
 
-const ManagerHeader = () => {
+const StudentHeader = () => {
   
     const userName = "ko1597@naver.com"; // 로그인된 사용자 이름 (임시 데이터)
     
@@ -13,9 +13,7 @@ const ManagerHeader = () => {
     return (
     <nav className={`${styles.navbar} navbar`}>
       <div className={styles.leftSection}>
-      <a className={`${styles.brand}`} href="/view/manager/dashboard">
-        메타러닝 매니저 대시보드
-      </a>
+      
     
       </div>
       
@@ -30,4 +28,4 @@ const ManagerHeader = () => {
   );
 };
 
-export default ManagerHeader;
+export default StudentHeader;
