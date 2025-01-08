@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 
 const SessionDetail = () => {
-  const { id:sessionId } = useParams();
+  const { sessionId } = useParams();
   const [sessionDetail, setSessionDetail] = useState([]); // 회차 상세 정보
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
@@ -34,7 +34,7 @@ const SessionDetail = () => {
     };
 
     fetchSessionDetail();
-  }, []);
+  }, [sessionId]);
 
   if (loading) return <div className="text-center">로딩 중...</div>; // 로딩 상태 표시
   if (errorMessage) return <div className="text-danger text-center">{errorMessage}</div>;
@@ -46,8 +46,13 @@ const SessionDetail = () => {
         {/* 네비게이션 바 */}
         <nav className={`${styles.sessionNavbar}`}>
 
-          <a className={`${styles.partsessionNavLink}`} href="#contact">
+          <a className={`${styles.partsessionNavLink}`}
+           href={`/view/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>
             참가자 명단
+          </a>
+
+          <a className={`${styles.partsessionNavLink}`} href="#contact">
+            담당자 명단
           </a>
 
           <Link
@@ -57,10 +62,24 @@ const SessionDetail = () => {
           출석부
           </Link>
 
-          <a className={`${styles.trainsessionNavLink}`}
-          href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/train`}>
-            훈련일지
-          </a>
+          <div 
+          className={styles.counselsessionNavLink}
+          >
+            {/* 하위 메뉴 */}
+            <Link
+          className={`${styles.attsessionNavLink}`}
+          to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}
+           >
+          훈련일지
+          </Link>
+            
+            <div 
+            className={styles.counseldropdownMenu}>
+              <Link to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>훈련일지 목록</Link>
+              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/train`}>훈련일지 작성</a>
+            </div>
+        
+          </div>
 
           <div 
           className={styles.counselsessionNavLink}

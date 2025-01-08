@@ -52,6 +52,15 @@
   width: 100px; /* 등급 */
 }
 
+.tableContainer th:nth-child(7), 
+.tableContainer td:nth-child(7) {
+  width: 120px; /* 등급 */
+}
+
+.tableContainer th:nth-child(8), 
+.tableContainer td:nth-child(8) {
+  width: 120px; /* 등급 */
+}
 .tableContainer th {
   background-color: #007bff; /* 테이블 헤더 배경 */
   color: white; /* 헤더 텍스트 색상 */
@@ -116,6 +125,61 @@
   text-decoration: underline;
 }
 
+/* 수정버튼 */
+.editButton {
+  background-color: #28a745; /* 녹색 */
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.editSelect {
+  text-align: center;
+  width: 100%; /* 부모 요소 크기에 맞게 */
+  max-width: 100px; /* 최대 크기 */
+  padding: 5px; /* 안쪽 여백 */
+  font-size: 14px; /* 글꼴 크기 */
+  border: 1px solid #ccc; /* 테두리 */
+  border-radius: 4px; /* 둥근 테두리 */
+  background-color: #fff; /* 배경색 */
+}
+
+.editInput {
+  text-align: center;
+  width: 100%; /* 부모 요소 크기에 맞게 */
+  padding: 5px; /* 안쪽 여백 */
+  font-size: 14px; /* 글꼴 크기 */
+  border: 1px solid #ccc; /* 테두리 */
+  border-radius: 4px; /* 둥근 테두리 */
+  background-color: #fff; /* 배경색 */
+}
+
+.editButton:hover {
+  background-color: #218838; /* 더 어두운 녹색 */
+}
+
+
+.deleteButton {
+  background-color: #dc3545; /* 빨간색 */
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.deleteButton:hover {
+  background-color: #c82333; /* 더 어두운 빨간색 */
+  
+}
+
+
 /* 목록 개수 선택 드롭다운 */
 .usersPerPageSelector {
   margin-left: auto;
@@ -134,4 +198,22 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+}
+
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.createButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }

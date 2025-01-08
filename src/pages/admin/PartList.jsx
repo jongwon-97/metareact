@@ -5,7 +5,7 @@ import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
 import Pagination from "/src/components/Pagination";
  
-const UserList = () => {
+const PartList = () => {
   const roleMap = {STUDENT: "학생",MANAGER: "매니저",INSTRUCTOR: "강사",ADMIN: "관리자"};
   const genderMap = {M: "남성",F: "여성",};
   const statusMap = {활성: "활동",비활성: "휴면",차단: "정지",};
@@ -22,6 +22,8 @@ const UserList = () => {
 
   const [searchType, setSearchType] = useState(""); // 검색 조건
   const [searchQuery, setSearchQuery] = useState(""); // 검색어
+  const [editingUserId, setEditingUserId] = useState(null); // 현재 수정 중인 사용자 ID
+  const [editedUser, setEditedUser] = useState({}); // 수정 중인 사용자 데이터
 
   const formatDate = (isoString) => dayjs(isoString).format('YYYY-MM-DD');
   // 스프링부트에서 사용자 데이터를 불러오기
@@ -83,6 +85,31 @@ const UserList = () => {
     setCurrentPage(1); // 페이지 번호를 초기화
   };
 
+  //간단삭제
+  const handleDelete = (userId) => {
+    setUsers(users.filter((user) => user.userId !== userId));
+  };
+  //간단수정
+  const handleEdit = (user) => {
+    setEditingUserId(user.userId);
+    setEditedUser(user);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = () => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.userId === editingUserId ? { ...user, ...editedUser } : user
+      )
+    );
+    setEditingUserId(null);
+    setEditedUser({});
+  };
+
   return (
     <div className={styles.tableContainer}>
     {/* 검색창 */}
@@ -139,20 +166,104 @@ const UserList = () => {
           <th>등록일</th>
           <th>수정일</th>
           <th>상세정보</th>
+          <th>수정</th>
+          <th>삭제</th>
         </tr>
       </thead>
       <tbody>
         {currentUsers.map((user,index) => (
           <tr key={user.userId}>
             <td>{startIndex + index + 1}</td>
-            <td>{user.userEmail}</td>
-            <td>{user.name}</td>
-            <td>{genderMap[user.userGender] || "알 수 없음"}</td>
-            <td>{roleMap[user.userRole] || "알 수 없음"}</td>
-            <td>{statusMap[user.userStatus] || "알 수 없음"}</td>
+
+            <td>
+            {editingUserId === user.userId ? (
+                  <input
+                    type="text"
+                    name="email"
+                    value={editedUser.userEmail || user.userEmail}
+                    onChange={handleChange}
+                    className={styles.editInput}
+                  />
+                ) : (
+                  user.userEmail
+                )}
+            </td>
+
+            <td>
+            {editingUserId === user.userId ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={editedUser.name || user.name}
+                    onChange={handleChange}
+                    className={styles.editInput}
+                  />
+                ) : (
+                  user.name
+                )}
+            </td>
+
+            <td>
+            {editingUserId === user.userId ? (
+              <select
+                name="userGender"
+                value={editedUser.userGender || user.userGender}
+                onChange={handleChange}
+                className={styles.editSelect}
+              >
+                <option value="M">남성</option>
+                <option value="F">여성</option>
+              </select>
+            ) : (
+              genderMap[user.userGender] || "알 수 없음"
+            )}
+            </td>
+
+            <td>
+            {editingUserId === user.userId ? (
+              <select
+                name="userRole"
+                value={editedUser.userRole || user.userRole}
+                onChange={handleChange}
+                className={styles.editSelect}
+              >
+                <option value="STUDENT">학생</option>
+                <option value="MANAGER">매니저</option>
+                <option value="INSTRUCTOR">강사</option>
+              </select>
+            ) : (
+              roleMap[user.userRole] || "알 수 없음"
+            )}
+            </td>
+            <td>
+            {editingUserId === user.userId ? (
+              <select
+                name="userStatus"
+                value={editedUser.userStatus || user.userStatus}
+                onChange={handleChange}
+                className={styles.editSelect}
+              >
+                <option value="ACTIVE">활동</option>
+                <option value="INACTIVE">휴면</option>
+                <option value="BANNED">정지</option>
+              </select>
+            ) : (
+              statusMap[user.userStatus] || "알 수 없음"
+            )}
+            </td>
             <td>{formatDate(user.userCreatedAt)}</td>
             <td>{formatDate(user.userUpdatedAt)}</td>
             <td><a className={styles.godetail} href="detail">상세정보</a></td>
+            <td> 
+            {editingUserId === user.userId ? (
+                    <button className={styles.editButton} onClick={handleSave}>저장</button>
+                ) : (
+                  <button className={styles.editButton} onClick={() => handleEdit(user)}>수정</button>
+                )}
+            </td>
+            <td>
+              <button className={styles.deleteButton} onClick={() => handleDelete(user.userId)}>삭제</button>
+            </td>
           </tr>
         ))}
       </tbody>
@@ -170,4 +281,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default PartList;

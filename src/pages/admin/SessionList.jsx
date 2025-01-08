@@ -5,7 +5,7 @@ import axios from "axios";
 import styles from "/src/css/admin/SessionList.module.css";
 
 const SessionList = () => {
-  const {id : courseId } = useParams(); // URL에서 courseId 가져오기
+  const { courseId } = useParams(); // URL에서 courseId 가져오기
   const [sessions, setSessions] = useState([]); // 회차 데이터 상태 관리
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태 관리
  

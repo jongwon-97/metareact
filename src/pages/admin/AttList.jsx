@@ -6,7 +6,7 @@ import styles from "/src/css/admin/AttList.module.css";
 import dayjs from "dayjs";
 
 const AttList = () => {
-  const { id: kdtSessionId } = useParams(); // URL 파라미터에서 sessionId 가져오기
+  const { kdtSessionId } = useParams(); // URL 파라미터에서 sessionId 가져오기
   const [sessionInfo, setSessionInfo] = useState(null); // 회차 정보 상태
   const [attendanceList, setAttendanceList] = useState([]); // 출석부 데이터
   const [loading, setLoading] = useState(true); // 로딩 상태

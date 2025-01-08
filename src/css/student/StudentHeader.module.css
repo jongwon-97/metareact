@@ -15,13 +15,6 @@
     margin-left: 10px;
   }
   
-  .brand {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    padding-left: 10px;
-  }
   
   /* 오른쪽 섹션 (사용자 정보) */
   .rightSection {

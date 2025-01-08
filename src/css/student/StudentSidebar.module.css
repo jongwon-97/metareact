@@ -5,7 +5,7 @@
     top: 0;
     left: 0; /* 사이드바를 왼쪽에 고정 */
     width: 230px; /* 사이드바 너비 */
-    background-color: #4e73df;
+    background-color: #305fece6;
     overflow-y: auto; /* 스크롤 가능 */
     display: flex; /* 플렉스 레이아웃 */
     flex-direction: column; /* 세로 정렬 */
