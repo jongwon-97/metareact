@@ -5,7 +5,7 @@ import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
 import Pagination from "/src/components/Pagination";
  
-const UserList = () => {
+const ManagerUserList = () => {
   const roleMap = {STUDENT: "학생",MANAGER: "매니저",INSTRUCTOR: "강사",ADMIN: "관리자"};
   const genderMap = {M: "남성",F: "여성",};
   const statusMap = {활성: "활동",비활성: "휴면",차단: "정지",};
@@ -28,7 +28,7 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/user/list",{ // API 엔드포인트 수정
+        const response = await axios.get("http://localhost:8091/api/manager/users/list",{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
@@ -170,4 +170,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default ManagerUserList;

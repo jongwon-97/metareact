@@ -34,19 +34,16 @@ const AdminSideBar = () => {
           {showSubMenu && (
             <div className={styles.subMenu}>
               <a href="/admin/userchart" className={styles.subLink}>
-                학생증감율
+                전체 회원 증감율
               </a>
               <a href="/admin/teacherchart" className={styles.subLink}>
-                강사증감율
+                학생 증감율
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                강의증감율
+                강사 증감율 
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                강의 별점/평점
-              </a>
-              <a href="/admin/overview" className={styles.subLink}>
-                조회
+                강의 증감율
               </a>
             </div>
           )}
@@ -91,6 +88,9 @@ const AdminSideBar = () => {
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
+              <a href="http://localhost:8091/admin/KDT/accountmanagement" className={styles.subLink}>
+                국비계정생성
+              </a>
               <a href="http://localhost:8091/admin/KDT/course" className={styles.subLink}>
                 국비과정등록
               </a>
@@ -98,8 +98,9 @@ const AdminSideBar = () => {
                 국비회차등록
               </a>
               <a href="/view/admin/KDT/list" className={styles.subLink}>
-                국비과정조회
+                국비과정 목록 조회
               </a>
+              
             </div>
           )}
           </div>

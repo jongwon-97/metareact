@@ -34,77 +34,34 @@ const ManagerSideBar = () => {
           {showSubMenu && (
             <div className={styles.subMenu}>
               <a href="/admin/userchart" className={styles.subLink}>
-                학생증감율
+                전체 회원 증감율
               </a>
               <a href="/admin/teacherchart" className={styles.subLink}>
-                강사증감율
+                학생 증감율
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                강의증감율
+                강사 증감율 
               </a>
               <a href="/admin/overview" className={styles.subLink}>
-                강의 별점/평점
-              </a>
-              <a href="/admin/overview" className={styles.subLink}>
-                조회
+                강의 증감율
               </a>
             </div>
           )}
           </div>
           
-          <div className={`${styles.link} ${styles.dropdown}`}
-             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
-             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
-          >
-          <i className="bi bi-people me-2"></i> {/* 회원관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/view/admin/users/list">
+
+          {/* 회원관리 */}
+          <a className={`${styles.link} sidebar-link`} href="/view/manager/users/list">
+          <i className="bi bi-people me-2"></i> {/* 개인정보 아이콘 */}
           회원관리
           </a>
-          {showSubMenu && (
-            <div className={styles.subMenu}>
-              <a href="/view/admin/users/list" className={styles.subLink}>
-                전체관리
-              </a>
-              <a href="/view/admin/users/studentlist" className={styles.subLink}>
-                학생관리
-              </a>
-              <a href="/view/admin/users/instrlist" className={styles.subLink}>
-                강사관리
-              </a>
-              <a href="/view/admin/users/managerlist" className={styles.subLink}>
-                매니저관리
-              </a>
-              <a href="/view/admin/instr/list" className={styles.subLink}>
-                강사신청조회
-              </a>
 
-            </div>
-          )}
-          </div>
-
-          <div className={`${styles.link} ${styles.dropdown}`}
-             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
-             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
-          >
-          <i className="bi bi-book"></i> {/* 국비관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/view/admin/KDT/list">
-            국비관리
+          {/* 회원관리 */}
+          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          <i className="bi bi-book"></i> {/* 개인정보 아이콘 */}
+          국비 과정 조회
           </a>
-          {showSubMenu && (
-            <div className={styles.subMenu}>
-              <a href="http://localhost:8091/admin/KDT/course" className={styles.subLink}>
-                국비과정등록
-              </a>
-              <a href="http://localhost:8091/admin/KDT/session" className={styles.subLink}>
-                국비회차등록
-              </a>
-              <a href="/view/admin/KDT/list" className={styles.subLink}>
-                국비과정조회
-              </a>
-            </div>
-          )}
-          </div>
-
+      
           <div className={`${styles.link} ${styles.dropdown}`}
              onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
@@ -167,12 +124,6 @@ const ManagerSideBar = () => {
             </div>
           )}
           </div>
-
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
-          <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
-          결제관리
-          </a>
-          
         </div>
       </div>
     </div>

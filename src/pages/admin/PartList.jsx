@@ -190,7 +190,7 @@ const PartList = () => {
               <td>{roleMap[user.userRole] || "알 수 없음"}</td>
               <td>{statusMap[user.kdtPartStatus] || "알 수 없음"}</td>
               <td>{EmpMap[user.kdtPartEmp] || "알 수 없음"}</td>
-              <td><a href={`http://localhost:8091/admin/user/${user.userId}`}>상세보기</a></td>
+              <td><a href={`http://localhost:8091/admin/users/${user.userId}`}>상세보기</a></td>
               <td>
                 {editingUserId === user.userId ? (
                   <button className={styles.saveButton} onClick={handleSave}>

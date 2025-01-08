@@ -83,29 +83,29 @@
 
 /* 세 번째 드롭다운에만 적용 */
 .sidebarSection .dropdown:nth-child(3):hover + .link {
-  margin-top: 250px; /* 원하는 높이로 조정 */
+  margin-top: 240px; /* 원하는 높이로 조정 */
   transition: margin 0.3s ease, opacity 0.3s ease;
 }
 
 .sidebarSection .dropdown:nth-child(4):hover + .link {
-  margin-top: 250px; /* 원하는 높이로 조정 */
+  margin-top: 240px; /* 원하는 높이로 조정 */
   transition: margin 0.3s ease, opacity 0.3s ease;
 }
 .sidebarSection .dropdown:nth-child(5):hover + .link {
-  margin-top: 160px; /* 원하는 높이로 조정 */
+  margin-top: 200px; /* 원하는 높이로 조정 */
   transition: margin 0.3s ease, opacity 0.3s ease;
 }
 .sidebarSection .dropdown:nth-child(6):hover + .link {
-  margin-top: 120px; /* 원하는 높이로 조정 */
+  margin-top: 110px; /* 원하는 높이로 조정 */
   transition: margin 0.3s ease, opacity 0.3s ease;
 }
 .sidebarSection .dropdown:nth-child(7):hover + .link {
-  margin-top: 160px; /* 원하는 높이로 조정 */
+  margin-top: 150px; /* 원하는 높이로 조정 */
   transition: margin 0.3s ease, opacity 0.3s ease;
 }
 
 .sidebarSection .dropdown:nth-child(8):hover + .link {
-  margin-top: 120px; /* 원하는 높이로 조정 */
+  margin-top: 110px; /* 원하는 높이로 조정 */
   transition: margin 0.3s ease, opacity 0.3s ease;
 }
 

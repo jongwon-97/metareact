@@ -18,6 +18,8 @@ import TrainList from "./pages/admin/TrainList";
 import ManagerHeader from "./components/ManagerHeader";
 import ManagerSideBar from "./components/ManagerSideBar";
 
+import ManagerUserList from "./pages/manager/ManagerUsersList";
+
 import InstrHeader from "./components/InstrHeader";
 import InstrSideBar from "./components/InstrSideBar";
 import InstrDashboard from "./pages/instr/InstrDashboard";
@@ -26,6 +28,7 @@ import StudentHeader from "./components/StudentHeader";
 import StudentSidebar from "./components/StudentSidebar";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
+
 
 function Layout() {
   const location = useLocation();
@@ -68,6 +71,7 @@ function Layout() {
             <Route path="/admin/KDT/:kdtSessionId/train/list" element={<TrainList />} />
             {/* Manager Routes */}  
             <Route path="/manager/dashboard" element={<Dashboard />} />
+            <Route path="/manager/users/list" element={<ManagerUserList />} />
             {/* Instructor Routes */}
             <Route path="/instr/dashboard" element={<InstrDashboard />} />
             {/* Student Routes */}
