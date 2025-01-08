@@ -11,6 +11,7 @@ import SessionDetail from "./pages/admin/SessionDetail";
 import AttList from "./pages/admin/AttList"
 import AttListDetail from "./pages/admin/AttListDetail";
 import AttLog from "./pages/admin/AttLog";
+import PartList from "./pages/admin/PartList"
 import TrainList from "./pages/admin/TrainList";
 
 
@@ -63,6 +64,7 @@ function Layout() {
             <Route path="/admin/KDT/:kdtSessionId/att/list" element={<AttList />} />
             <Route path="/admin/KDT/:kdtSessionId/att/detail/:kdtPartId" element={<AttListDetail />} />
             <Route path="/admin/KDT/:kdtSessionId/att/log/:kdtPartId" element={<AttLog />} />
+            <Route path="/admin/KDT/:kdtSessionId/part/list" element={<PartList />} />
             <Route path="/admin/KDT/:kdtSessionId/train/list" element={<TrainList />} />
             {/* Manager Routes */}  
             <Route path="/manager/dashboard" element={<Dashboard />} />

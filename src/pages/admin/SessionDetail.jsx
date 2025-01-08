@@ -45,12 +45,13 @@ const SessionDetail = () => {
       <div>
         {/* 네비게이션 바 */}
         <nav className={`${styles.sessionNavbar}`}>
-
-          <a className={`${styles.partsessionNavLink}`}
-           href={`/view/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>
-            참가자 명단
-          </a>
-
+          <Link
+          className={`${styles.attsessionNavLink}`}
+          to={`/admin/KDT/${sessionDetail.kdtSessionId}/part/list`}
+          >
+          참가자명단
+          </Link>
+          
           <a className={`${styles.partsessionNavLink}`} href="#contact">
             담당자 명단
           </a>
