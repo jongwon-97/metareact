@@ -52,7 +52,8 @@ const SessionDetail = () => {
           참가자명단
           </Link>
           
-          <a className={`${styles.partsessionNavLink}`} href="#contact">
+          <a className={`${styles.partsessionNavLink}`} 
+          href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/staff/list`}>
             담당자 명단
           </a>
 
