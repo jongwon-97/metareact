@@ -3,10 +3,10 @@ import axios from "axios";
 import styles from "../css/admin/AdminHeader.module.css";
 
 const AdminHeader = () => {
-  const [userName, setUserName] = useState("알 수 없음"); // 사용자 이름 상태
+  const [userName] = useState("알 수 없음"); // 사용자 이름 상태
   const LOGOUT_URL = "http://localhost:8091/logout"; // 로그아웃 API
-  const USER_INFO_URL = "http://localhost:8091/api/admin"; // 사용자 정보 API
-  const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
+  //const USER_INFO_URL = "http://localhost:8091/api/admin"; // 사용자 정보 API
+  //const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
 
   // CSRF 토큰 가져오기 (쿠키에서 추출)
   const getCsrfToken = () => {
@@ -20,25 +20,25 @@ const AdminHeader = () => {
     }
   };
 
-  // 사용자 정보를 가져오는 함수
-  const fetchUserName = async () => {
-    try {
-      const response = await axios.get(USER_INFO_URL, {
-        withCredentials: true, // 인증 쿠키 포함
-      });
+  // // 사용자 정보를 가져오는 함수
+  // const fetchUserName = async () => {
+  //   try {
+  //     const response = await axios.get(USER_INFO_URL, {
+  //       withCredentials: true, // 인증 쿠키 포함
+  //     });
 
-      if (response.status === 200) {
-        const { username } = response.data;
-        setUserName(username); // 사용자 이름 설정
-      } else {
-        console.error("사용자 정보를 가져올 수 없습니다.");
-        alert("사용자 정보를 가져올 수 없습니다.");
-      }
-    } catch (error) {
-      console.error("사용자 정보 요청 중 에러 발생:", error);
-      alert("사용자 정보 요청 중 문제가 발생했습니다. 다시 시도해주세요.");
-    }
-  };
+  //     if (response.status === 200) {
+  //       const { username } = response.data;
+  //       setUserName(username); // 사용자 이름 설정
+  //     } else {
+  //       console.error("사용자 정보를 가져올 수 없습니다.");
+  //       alert("사용자 정보를 가져올 수 없습니다.");
+  //     }
+  //   } catch (error) {
+  //     console.error("사용자 정보 요청 중 에러 발생:", error);
+  //     alert("사용자 정보 요청 중 문제가 발생했습니다. 다시 시도해주세요.");
+  //   }
+  // };
 
   // 로그아웃 핸들러
   const handleLogout = async () => {
@@ -67,7 +67,7 @@ const AdminHeader = () => {
   };
 
   useEffect(() => {
-    fetchUserName(); // 컴포넌트 마운트 시 사용자 정보 가져오기
+    userName; // 컴포넌트 마운트 시 사용자 정보 가져오기
   }, []);
 
   return (

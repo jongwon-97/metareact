@@ -13,6 +13,8 @@ import AttListDetail from "./pages/admin/AttListDetail";
 import AttLog from "./pages/admin/AttLog";
 import PartList from "./pages/admin/PartList"
 import TrainList from "./pages/admin/TrainList";
+import TestList from "./pages/admin/TestList";
+import TestSubmit from "./pages/admin/TestSubmit";
 
 
 import ManagerHeader from "./components/ManagerHeader";
@@ -60,15 +62,23 @@ function Layout() {
           <Routes>
             {/* Admin Routes */}
             <Route path="/admin/dashboard" element={<Dashboard />} />
+
             <Route path="/admin/users/list" element={<UsersList />} />
+
             <Route path="/admin/KDT/list" element={<CourseList />} />
             <Route path="/admin/KDT/course/:courseId" element={<SessionList />} />
             <Route path="/admin/KDT/session/:sessionId" element={<SessionDetail />} />
+
             <Route path="/admin/KDT/:kdtSessionId/att/list" element={<AttList />} />
             <Route path="/admin/KDT/:kdtSessionId/att/detail/:kdtPartId" element={<AttListDetail />} />
             <Route path="/admin/KDT/:kdtSessionId/att/log/:kdtPartId" element={<AttLog />} />
+
             <Route path="/admin/KDT/:kdtSessionId/part/list" element={<PartList />} />
+
             <Route path="/admin/KDT/:kdtSessionId/train/list" element={<TrainList />} />
+
+            <Route path="/admin/KDT/:kdtSessionId/test/list" element={<TestList />} />
+            <Route path="/admin/KDT/:kdtSessionId/test/submit/:kdtTestId/list" element={<TestSubmit />} />
             {/* Manager Routes */}  
             <Route path="/manager/dashboard" element={<Dashboard />} />
             <Route path="/manager/users/list" element={<ManagerUserList />} />

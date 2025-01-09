@@ -98,7 +98,13 @@ const SessionDetail = () => {
           </div>
 
           <div className={styles.testsessionNavLink}>
-          <a href="#assignments">성적</a>
+
+          <Link
+          className={`${styles.attsessionNavLink}`}
+          to={`/admin/KDT/${sessionDetail.kdtSessionId}/test/list`}
+           >
+          성적
+          </Link>
             {/* 하위 메뉴 */}
             <div className={styles.testdropdownMenu}>
               <a href="#assignments">과제</a>
