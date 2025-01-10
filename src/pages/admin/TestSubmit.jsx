@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
 import Pagination from "/src/components/Pagination";
+import BackButton from "/src/components/BackButton";
  
 const TestSubmit = () => {
   const { kdtSessionId , kdtTestId } = useParams(); // URL에서 kdtSessionId 가져오기
@@ -58,9 +59,13 @@ const TestSubmit = () => {
         {sessionInfo.kdtSessionTitle} {sessionInfo.kdtSessionNum}회차 - {testInfo.kdtTestTitle} 제출 내역
       </h1>
 
+      
+
       {/* 검색 및 설정 */}
       <div className={styles.searchBar}>
+        
         <div className={styles.itemsPerPageSelector}>
+          
           <label htmlFor="itemsPerPage">페이지 당 항목 수: </label>
           <select
             id="itemsPerPage"
@@ -74,7 +79,9 @@ const TestSubmit = () => {
               </option>
             ))}
           </select>
+          <BackButton label="Back" />
         </div>
+        
       </div>
 
       {/* 제출 목록 테이블 */}
@@ -104,11 +111,18 @@ const TestSubmit = () => {
               <td>
                 {submit.actualScore}/{submit.maxScore}
               </td>
-              <td>{submit.percentile}%</td>
               <td>
-                <a href={`http://localhost:8091/admin/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
-                  상세보기
-                </a>
+                {submit.percentile? submit.percentile % 1 === 0
+                  ? submit.percentile // 정수인 경우 그대로 표시
+                  : submit.percentile.toFixed(2) // 소수점이 있는 경우 포매팅
+                  : "0"}%
+              </td>
+              <td>
+                {submit.kdtTestSubmitCreatedAt && (
+                  <a href={`http://localhost:8091/admin/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
+                    상세보기
+                  </a>
+                )}
               </td>
             </tr>
           ))}

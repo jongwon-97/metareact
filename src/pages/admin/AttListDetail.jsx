@@ -3,6 +3,7 @@ import { useParams ,Link } from "react-router-dom";
 import axios from "axios";
 import CustomCalendar from "/src/components/CustomCalendar";
 import styles from "/src/css/admin/AttListDetail.module.css";
+import BackButton from "/src/components/BackButton";
 
 const AttListDetail = () => {
   const { kdtSessionId, kdtPartId } = useParams(); // URL 파라미터
@@ -65,7 +66,10 @@ const AttListDetail = () => {
               <span>조퇴: {detailInfo.kdtAttListDTO[0]?.earlyLeaveCount || 0}회</span>&nbsp;&nbsp;&nbsp;&nbsp;
               <span>병결: {detailInfo.kdtAttListDTO[0]?.tardyCount || 0}회</span>
             </p>
+            
             <Link to={`/admin/KDT/${kdtSessionId}/att/log/${kdtPartId}`}>상세보기</Link>
+            <BackButton label="Back" />
+            
           </div>
           {/* FullCalendar로 변경된 달력 */}
           <div className={styles.calendarContainer}>

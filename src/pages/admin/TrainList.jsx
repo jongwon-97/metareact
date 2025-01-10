@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
 import Pagination from "/src/components/Pagination";
+import BackButton from "/src/components/BackButton";
  
 const TrainList = () => {
   const { kdtSessionId } = useParams(); // URL에서 kdtSessionId 가져오기
@@ -147,7 +148,9 @@ const TrainList = () => {
       >
         훈련일지 작성
       </a>
+      <BackButton label="Back" />
     </div>
+    
 
     </div>
   

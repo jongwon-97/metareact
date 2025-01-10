@@ -4,6 +4,7 @@ import { useParams , Link } from "react-router-dom";
 import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
 import Pagination from "/src/components/Pagination";
+import BackButton from "/src/components/BackButton";
  
 const TestList = () => {
   const { kdtSessionId } = useParams(); // URL에서 kdtSessionId 가져오기
@@ -95,6 +96,7 @@ const TestList = () => {
 
         {/* 페이지당 항목 수 선택 */}
         <div className={styles.itemsPerPageSelector}>
+          
           <label htmlFor="itemsPerPage">목록 수: </label>
           <select
             id="itemsPerPage"
@@ -160,6 +162,7 @@ const TestList = () => {
         onPageChange={setCurrentPage}
         pagesPerGroup={5}
       />
+      <BackButton label="Back" />
     </div>
   );
 };
