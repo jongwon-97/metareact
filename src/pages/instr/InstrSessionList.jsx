@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import styles from "/src/css/manager/ManagerSessionList.module.css";
+import styles from "/src/css/instr/InstrSessionList.module.css";
 
 const SessionList = () => {
   const { courseId } = useParams(); // URL에서 courseId 가져오기
@@ -14,7 +14,7 @@ const SessionList = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/manager/KDT/course/${courseId}`, {
+        const response = await axios.get("http://localhost:8091/api/instr/KDT/sessionlist", {
           headers: {
             "Content-Type": "application/json",
           },

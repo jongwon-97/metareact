@@ -3,14 +3,14 @@ import { Line } from "react-chartjs-2";
 
 function AreaChart() {
   const data = {
-    labels: ["Mar 1", "Mar 3", "Mar 5", "Mar 7", "Mar 9", "Mar 11", "Mar 13"],
+    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월","8월", "9월", "10월", "11월", "12월"],
     datasets: [
       {
-        label: "Dataset",
-        data: [10000, 20000, 15000, 25000, 30000, 35000, 40000],
+        label: "학생수",
+        data: [1, 2, 3, 4, 5, 6, 7,8,9,10,11,12],
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: "rgb(70, 8, 170)",
       },
     ],
   };
@@ -23,7 +23,7 @@ function AreaChart() {
       },
       title: {
         display: true,
-        text: "월별 회원 증감율",
+        text: "월별 학생수",
       },
     },
   };

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import styles from "/src/css/manager/ManagerSessionList.module.css";
+import styles from "/src/css/student/StudentSessionList.module.css";
 
-const SessionList = () => {
+const StudentSessionList = () => {
   const { courseId } = useParams(); // URL에서 courseId 가져오기
   const navigate = useNavigate(); // 히스토리 백을 위한 useNavigate
   const [sessions, setSessions] = useState([]); // 회차 데이터 상태 관리
@@ -14,7 +14,7 @@ const SessionList = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/manager/KDT/course/${courseId}`, {
+        const response = await axios.get("http://localhost:8091/api/student/KDT/sessionlist", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -24,7 +24,7 @@ const SessionList = () => {
         console.log("서버 응답 데이터:", data); // 데이터 로그 출력
         console.log("응답 데이터:", response.data);
         
-        if (response.status === 403 && data.message === "회차에 등록된 매니저가 아닙니다.") {
+        if (response.status === 403 && data.message === "회차에 등록된 학생이 아닙니다.") {
           // 403 에러 발생 시 알림 표시 후 리다이렉트
           alert(data.message); // 메시지 표시
           navigate(-1); // 리다이렉트
@@ -72,12 +72,7 @@ const SessionList = () => {
               <th scope="col" colSpan="2">회차 제목</th> 
               <th scope="col">회차</th>
               <th scope="col">상태</th>    
-              <th scope="col">수강생 등록하기</th>
-              <th scope="col">매니저 등록하기</th>
-              <th scope="col">강사 등록하기</th>
               <th scope="col">상세보기</th>
-              <th scope="col">수정</th>
-              <th scope="col">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +81,7 @@ const SessionList = () => {
                 <td>{index + 1}</td>
 
                 <td colSpan="2">
-                  <Link to={`/manager/KDT/session/${session.kdtSessionId}`}>
+                  <Link to={`/student/KDT/session/${session.kdtSessionId}`}>
                     {session.kdtSessionTitle}
                   </Link>
                 </td>
@@ -94,28 +89,11 @@ const SessionList = () => {
                 <td>{session.kdtSessionNum}회차</td>
 
                 <td>{session.kdtSessionStatus}</td>
-
+               
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
-                </td>
-                <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
-                </td>
-                <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
-                </td>
-                <td>
-                  <Link to={`/manager/KDT/session/${session.kdtSessionId}`}>
+                  <Link to={`/student/KDT/session/${session.kdtSessionId}`}>
                     상세 보기
                   </Link>
-                </td>
-                <td>
-                  <button href={`http://localhost:8091/manager/KDT/session/update/${session.kdtSessionId}`} 
-                  className={styles.editbtn}>수정</button>
-                </td>
-                <td>
-                  <button href={`/manager/KDT/session/delete/${session.kdtSessionId}`}
-                  className={styles.deletebtn}>삭제</button>
                 </td>
               </tr>
             ))}
@@ -128,4 +106,4 @@ const SessionList = () => {
   );
 };
 
-export default SessionList;
+export default StudentSessionList;

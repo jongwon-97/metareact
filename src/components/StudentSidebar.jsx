@@ -17,92 +17,16 @@ const StudentSideBar = () => {
           </a>
 
           {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          <a className={`${styles.link} sidebar-link`} href="/student/mypage">
           <i className="bi bi-person-circle me-2"></i> {/* 개인정보 아이콘 */}
           개인정보
           </a>
 
-          {/* 통계관리 섹션 */}
-          <div className={`${styles.link} ${styles.dropdown}`}
-             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
-             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
-          >
-          <i className="bi bi-bar-chart me-2"></i>
-          <a className={`${styles.hlink} sidebar-link`} href="view/admin/userchart">
-          통계관리
+          {/* 회원관리 */}
+          <a className={`${styles.link} sidebar-link`} href="/view/student/KDT/list">
+          <i className="bi bi-book"></i> {/* 개인정보 아이콘 */}
+          국비 과정 조회
           </a>
-          {showSubMenu && (
-            <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
-                학생증감율
-              </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
-                강사증감율
-              </a>
-              <a href="/admin/overview" className={styles.subLink}>
-                강의증감율
-              </a>
-              <a href="/admin/overview" className={styles.subLink}>
-                강의 별점/평점
-              </a>
-              <a href="/admin/overview" className={styles.subLink}>
-                조회
-              </a>
-            </div>
-          )}
-          </div>
-          
-          <div className={`${styles.link} ${styles.dropdown}`}
-             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
-             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
-          >
-          <i className="bi bi-people me-2"></i> {/* 회원관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/view/admin/users/list">
-          전체회원관리
-          </a>
-          {showSubMenu && (
-            <div className={styles.subMenu}>
-              <a href="/view/admin/users/list" className={styles.subLink}>
-                전체관리
-              </a>
-              <a href="/view/admin/users/list?userRole=STUDENT" className={styles.subLink}>
-                학생관리
-              </a>
-              <a href="/view/admin/users/list?userRole=INSTRUCTOR" className={styles.subLink}>
-                강사관리
-              </a>
-              <a href="/view/admin/users/list?userRole=MANAGER" className={styles.subLink}>
-                매니저관리
-              </a>
-              <a href="/view/admin/instr/list" className={styles.subLink}>
-                강사신청조회
-              </a>
-            </div>
-          )}
-          </div>
-
-          <div className={`${styles.link} ${styles.dropdown}`}
-             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
-             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
-          >
-          <i className="bi bi-book"></i> {/* 국비관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/view/admin/KDT/list">
-            국비관리
-          </a>
-          {showSubMenu && (
-            <div className={styles.subMenu}>
-              <a href="http://localhost:8091/admin/KDT/course" className={styles.subLink}>
-                국비과정등록
-              </a>
-              <a href="http://localhost:8091/admin/KDT/session" className={styles.subLink}>
-                국비회차등록
-              </a>
-              <a href="/view/admin/KDT/list" className={styles.subLink}>
-                국비과정조회
-              </a>
-            </div>
-          )}
-          </div>
 
           <div className={`${styles.link} ${styles.dropdown}`}
              onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
@@ -123,29 +47,12 @@ const StudentSideBar = () => {
             </div>
           )}
           </div>
-
-          <div className={`${styles.link} ${styles.dropdown}`}
-             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
-             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
-          >
-          <i className="bi bi-person-workspace"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/tables">
-          강의관리
+          
+          {/* 회원관리 */}
+          <a className={`${styles.link} sidebar-link`} href="/view/student/KDT/list">
+          <i className="bi bi-person-workspace"></i> {/* 개인정보 아이콘 */}
+          강의 목록 조회
           </a>
-          {showSubMenu && (
-            <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
-                강의등록
-              </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
-                강의목록조회  
-              </a>
-              <a href="/admin/overview" className={styles.subLink}>
-                강의 승인 대기 목록
-              </a>
-            </div>
-          )}
-          </div>
         
           <div className={`${styles.link} ${styles.dropdown}`}
             onMouseEnter={() => setShowSubMenu(true)}   // 마우스를 올리면 하위 메뉴 표시
@@ -166,6 +73,10 @@ const StudentSideBar = () => {
             </div>
           )}
           </div>
+          <a className={`${styles.link} sidebar-link`} href="/tables">
+          <i className="bi bi-cart"></i> {/* 결제관리 아이콘 */}
+          장바구니
+          </a>
 
           <a className={`${styles.link} sidebar-link`} href="/tables">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}

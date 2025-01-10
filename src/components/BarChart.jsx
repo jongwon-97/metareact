@@ -7,7 +7,7 @@ function BarChart() {
     datasets: [
       {
         label: "Sales",
-        data: [5000, 10000, 7500, 12500, 15000, 20000],
+        data: [0, 100, 500, 1000, 1500, 2000],
         backgroundColor: "rgba(75,192,192,1)",
       },
     ],

@@ -23,7 +23,7 @@ const ManagerCourseList = () => {
           },
           withCredentials: true, // 쿠키 포함
         });
-
+        console.log(response.data)
         setCourses(response.data); // 과정 데이터 설정
       } catch (error) {
         console.error("Error fetching courses:", error);
