@@ -13,7 +13,7 @@ import AttListDetail from "./pages/admin/AttListDetail";
 import AttLog from "./pages/admin/AttLog";
 import PartList from "./pages/admin/PartList"
 import TrainList from "./pages/admin/TrainList";
-import TestList from "./pages/admin/TestList";
+import TestList from "./pages/admin/TestLIst";
 import TestSubmit from "./pages/admin/TestSubmit";
 
 
@@ -21,6 +21,8 @@ import ManagerHeader from "./components/ManagerHeader";
 import ManagerSideBar from "./components/ManagerSideBar";
 
 import ManagerUserList from "./pages/manager/ManagerUsersList";
+import ManagerCourseList from "./pages/manager/ManagerCourseLIst";
+import ManagerSessionList from "./pages/manager/ManagerSessionList";
 
 import InstrHeader from "./components/InstrHeader";
 import InstrSideBar from "./components/InstrSideBar";
@@ -81,7 +83,11 @@ function Layout() {
             <Route path="/admin/KDT/:kdtSessionId/test/submit/:kdtTestId/list" element={<TestSubmit />} />
             {/* Manager Routes */}  
             <Route path="/manager/dashboard" element={<Dashboard />} />
+
             <Route path="/manager/users/list" element={<ManagerUserList />} />
+
+            <Route path="/manager/KDT/list" element={<ManagerCourseList />} />
+            <Route path="/manager/KDT/course/:courseId" element={<ManagerSessionList />} />
             {/* Instructor Routes */}
             <Route path="/instr/dashboard" element={<InstrDashboard />} />
             {/* Student Routes */}

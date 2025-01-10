@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react";
-import styles from "/src/css/admin/UserList.module.css";
+import styles from "/src/css/manager/ManagerUserList.module.css";
 import { useLocation } from "react-router-dom";
 import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
@@ -8,7 +8,7 @@ import Pagination from "/src/components/Pagination";
 const ManagerUserList = () => {
   const roleMap = {STUDENT: "학생",MANAGER: "매니저",INSTRUCTOR: "강사",ADMIN: "관리자"};
   const genderMap = {M: "남성",F: "여성",};
-  const statusMap = {활성: "활동",비활성: "휴면",차단: "정지",};
+  const statusMap = {활동중: "활동",휴면계정: "휴면",정지계정: "정지",};
   
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -152,7 +152,7 @@ const ManagerUserList = () => {
             <td>{statusMap[user.userStatus] || "알 수 없음"}</td>
             <td>{formatDate(user.userCreatedAt)}</td>
             <td>{formatDate(user.userUpdatedAt)}</td>
-            <td><a className={styles.godetail} href={`http://localhost:8091/admin/users/${user.userId}`}>상세정보</a></td>
+            <td><a className={styles.godetail} href={`http://localhost:8091/manager/users/${user.userId}`}>상세정보</a></td>
           </tr>
         ))}
       </tbody>

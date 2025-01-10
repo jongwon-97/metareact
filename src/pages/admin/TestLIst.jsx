@@ -69,7 +69,7 @@ const TestList = () => {
   return (
     <div className={styles.container}>
       <h1>
-        {sessionInfo.kdtSessionTitle} {sessionInfo.kdtSessionNum}회차 시험 목록
+        {sessionInfo.kdtSessionTitle} {sessionInfo.kdtSessionNum}회차 테스트 목록
       </h1>
 
       {/* 검색창 */}

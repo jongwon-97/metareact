@@ -82,24 +82,34 @@ const TestSubmit = () => {
         <thead>
           <tr>
             <th>번호</th>
-            <th>참여자 이름</th>
+            <th>참여자</th>
             <th>시험 제출일</th>
             <th>최종 수정일</th>
             <th>점수</th>
             <th>백분율</th>
+            <th>상세보기</th>
           </tr>
         </thead>
         <tbody>
           {currentItems.map((submit, index) => (
             <tr key={submit.kdtPartId}>
               <td>{startIndex + index + 1}</td>
-              <td>{submit.kdtPartName}</td>
-              <td>{formatDate(submit.kdtTestSubmitCreatedAt)}</td>
-              <td>{formatDate(submit.kdtTestSubmitUpdatedAt)}</td>
+              <td>
+                <a href={`http://localhost:8091/admin/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
+                  {submit.kdtPartName}
+                </a>
+              </td>
+              <td>{submit.kdtTestSubmitCreatedAt ? formatDate(submit.kdtTestSubmitCreatedAt) : "-"}</td>
+              <td>{submit.kdtTestSubmitUpdatedAt ? formatDate(submit.kdtTestSubmitUpdatedAt) : "-"}</td>
               <td>
                 {submit.actualScore}/{submit.maxScore}
               </td>
               <td>{submit.percentile}%</td>
+              <td>
+                <a href={`http://localhost:8091/admin/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
+                  상세보기
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>

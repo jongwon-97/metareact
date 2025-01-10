@@ -17,7 +17,7 @@ const ManagerSideBar = () => {
           </a>
 
           {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/manager/mypage">
           <i className="bi bi-person-circle me-2"></i> {/* 개인정보 아이콘 */}
           개인정보
           </a>
@@ -57,7 +57,7 @@ const ManagerSideBar = () => {
           </a>
 
           {/* 회원관리 */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          <a className={`${styles.link} sidebar-link`} href="/view/manager/KDT/list">
           <i className="bi bi-book"></i> {/* 개인정보 아이콘 */}
           국비 과정 조회
           </a>
