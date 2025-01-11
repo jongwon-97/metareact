@@ -9,15 +9,20 @@
 
 /* 달력부분 */
 
-
+.fc .fc-day a{
+    color: black;
+    text-decoration: none;
+}
 /* 일요일 날짜: 빨간색 */
 .fc .fc-day-sun a {
     color: red;
+    text-decoration: none;
 }
   
 /* 토요일 날짜: 파란색 */
 .fc .fc-day-sat a {
     color: blue;
+    text-decoration: none;
 }
 
 /* 제목 볼드 빼기 */
@@ -81,7 +86,9 @@
     color: #7b7b7b;
     vertical-align: middle;
 }
-
+.fc-theme-standard td {
+height: 120px;
+}
 /* Tody Cell에 배경색 주기 */
 .fc .fc-daygrid-day.fc-day-today {
     background-color: #e6895724;
@@ -111,4 +118,18 @@
     border-radius: 4px;
     font-weight: 500;
     font-size: 14px;
+    text-align: center;
+}
+
+.yearselect{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.yearvalue{
+    border-radius: 5px;
+}
+.monthvalue{
+    margin-left: 10px;
+    border-radius: 5px;
 }

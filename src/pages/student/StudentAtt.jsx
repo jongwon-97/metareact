@@ -10,16 +10,23 @@ import timezone from "dayjs/plugin/timezone";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const getKST = () => dayjs().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss");
-
+const getKST = () => dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+const getKSTday = () =>dayjs().tz("Asia/Seoul").format("YYYY-MM-DD");
+console.log(getKSTday());
 const AttListDetail = () => {
   const { kdtSessionId } = useParams(); // URL 파라미터
   const [detailInfo, setDetailInfo] = useState(null); // 상세 데이터
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
   const [events, setEvents] = useState([]); // 캘린더 이벤트 데이터
-  const [currentDate] = useState(new Date().toISOString().split("T")[0]); // 현재 날짜 (YYYY-MM-DD 형식)
-
+  const [currentDate] = useState(getKSTday()); // 현재 날짜 (YYYY-MM-DD 형식)
+ 
+  const statusColorMap = {
+    입실: "green",
+    결석: "red",
+    조퇴: "orange",
+    오류: "red",
+  };
   useEffect(() => {
     const fetchDetail = async () => {
       try {
@@ -40,8 +47,7 @@ const AttListDetail = () => {
           title: record.kdtAttStatus || "상태 없음",
           start: record.kdtAttDate,
           allDay: true,
-          backgroundColor:
-            record.kdtAttStatus === "ARRIVAL" ? "green" : "blue",
+          backgroundColor: statusColorMap[record.kdtAttStatus] || "blue",
         }));
         setEvents(eventData);
       } catch (error) {
@@ -58,9 +64,9 @@ const AttListDetail = () => {
   // 입실 처리 함수
   const handleArrival = async () => {
     try {
-      console.log( getKST().toString);
+      
       const payload = {
-        kdtAttDate: currentDate,
+        kdtAttDate: getKSTday(),
         kdtAttEntryTime: getKST(), // 현재 시간을 ISO 형식으로 추가
         kdtPartId: detailInfo.kdtAttListDTO?.[0]?.kdtPartId, // kdtPartId를 포함
       };
@@ -73,8 +79,20 @@ const AttListDetail = () => {
           withCredentials: true,
         }
       );
-      
+      console.log(getKST());
       alert("입실 처리가 완료되었습니다.");
+
+       // 이벤트 데이터 새로 생성
+      const newEvent = {
+      title: "입실",
+      start: currentDate,
+      allDay: true,
+      backgroundColor: "green",
+    };
+
+    // 이벤트 상태 업데이트
+    setEvents((prevEvents) => [...prevEvents, newEvent]);
+
       setDetailInfo(response.data); // 상태 갱신
     } catch (error) {
       console.error("입실 처리 중 오류 발생:", error);
@@ -135,7 +153,7 @@ const AttListDetail = () => {
       </p>
     );
   };
-
+  
   if (loading) return <div className={styles.loading}>로딩 중...</div>;
   if (errorMessage) return <div className={styles.error}>{errorMessage}</div>;
 
@@ -147,39 +165,71 @@ const AttListDetail = () => {
             <h3>학생 이름: {detailInfo.kdtAttListDTO?.[0]?.kdtPartName || "정보 없음"}</h3>
             <p>{detailInfo.KDTSessionDTO?.kdtSessionTitle || "정보 없음"}</p>
             {renderAttendanceStats()}
-            <BackButton label="뒤로가기" />
-          </div>
-
-          <div className={styles.calendarContainer}>
-            <CustomCalendar events={events} />
+            
           </div>
 
           <div className={styles.actionButtons}>
-            <button
-              className={styles.updateButton}
-              onClick={() => handleArrival()}
-            >
-              입실
-            </button>
-            <button
-              className={styles.updateButton}
-              onClick={() => handleUpdate("DEPARTURE")}
-            >
-              퇴실
-            </button>
+          {/* 복귀 버튼: 외출 처리된 경우에만 표시 */}
+          {detailInfo?.kdtAttDTOs?.some(
+            (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "외출"
+          ) ? (
             <button
               className={styles.updateButton}
               onClick={() => handleUpdate("ARRIVAL")}
             >
               복귀
             </button>
-            <button
-              className={styles.updateButton}
-              onClick={() => handleUpdate("OUTGOING")}
-            >
-              외출
-            </button>
+          ) : (
+            <>
+              {/* 입실 버튼: 출석 정보가 없거나 퇴실 처리된 경우에만 표시 */}
+              {!detailInfo?.kdtAttDTOs?.some(
+                (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "입실"
+              ) && (
+                <button
+                  className={styles.updateButton}
+                  onClick={() => handleArrival()}
+                >
+                  입실
+                </button>
+              )}
+
+              {/* 퇴실 버튼: 입실 처리된 경우에만 표시 */}
+              {detailInfo?.kdtAttDTOs?.some(
+                (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "입실"
+              ) && (
+                <button
+                  className={styles.updateButton}
+                  onClick={() => handleUpdate("DEPARTURE")}
+                >
+                  퇴실
+                </button>
+              )}
+
+              {/* 외출 버튼: 입실 처리된 경우에만 표시 (외출하지 않은 상태) */}
+              {detailInfo?.kdtAttDTOs?.some(
+                (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "입실"
+              ) &&
+                !detailInfo?.kdtAttDTOs?.some(
+                  (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "외출"
+                ) && (
+                  <button
+                    className={styles.updateButton}
+                    onClick={() => handleUpdate("OUTGOING")}
+                  >
+                    외출
+                  </button>
+                )}
+            </>
+          )}
+        </div>
+
+          {/*<BackButton label="뒤로가기" />*/}
+
+          <div className={styles.calendarContainer}>
+            <CustomCalendar events={events} />
           </div>
+
+         
         </>
       )}
     </div>

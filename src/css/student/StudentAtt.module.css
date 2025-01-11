@@ -3,21 +3,22 @@
   margin: 20px auto;
   padding: 20px;
   max-width: 800px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 /* 오류 메시지 */
 .error {
   color: #d9534f;
-  background-color: #f2dede;
-  border: 1px solid #ebccd1;
-  padding: 10px;
+  background-color: #fbeaea;
+  border: 1px solid #f5c6cb;
+  padding: 12px;
   margin-bottom: 20px;
-  border-radius: 4px;
+  border-radius: 5px;
   text-align: center;
+  font-weight: bold;
 }
 
 /* 세션 정보 스타일 */
@@ -26,9 +27,10 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
 }
 
 .description {
@@ -37,10 +39,11 @@
   margin-bottom: 10px;
 }
 
-.period, .location {
+.period, 
+.location {
   font-size: 14px;
   color: #777;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 /* 테이블 컨테이너 스타일 */
@@ -53,30 +56,31 @@
 .attendanceTable {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 14px;
+  border: 1px solid #ddd;
 }
 
 .tableHeader {
   background-color: #007bff;
   color: #fff;
-  font-weight: bold;
-  padding: 10px;
+  font-weight: 700;
+  padding: 12px;
   text-align: left;
-  border-bottom: 2px solid #0056b3;
+  border-bottom: 3px solid #0056b3;
 }
 
 .tableRow:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
 }
 
 .tableRow:hover {
-  background-color: #e9ecef;
+  background-color: #f1f3f5;
 }
 
 .tableCell {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .tableCell:last-child {
@@ -86,7 +90,16 @@
 /* 데이터가 없을 때 스타일 */
 .noData {
   font-size: 16px;
-  color: #777;
+  color: #999;
   text-align: center;
+  margin-top: 25px;
+}
+
+/* 캘린더 스타일 */
+.calendarContainer {
   margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f8f9fa;
 }
