@@ -34,6 +34,7 @@ import StudentSidebar from "./components/StudentSidebar";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentSessionList from "./pages/student/StudentSessionList";
+import StudentAtt from "./pages/student/StudentAtt";
 
 function Layout() {
   const location = useLocation();
@@ -95,6 +96,7 @@ function Layout() {
             {/* Student Routes */}
             <Route path="/student/dashboard" element={<StudentDashboard />} />
             <Route path="/student/KDT/list" element={<StudentSessionList />} />
+            <Route path="/student/KDT/:kdtSessionId/att/detail" element={<StudentAtt />} />
 
           </Routes>
         </div>

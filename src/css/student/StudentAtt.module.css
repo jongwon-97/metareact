@@ -1,0 +1,92 @@
+/* 전체 컨테이너 스타일 */
+.container {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* 오류 메시지 */
+.error {
+  color: #d9534f;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* 세션 정보 스타일 */
+.sessionInfo {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.period, .location {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+/* 테이블 컨테이너 스타일 */
+.tableContainer {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+/* 테이블 스타일 */
+.attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.tableHeader {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #0056b3;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tableRow:hover {
+  background-color: #e9ecef;
+}
+
+.tableCell {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tableCell:last-child {
+  text-align: center;
+}
+
+/* 데이터가 없을 때 스타일 */
+.noData {
+  font-size: 16px;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}

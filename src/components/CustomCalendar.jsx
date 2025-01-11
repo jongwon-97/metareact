@@ -17,8 +17,8 @@ const CustomCalendar = ({ events, onEventClick, onDateClick }) => {
         right: "dayGridMonth,timeGridWeek,timeGridDay",
       }}
       events={events}
-      eventClick={onEventClick}
-      dateClick={onDateClick}
+      eventClick={onEventClick}  // 본문에서 전달받은 날짜 클릭 핸들러
+      dateClick={onDateClick}    // 본문에서 전달받은 이벤트 클릭 핸들러
       dayCellClassNames={(arg) => {
         const isWeekend = arg.date.getDay() === 0 || arg.date.getDay() === 6;
         return isWeekend ? "fc-weekend" : "";
