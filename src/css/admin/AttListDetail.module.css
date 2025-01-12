@@ -6,6 +6,19 @@
   border-radius: 8px;
 }
 
+.headerContainer {
+  display: flex;
+  justify-content: space-between; /* 양쪽 정렬 */
+  align-items: center; /* 수직 정렬 */
+  margin-bottom: 20px; /* 아래 간격 */
+}
+/* 상세보기와 백 버튼 컨테이너 */
+.headerActions {
+  display: flex; /* 가로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  gap: 20px; /* 버튼 간 간격 */
+}
+
 /* 학생 정보 섹션 */
 .sessionInfo {
   background-color: #ffffff; /* 흰색 배경 */
@@ -22,10 +35,16 @@
   color: #343a40;
   margin-bottom: 10px;
 }
+.sessiontitle {
+  font-size: 20px; /* 글씨 크기 */
+  font-weight: 600; /* 굵기 */
+  color: #343a40; /* 텍스트 색상 */
+  display: inline-block; /* 줄바꿈 방지 */
+  margin: 0; /* 여백 제거 */
+}
 
 .sessionInfo p {
   font-size: 16px;
-  line-height: 1.6;
   color: #6c757d;
   margin: 10px 0; /* 위아래 간격 추가 */
 }

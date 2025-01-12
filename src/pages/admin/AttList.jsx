@@ -4,6 +4,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "/src/css/admin/AttList.module.css";
 import dayjs from "dayjs";
+import Backbutton from "/src/components/BackButton";
 
 const AttList = () => {
   const { kdtSessionId } = useParams(); // URL 파라미터에서 sessionId 가져오기
@@ -75,6 +76,19 @@ const AttList = () => {
 
   return (
     <div className={styles.attListContainer}>
+      
+      {/* 회차 정보 출력 */}
+      {sessionInfo && (
+        <div className={styles.sessionheader}>
+        <div className={styles.sessionInfo}>
+          <h2>{sessionInfo.kdtSessionTitle || "회차 정보 없음"}</h2>
+          <p>현재 날짜: {getCurrentDate()}</p>
+        </div>
+        <div className={styles.backButtonContainer}>
+          <Backbutton label="Back" />
+        </div>
+        </div>
+      )}
       {/* 날짜 선택 */}
       <div className={styles.dateSelector}>
         <label htmlFor="date" className="form-label">날짜 선택:</label>
@@ -87,13 +101,7 @@ const AttList = () => {
         />
       </div>
 
-      {/* 회차 정보 출력 */}
-      {sessionInfo && (
-        <div className={styles.sessionInfo}>
-          <h2>{sessionInfo.kdtSessionTitle || "회차 정보 없음"}</h2>
-          <p>현재 날짜: {getCurrentDate()}</p>
-        </div>
-      )}
+      
       {/* 출석부 테이블 */}
       <table className={`table table-bordered ${styles.attendanceTable}`}>
         <thead>

@@ -34,12 +34,18 @@ const CustomCalendar = ({ events, onEventClick, onDateClick }) => {
     calendarApi.gotoDate(`${year}-${String(month).padStart(2, "0")}-01`);
   };
 
+  const currentYear = new Date().getFullYear(); // 현재 연도
+  const startYear = currentYear - 5; // 과거 5년
+  const endYear = currentYear + 1; // 미래 1년
+
+
   return (
     <div>
       <div className="yearselect">
-        <select value={year} onChange={handleYearChange} className="yearvalue">
-          {Array.from({ length: 21 }, (_, i) => {
-            const optionYear = new Date().getFullYear() - 10 + i;
+      <select value={year} onChange={handleYearChange} className="yearvalue">
+          {/* 연도 선택 범위를 현재 연도 기준으로 과거 5년 ~ 미래 1년으로 제한 */}
+          {Array.from({ length: endYear - startYear + 1 }, (_, i) => {
+            const optionYear = startYear + i; // 시작 연도에서 인덱스를 더하여 생성
             return (
               <option key={optionYear} value={optionYear}>
                 {optionYear}년

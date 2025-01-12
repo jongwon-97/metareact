@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import axios from "axios";
 import CustomCalendar from "/src/components/CustomCalendar";
 import styles from "/src/css/student/StudentAtt.module.css";
-import BackButton from "/src/components/BackButton";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -15,16 +14,18 @@ const getKSTday = () =>dayjs().tz("Asia/Seoul").format("YYYY-MM-DD");
 console.log(getKSTday());
 const AttListDetail = () => {
   const { kdtSessionId } = useParams(); // URL 파라미터
+  const navigate = useNavigate(); // useNavigate 훅 사용
   const [detailInfo, setDetailInfo] = useState(null); // 상세 데이터
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
   const [events, setEvents] = useState([]); // 캘린더 이벤트 데이터
   const [currentDate] = useState(getKSTday()); // 현재 날짜 (YYYY-MM-DD 형식)
- 
+
   const statusColorMap = {
     입실: "green",
     결석: "red",
     조퇴: "orange",
+    외출: "gray",
     오류: "red",
   };
   useEffect(() => {
@@ -37,8 +38,8 @@ const AttListDetail = () => {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }
-        );
-
+        );  
+        console.log("서버 응답 :", response.status);
         console.log("서버 응답 데이터:", response.data);
         setDetailInfo(response.data);
 
@@ -50,10 +51,15 @@ const AttListDetail = () => {
           backgroundColor: statusColorMap[record.kdtAttStatus] || "blue",
         }));
         setEvents(eventData);
-      } catch (error) {
-        setErrorMessage("상세 데이터를 불러오는 데 실패했습니다.");
-        console.error("상세 데이터를 불러오는 중 오류 발생:", error);
-      } finally {
+      } catch (error){
+      if(error.response?.status === 403) {
+        alert("권한이 없습니다. 이전 페이지로 이동합니다.");
+        navigate(-1); // 히스토리 백
+      } else {
+          setErrorMessage("상세 데이터를 불러오는 데 실패했습니다.");
+          console.error("상세 데이터를 불러오는 중 오류 발생:", error);
+        }
+      }finally {
         setLoading(false);
       }
     };
@@ -108,7 +114,7 @@ const AttListDetail = () => {
       );
 
       if (!selectedAttendance) {
-        alert("출석 정보가 없습니다. 먼저 입실을 처리하세요.");
+        alert("출석 정보가 없습니다. 먼저 입실하세요.");
         return;
       }
 
@@ -131,9 +137,38 @@ const AttListDetail = () => {
           withCredentials: true,
         }
       );
+      // 캘린더 이벤트 업데이트
+      const updatedStatus = response.data.kdtAttDTOs.find(
+        (record) => record.kdtAttDate === currentDate
+      )?.kdtAttStatus;
 
-      alert(`${status} 처리가 완료되었습니다.`);
+      let alertMessage = `${updatedStatus} 완료.`; // 기본 메시지 설정
+      if (updatedStatus === "결석") {
+        alertMessage = "시간 부족으로 결석 처리되었습니다.";
+      } else if (updatedStatus === "입실") {
+        alertMessage = "복귀 완료.";
+      }
+        console.log(updatedStatus);
+      alert(alertMessage);
+
       setDetailInfo(response.data); // 상태 갱신
+
+    
+    const newEvent = {
+      title: updatedStatus || "알 수 없는 상태", // 상태에 따라 제목 결정
+      start: currentDate,
+      allDay: true,
+      backgroundColor: statusColorMap[updatedStatus] || "gray", // 상태에 따라 색상 결정
+    };
+
+    // 기존 이벤트를 업데이트 (중복 제거)
+    setEvents((prevEvents) => {
+      const filteredEvents = prevEvents.filter(
+        (event) => event.start !== currentDate // 기존 날짜 이벤트 제거
+      );
+      return [...filteredEvents, newEvent];
+    });
+
     } catch (error) {
       console.error(`${status} 처리 중 오류 발생:`, error);
       alert(`${status} 처리에 실패했습니다.`);
@@ -144,13 +179,28 @@ const AttListDetail = () => {
   const renderAttendanceStats = () => {
     const stats = detailInfo?.kdtAttListDTO?.[0] || {};
     return (
-      <p className={styles.attendanceStats}>
-        <span>출석율: {stats.kdtAttRate || "정보 없음"}%</span>&nbsp;&nbsp;
-        <span>출석: {stats.attCount || 0}회</span>&nbsp;&nbsp;
-        <span>외출: {stats.outgoingCount || 0}회</span>&nbsp;&nbsp;
-        <span>조퇴: {stats.earlyLeaveCount || 0}회</span>&nbsp;&nbsp;
-        <span>병결: {stats.tardyCount || 0}회</span>
-      </p>
+        <div className={styles.attendanceStats}>
+        <div className={styles.statCard}>
+          <p>출석율</p>
+          <span>{stats.kdtAttRate ? stats.kdtAttRate.toFixed(2) : "정보 없음"}%</span>
+        </div>
+        <div className={styles.statCard}>
+          <p>출석</p>
+          <span>{stats.attCount || 0}회</span>
+        </div>
+        <div className={styles.statCard}>
+          <p>외출</p>
+          <span>{stats.outgoingCount || 0}회</span>
+        </div>
+        <div className={styles.statCard}>
+          <p>조퇴</p>
+          <span>{stats.earlyLeaveCount || 0}회</span>
+        </div>
+        <div className={styles.statCard}>
+          <p>지각</p>
+          <span>{stats.tardyCount || 0}회</span>
+        </div>
+      </div>
     );
   };
   
@@ -162,8 +212,8 @@ const AttListDetail = () => {
       {detailInfo && (
         <>
           <div className={styles.sessionInfo}>
-            <h3>학생 이름: {detailInfo.kdtAttListDTO?.[0]?.kdtPartName || "정보 없음"}</h3>
-            <p>{detailInfo.KDTSessionDTO?.kdtSessionTitle || "정보 없음"}</p>
+            <h1>{detailInfo.KDTSessionDTO?.kdtSessionTitle || "정보 없음"}</h1>
+            <h2>학생 이름: {detailInfo.kdtAttListDTO?.[0]?.kdtPartName || "정보 없음"}</h2> 
             {renderAttendanceStats()}
             
           </div>
@@ -198,7 +248,7 @@ const AttListDetail = () => {
                 (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "입실"
               ) && (
                 <button
-                  className={styles.updateButton}
+                  className={styles.updateOutButton}
                   onClick={() => handleUpdate("DEPARTURE")}
                 >
                   퇴실
@@ -211,6 +261,9 @@ const AttListDetail = () => {
               ) &&
                 !detailInfo?.kdtAttDTOs?.some(
                   (record) => record.kdtAttDate === currentDate && record.kdtAttStatus === "외출"
+                ) && 
+                !detailInfo?.kdtAttDTOs?.some(
+                  (record) => record.kdtAttDate === currentDate && record.kdtAttLeaveStart // 외출 시간이 있는지 확인
                 ) && (
                   <button
                     className={styles.updateButton}

@@ -56,24 +56,28 @@ const AttListDetail = () => {
       {detailInfo && (
         <>
           <div className={styles.sessionInfo}>
-            <h3>학생 이름: {detailInfo.kdtAttListDTO[0]?.kdtPartName || "정보 없음"}</h3>
+            <div className={styles.headerContainer}>
+              <div className={styles.sessiontitle}>학생 이름: {detailInfo.kdtAttListDTO[0]?.kdtPartName || "정보 없음"}</div>
+              <div className={styles.headerActions}>
+                <Link to={`/admin/KDT/${kdtSessionId}/att/log/${kdtPartId}`} className={styles.detailLink}>
+                  상세보기
+                </Link>
+                <BackButton label="Back" />
+              </div>
+            </div>
             <p>{detailInfo.KDTSessionDTO?.kdtSessionNum || "정보 없음"}회차</p>
             <p>{detailInfo.KDTSessionDTO?.kdtSessionTitle || "정보 없음"}</p>
             <p className={styles.attendanceStats}>
-              <span>출석율: {detailInfo.kdtAttListDTO[0]?.kdtAttRate || "정보 없음"}%</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span>출석율: {detailInfo.kdtAttListDTO[0]?.kdtAttRate.toFixed(2) || "정보 없음"}%</span>&nbsp;&nbsp;&nbsp;&nbsp;
               <span>출석: {detailInfo.kdtAttListDTO[0]?.attCount || 0}회</span>&nbsp;&nbsp;&nbsp;&nbsp;
               <span>외출: {detailInfo.kdtAttListDTO[0]?.outgoingCount || 0}회</span>&nbsp;&nbsp;&nbsp;&nbsp;
               <span>조퇴: {detailInfo.kdtAttListDTO[0]?.earlyLeaveCount || 0}회</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <span>병결: {detailInfo.kdtAttListDTO[0]?.tardyCount || 0}회</span>
+              <span>지각: {detailInfo.kdtAttListDTO[0]?.tardyCount || 0}회</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span>결석: {detailInfo.kdtAttListDTO[0]?.absenceCount || 0}회</span>
             </p>
-            
-            <Link to={`/admin/KDT/${kdtSessionId}/att/log/${kdtPartId}`}>상세보기</Link>
-            <BackButton label="Back" />
-            
           </div>
           {/* FullCalendar로 변경된 달력 */}
           <div className={styles.calendarContainer}>
-            <h2 className={styles.subHeader}>출석 기록</h2>
             <CustomCalendar events={events}/>
           </div>   
         </>
