@@ -11,6 +11,17 @@ const AttListDetail = () => {
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
   const [events, setEvents] = useState([]); // 캘린더 이벤트 데이터
+
+  const statusColorMap = {
+    입실: "green",
+    출석: "blue",
+    조퇴: "orange",
+    외출: "gray",
+    휴가: "green",
+    결석: "red",
+    병결: "green",
+    오류: "red",
+  };
   useEffect(() => {
     const fetchDetail = async () => {
       try {
@@ -26,15 +37,15 @@ const AttListDetail = () => {
         );
         console.log(response.data);
         setDetailInfo(response.data);
-
-        // FullCalendar에 사용할 이벤트 데이터 가공
-        const eventData = response.data.kdtAttDTOs.map((record) => ({
+         // 이벤트 데이터 가공
+         const eventData = (response.data.kdtAttDTOs || []).map((record) => ({
           title: record.kdtAttStatus || "상태 없음",
           start: record.kdtAttDate,
           allDay: true,
-          backgroundColor: record.kdtAttStatus === "ABSENT" ? "red" : "#007bff",
-          borderColor: record.kdtAttStatus === "ABSENT" ? "darkred" : "#0056b3",
+          backgroundColor: statusColorMap[record.kdtAttStatus] || "blue",
         }));
+
+        console.log(eventData);
         setEvents(eventData);
       } catch (error) {
         setErrorMessage("상세 데이터를 불러오는 데 실패했습니다.");
