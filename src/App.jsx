@@ -19,11 +19,19 @@ import TestSubmit from "./pages/admin/TestSubmit";
 
 import ManagerHeader from "./components/ManagerHeader";
 import ManagerSideBar from "./components/ManagerSideBar";
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
 
 import ManagerUserList from "./pages/manager/ManagerUsersList";
 import ManagerCourseList from "./pages/manager/ManagerCourseLIst";
 import ManagerSessionList from "./pages/manager/ManagerSessionList";
 import ManagerSessionDetail from "./pages/manager/ManagerSessionDetail";
+import ManagerAttList from "./pages/manager/ManagerAttList"
+import ManagerAttListDetail from "./pages/manager/ManagerAttListDetail";
+import ManagerAttLog from "./pages/manager/ManagerAttLog";
+import ManagerPartList from "./pages/manager/ManagerPartList"
+import ManagerTrainList from "./pages/manager/ManagerTrainList";
+import ManagerTestList from "./pages/manager/ManagerTestLIst";
+import ManagerTestSubmit from "./pages/manager/ManagerTestSubmit";
 
 import InstrHeader from "./components/InstrHeader";
 import InstrSideBar from "./components/InstrSideBar";
@@ -85,13 +93,24 @@ function Layout() {
             <Route path="/admin/KDT/:kdtSessionId/test/list" element={<TestList />} />
             <Route path="/admin/KDT/:kdtSessionId/test/submit/:kdtTestId/list" element={<TestSubmit />} />
             {/* Manager Routes */}  
-            <Route path="/manager/dashboard" element={<Dashboard />} />
+            <Route path="/manager/dashboard" element={<ManagerDashboard />} />
 
             <Route path="/manager/users/list" element={<ManagerUserList />} />
 
             <Route path="/manager/KDT/list" element={<ManagerCourseList />} />
             <Route path="/manager/KDT/course/:courseId" element={<ManagerSessionList />} />
             <Route path="/manager/KDT/session/:sessionId" element={<ManagerSessionDetail />} />
+
+            <Route path="/manager/KDT/:kdtSessionId/att/list" element={<ManagerAttList />} />
+            <Route path="/manager/KDT/:kdtSessionId/att/detail/:kdtPartId" element={<ManagerAttListDetail />} />
+            <Route path="/manager/KDT/:kdtSessionId/att/log/:kdtPartId" element={<ManagerAttLog />} />
+         
+            <Route path="/manager/KDT/:kdtSessionId/part/list" element={<ManagerPartList />} />
+
+            <Route path="/manager/KDT/:kdtSessionId/train/list" element={<ManagerTrainList />} />
+            
+            <Route path="/manager/KDT/:kdtSessionId/test/list" element={<ManagerTestList />} />
+            <Route path="/manager/KDT/:kdtSessionId/test/submit/:kdtTestId/list" element={<ManagerTestSubmit />} />
             {/* Instructor Routes */}
             <Route path="/instr/dashboard" element={<InstrDashboard />} />
             <Route path="/instr/KDT/list" element={<InstrSessionList />} />

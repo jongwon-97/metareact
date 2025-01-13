@@ -31,7 +31,7 @@ const ManagerCourseList = () => {
 
   return (
     <div className={styles.courselistcontainer}>
-
+    <h2 className={styles.listheader}>국비 과정 목록</h2>
     {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
     <table className={styles.courselisttable}>

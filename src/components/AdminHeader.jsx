@@ -6,6 +6,9 @@ const AdminHeader = () => {
   const [userInfo, setUserInfo] = useState({ email: "", role: "" }); // 사용자 이름 상태
   const LOGOUT_URL = "/logout"; // 로그아웃 API
   const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
+  const roleMap = {
+    ADMIN: "관리자",
+  };
   
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -20,7 +23,7 @@ const AdminHeader = () => {
           setUserInfo({
             name: response.data.name || "알 수 없음",
             email: response.data.userEmail || "이메일 없음",
-            role: response.data.userRole || "권한 없음",
+            role:  roleMap[response.data.userRole] || "권한 없음",
           });
         } else {
           setErrorMessage("사용자 정보를 불러오지 못했습니다.");

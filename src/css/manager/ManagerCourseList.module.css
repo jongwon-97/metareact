@@ -9,6 +9,10 @@
     
     
   }
+  .listheader{
+    margin-bottom: 20px;
+  }
+
   
   /* 테이블 스타일 */
   .courselisttable {

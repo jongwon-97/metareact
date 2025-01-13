@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "/src/css/manager/ManagerSessionList.module.css";
 
-const SessionList = () => {
+const ManagerSessionList = () => {
   const { courseId } = useParams(); // URL에서 courseId 가져오기
   const navigate = useNavigate(); // 히스토리 백을 위한 useNavigate
   const [sessions, setSessions] = useState([]); // 회차 데이터 상태 관리
@@ -53,7 +53,7 @@ const SessionList = () => {
 
   return (
     <div className={styles.sessionlistcontainer}>
-
+      <h2 className={styles.listheader}>{sessions.length > 0 && sessions[0].kdtSessionTitle} 회차 목록</h2>
       {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
       
       {sessions.length > 0 ? (
@@ -116,4 +116,4 @@ const SessionList = () => {
   );
 };
 
-export default SessionList;
+export default ManagerSessionList;

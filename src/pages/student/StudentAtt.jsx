@@ -72,11 +72,10 @@ const AttListDetail = () => {
     try {
       
       const payload = {
-        kdtAttDate: currentDate,
+        kdtAttDate: getKSTday(),
         kdtAttEntryTime: getKST(), // 현재 시간을 ISO 형식으로 추가
         kdtPartId: detailInfo.kdtAttListDTO?.[0]?.kdtPartId, // kdtPartId를 포함
       };
-      console.log(payload);
 
       const response = await axios.post(
         `http://localhost:8091/api/student/KDT/${kdtSessionId}/att/new`,
@@ -86,20 +85,21 @@ const AttListDetail = () => {
           withCredentials: true,
         }
       );
-      console.log("입실 처리 응답 데이터:", response.data);
+      console.log(getKST());
+      alert("입실 처리가 완료되었습니다.");
 
-      // 이벤트 데이터 새로 생성
+       // 이벤트 데이터 새로 생성
       const newEvent = {
       title: "입실",
       start: currentDate,
       allDay: true,
       backgroundColor: "green",
-      };
+    };
 
-    // 이벤트 상태 업데이트
-    setDetailInfo(response.data); // detailInfo 상태 갱신
-    setEvents((prevEvents) => [...prevEvents, newEvent]); // 캘린더 이벤트 추가
-    alert("입실 처리가 완료되었습니다.");
+      // 이벤트 상태 업데이트
+      setEvents((prevEvents) => [...prevEvents, newEvent]);
+
+      setDetailInfo(response.data); // 상태 갱신
     } catch (error) {
       console.error("입실 처리 중 오류 발생:", error);
       alert("입실 처리에 실패했습니다.");
@@ -123,7 +123,6 @@ const AttListDetail = () => {
       const payload = {
         kdtPartId: detailInfo.kdtAttListDTO?.[0]?.kdtPartId, 
         kdtAttDate: currentDate,
-        kdtAttStatus: status,
         ...(status === "DEPARTURE" && { kdtAttExitTime: getKST() }),
         ...(status === "OUTGOING" && { kdtAttLeaveStart: getKST() }),
         ...(status === "ARRIVAL" && { kdtAttLeaveEnd: getKST() }),
@@ -212,7 +211,7 @@ const AttListDetail = () => {
       {detailInfo && (
         <>
           <div className={styles.sessionInfo}>
-            <h1>{detailInfo.KDTSessionDTO?.kdtSessionTitle || "정보 없음"}</h1>
+            <h1>{detailInfo.KDTSessionDTO?.kdtSessionTitle || "정보 없음"} {detailInfo.KDTSessionDTO?.kdtSessionNum || "정보 없음"}회차</h1>
             <h2>학생 이름: {detailInfo.kdtAttListDTO?.[0]?.kdtPartName || "정보 없음"}</h2> 
             {renderAttendanceStats()}
             

@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #2c3e50; /* LMS 기본 색상 */
-    --hover-color: #34495e;  /* 호버 색상 */
+    --primary-color: #50462c; /* LMS 기본 색상 */
+    --hover-color: #5e413400;  /* 호버 색상 */
     --text-color: #ecf0f1;   /* 텍스트 색상 */
     --background-color: #f4f6f7; /* 배경색 */
     --font-family: "Roboto", sans-serif; /* LMS 기본 폰트 */
@@ -124,7 +124,7 @@
 }
 
 .counseldropdownMenu a:hover {
-    background-color: #ffff012e;
+    background-color: #ff9e018f;
 }
 
 /* 하위 메뉴 표시 (부모 요소에 hover) */
@@ -188,7 +188,7 @@
 }
 
 .testdropdownMenu a:hover {
-    background-color: #ffff012e;
+    background-color: #ffbb0155;
 }
 
 /* 하위 메뉴 표시 (부모 요소에 hover) */
@@ -248,7 +248,7 @@
 }
 
 .boarddropdownMenu a:hover {
-    background-color: #ffff012e;
+    background-color: #ff9e018f;
 }
 
 
@@ -288,7 +288,7 @@
 
 .infoTable th {
   background-color: var(--primary-color);
-  color: var(--text-color);
+  color: rgb(255, 255, 255);
   width: 15%;
 }
 
@@ -299,7 +299,7 @@
 
 h3 {
   margin-top: 30px;
-  color: var(--primary-color);
+  color: black;
   font-family: var(--font-family);
   border-bottom: 2px solid var(--hover-color);
   padding-bottom: 10px;

@@ -9,6 +9,9 @@
     
     table-layout: fixed; /* 셀 크기 고정 */
   }
+  .listheader{
+    margin-bottom: 20px;
+  }
   
   /* 테이블 스타일 */
   .sessionlisttable {
@@ -33,7 +36,7 @@
   
   /* 테이블 헤더 스타일 */
   .sessionlisttable th {
-    background-color: #8fda17; 
+    background-color: #da9917; 
     color: white; /* 텍스트 색상 */
     text-transform: uppercase; /* 대문자 */
     font-weight: bold;
@@ -94,7 +97,7 @@
   
   /* 버튼 스타일 */
   .editbtn {
-    background-color: #ffc107; /* 노란색 */
+    background-color: #191817; /* 노란색 */
     color: white;
     padding: 6px 10px;
     border: none;
@@ -103,9 +106,14 @@
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
   }
+  .editbtn a{
+    color: white !important; 
+    
+  }
 
   .editbtn:hover {
-    background-color: #e0a800;
+    background-color: #d6660ab6;
+
   }
   
   .deletebtn {
