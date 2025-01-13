@@ -71,13 +71,13 @@ const SessionList = () => {
               <th scope="col">번호</th>
               <th scope="col" colSpan="2">회차 제목</th> 
               <th scope="col">회차</th>
-              <th scope="col">상태</th>    
+              <th scope="col">상태</th>
+              <th scope="col">시작일</th>    
+              <th scope="col">종료일</th>  
               <th scope="col">수강생 등록하기</th>
-              <th scope="col">매니저 등록하기</th>
               <th scope="col">강사 등록하기</th>
               <th scope="col">상세보기</th>
               <th scope="col">수정</th>
-              <th scope="col">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -94,13 +94,13 @@ const SessionList = () => {
                 <td>{session.kdtSessionNum}회차</td>
 
                 <td>{session.kdtSessionStatus}</td>
-
+                
+                <td>{session.kdtSessionStartDate}</td>
+                <td>{session.kdtSessionEndDate}</td>
                 <td>
                   <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
                 </td>
-                <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
-                </td>
+        
                 <td>
                   <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
                 </td>
@@ -110,12 +110,8 @@ const SessionList = () => {
                   </Link>
                 </td>
                 <td>
-                  <button href={`http://localhost:8091/manager/KDT/session/update/${session.kdtSessionId}`} 
-                  className={styles.editbtn}>수정</button>
-                </td>
-                <td>
-                  <button href={`/manager/KDT/session/delete/${session.kdtSessionId}`}
-                  className={styles.deletebtn}>삭제</button>
+                  <button className={styles.editbtn}>
+                    <a href={`http://localhost:8091/manager/KDT/session/update/${session.kdtSessionId}`} >수정</a></button>
                 </td>
               </tr>
             ))}

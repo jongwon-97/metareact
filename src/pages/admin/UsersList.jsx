@@ -8,7 +8,7 @@ import Pagination from "/src/components/Pagination";
 const UserList = () => {
   const roleMap = {STUDENT: "학생",MANAGER: "매니저",INSTRUCTOR: "강사",ADMIN: "관리자"};
   const genderMap = {M: "남성",F: "여성",};
-  const statusMap = {활성: "활동",비활성: "휴면",차단: "정지",};
+  const statusMap = {활동중: "활동",휴면계정: "휴면",정지계정: "정지",};
   
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

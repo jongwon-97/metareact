@@ -90,10 +90,35 @@ const PartList = () => {
     setCurrentPage(1); // 페이지 번호를 초기화
   };
 
-  //간단삭제
-  const handleDelete = (userId) => {
-    setUsers(users.filter((user) => user.userId !== userId));
+  // 참가자 삭제 함수
+  const handleDelete = async (kdtPartId) => {
+    const confirmDelete = window.confirm("정말로 이 참가자를 명단에서 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8091/api/admin/KDT/${kdtSessionId}/part/delete/${kdtPartId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        alert(response.data.message || "참가자가 삭제되었습니다.");
+        // 삭제된 참가자를 제외한 새 상태 설정
+        setUsers((prevUsers) => prevUsers.filter((user) => user.kdtPartId !== kdtPartId));
+      } else {
+        alert(response.data.message || "참가자를 삭제할 수 없습니다.");
+      }
+    } catch (error) {
+
+      alert("이미 정보가 있는 학생은 삭제가 불가합니다.");
+    }
   };
+
    // 간단 수정
    const handleEdit = (user) => {
     setEditingUserId(user.userId);
@@ -208,7 +233,7 @@ const PartList = () => {
               <td>
               <button
                   className={styles.deleteButton}
-                  onClick={() => handleDelete(user.userId)}
+                  onClick={() => handleDelete(user.kdtPartId)}
                 >
                   삭제
                 </button>

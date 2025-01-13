@@ -64,61 +64,44 @@ const SessionDetail = () => {
           출석부
           </Link>
 
-          <div 
-          className={styles.counselsessionNavLink}
-          >
-            {/* 하위 메뉴 */}
-            <Link
-          className={`${styles.attsessionNavLink}`}
-          to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}
-           >
-          훈련일지
-          </Link>
-            
-            <div 
-            className={styles.counseldropdownMenu}>
-              <Link to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>훈련일지 목록</Link>
-              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/train`}>훈련일지 작성</a>
-            </div>
-        
-          </div>
-
-          <div 
-          className={styles.counselsessionNavLink}
-          >
-            <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/appconsult/list`}>상담일지</a>
-            {/* 하위 메뉴 */}
-            
-            <div 
-            className={styles.counseldropdownMenu}>
-              <a href="#">신청상담 목록</a>
-              <a href="#tests">수강생상담 목록</a>
-            </div>
-        
-          </div>
-
           <div className={styles.testsessionNavLink}>
 
           <Link
           className={`${styles.attsessionNavLink}`}
           to={`/admin/KDT/${sessionDetail.kdtSessionId}/test/list`}
            >
-          성적
+          시험
           </Link>
-            {/* 하위 메뉴 */}
-            <div className={styles.testdropdownMenu}>
-              <a href="#assignments">과제</a>
-              <a href="#tests">테스트</a>
-            </div>
+        
+          </div>
+
+          <div className={styles.counselsessionNavLink}>
+            <a>훈련일지</a>
+              {/* 하위 메뉴 */}
+              <div 
+              className={styles.counseldropdownMenu}>
+                <Link to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>훈련일지 목록</Link>
+                <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/train`}>훈련일지 작성</a>
+              </div>
+          </div>
+
+          <div className={styles.counselsessionNavLink}>
+            <a>상담일지</a>
+              {/* 하위 메뉴 */}
+              <div 
+              className={styles.counseldropdownMenu}>
+                <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/appconsult/list`}>신청상담 목록</a>
+                <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/consult/list`}>수강생상담 목록</a>
+              </div>
           </div>
 
           <div className={styles.boardsessionNavLink}>
-          <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/detail/detail`}>게시판</a>
+          <a>게시판</a>
             {/* 하위 메뉴 */}
             <div className={styles.boarddropdownMenu}>
-              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/courseoutline/list`}>자료실</a>
-              <a href="#tests">건의함</a>
-              <a href="#tests">리뷰</a>
+              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/board/materiallist`}>강의 자료실</a>
+              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/courseoutline/list`}>강의 영상</a>
+              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/detail/detail`}>홍보게시글</a>
             </div>
           </div>  
         </nav>

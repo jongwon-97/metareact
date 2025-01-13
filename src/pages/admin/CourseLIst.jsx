@@ -7,11 +7,6 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]); // 과정 데이터 상태 관리
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태 관리
 
-  const getCookie = (cookieName) => {
-    const cookies = document.cookie.split("; ");
-    const csrfCookie = cookies.find((row) => row.startsWith(cookieName + "="));
-    return csrfCookie ? csrfCookie.split("=")[1] : null;
-  };
 
   // 페이지 로드 시 데이터 가져오기
   useEffect(() => {
@@ -49,26 +44,31 @@ const CourseList = () => {
   };
 
   // 과정 삭제 함수
+ // 과정 삭제 함수
   const deleteCourse = async (courseId) => {
-  const csrfToken = getCookie("XSRF-TOKEN"); // Spring Security의 기본 CSRF 쿠키 이름
-  if (!csrfToken) {
-    alert("CSRF 토큰이 없습니다.");
-    return;
-  }
+  const confirmDelete = window.confirm("정말로 이 과정을 삭제하시겠습니까?");
+  if (!confirmDelete) return;
 
   try {
-    const response = await axios.delete(`http://localhost:8091/api/admin/KDT//course/delete/${courseId}`, {
+    const response = await axios.delete(`http://localhost:8091/api/admin/KDT/course/delete/${courseId}`, {
       headers: {
-        "X-XSRF-TOKEN": csrfToken, // CSRF 토큰 추가
         "Content-Type": "application/json",
       },
       withCredentials: true,
     });
 
-    console.log("Delete response:", response.data);
+    if (response.status === 200) {
+      alert(response.data.message || "과정이 삭제되었습니다.");
+      // 삭제된 과정을 제외한 새 상태 설정
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course.kdtCourseId !== courseId)
+      );
+    } else {
+      alert(response.data.message || "과정을 삭제할 수 없습니다.");
+    }
   } catch (error) {
     console.error("Error deleting course:", error);
-    alert("삭제 요청 실패");
+    alert("삭제 요청 중 오류가 발생했습니다.");
   }
 };
 

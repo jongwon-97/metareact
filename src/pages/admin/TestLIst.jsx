@@ -162,7 +162,16 @@ const TestList = () => {
         onPageChange={setCurrentPage}
         pagesPerGroup={5}
       />
-      <BackButton label="Back" />
+
+      <div className={styles.buttonContainer}>
+          <a
+            href={`http://localhost:8091/admin/KDT/${kdtSessionId}/test`}
+            className={styles.createButton}
+          >
+            시험제출
+          </a>
+          <BackButton label="Back" />
+      </div>
     </div>
   );
 };

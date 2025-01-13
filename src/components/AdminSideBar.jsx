@@ -17,7 +17,7 @@ const AdminSideBar = () => {
           </a>
 
           {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/admin/mypage">
           <i className="bi bi-person-circle me-2"></i> {/* 개인정보 아이콘 */}
           개인정보
           </a>
@@ -28,21 +28,21 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-bar-chart me-2"></i>
-          <a className={`${styles.hlink} sidebar-link`} href="view/admin/userchart">
+          <a className={`${styles.hlink} sidebar-link`} href="#">
           통계관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 전체 회원 증감율
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 학생 증감율
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 강사 증감율 
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 강의 증감율
               </a>
             </div>
@@ -71,7 +71,7 @@ const AdminSideBar = () => {
               <a href="/view/admin/users/list?userRole=MANAGER" className={styles.subLink}>
                 매니저관리
               </a>
-              <a href="/view/admin/instr/list" className={styles.subLink}>
+              <a href="http://localhost:8091/admin/instr/list" className={styles.subLink}>
                 강사신청조회
               </a>
             </div>
@@ -110,15 +110,15 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-card-list"></i> {/* 게시판관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/tables">
+          <a className={`${styles.hlink} sidebar-link`} href="#">
           게시판관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 게시글 작성
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 게시판 목록 조회
               </a>
             </div>
@@ -130,18 +130,18 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-person-workspace"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/tables">
+          <a className={`${styles.hlink} sidebar-link`} href="http://localhost:8091/admin/course/list/approved">
           강의관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="http://localhost:8091/admin/course" className={styles.subLink}>
                 강의등록
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="http://localhost:8091/admin/course/list/approved" className={styles.subLink}>
                 강의목록조회  
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="http://localhost:8091/admin/course/list/pending" className={styles.subLink}>
                 강의 승인 대기 목록
               </a>
             </div>
@@ -153,22 +153,22 @@ const AdminSideBar = () => {
             onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-star"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/tables">
+          <a className={`${styles.hlink} sidebar-link`} href="#">
           리뷰관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 국비 리뷰 목록 조회
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 강사 리뷰 목록 조회
               </a>
             </div>
           )}
           </div>
 
-          <a className={`${styles.link} sidebar-link`} href="/tables">
+          <a className={`${styles.link} sidebar-link`} href="#">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
           결제관리
           </a>

@@ -34,6 +34,36 @@ const SessionList = () => {
     fetchSessions();
 }, [courseId]);
 
+// 회차 삭제 핸들러
+const handleDelete = async (sessionId) => {
+  const confirmDelete = window.confirm("정말로 이 회차를 삭제하시겠습니까?");
+  if (!confirmDelete) return;
+
+  try {
+    const response = await axios.delete(`http://localhost:8091/api/admin/KDT/session/delete/${sessionId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // 쿠키 포함
+      }
+    );
+
+    if (response.status === 200) {
+      alert(response.data.message || "회차가 삭제되었습니다.");
+      // 삭제된 회차를 제외한 새 상태 설정
+      setSessions((prevSessions) =>
+        prevSessions.filter((session) => session.kdtSessionId !== sessionId)
+      );
+    } else {
+      alert(response.data.message || "회차 삭제에 실패했습니다.");
+    }
+  } catch (error) {
+    console.error("Error deleting session:", error);
+    alert("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+  }
+};
+
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -79,7 +109,7 @@ const SessionList = () => {
                 <td>{session.kdtSessionStatus}</td>
 
                 <td>
-                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
+                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/part`}>수강생 등록하기</a>
                 </td>
                 <td>
                   <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
@@ -93,12 +123,16 @@ const SessionList = () => {
                   </Link>
                 </td>
                 <td>
-                  <button href={`http://localhost:8091/admin/KDT/session/update/${session.kdtSessionId}`} 
-                  className={styles.editbtn}>수정</button>
+                  <button className={styles.editbtn}>
+                    <a href={`http://localhost:8091/admin/KDT/session/update/${session.kdtSessionId}`}>수정</a></button>
                 </td>
                 <td>
-                  <button href={`/admin/KDT/session/delete/${session.kdtSessionId}`}
-                  className={styles.deletebtn}>삭제</button>
+                <button
+                    onClick={() => handleDelete(session.kdtSessionId)}
+                    className={styles.deletebtn}
+                  >
+                    삭제
+                  </button>
                 </td>
               </tr>
             ))}

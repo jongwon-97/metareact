@@ -84,10 +84,7 @@ const ManagerCourseList = () => {
           <th scope="col">과정명</th>
           <th scope="col">상태</th>
           <th scope="col">종류</th>
-          <th scope="col">시작일</th>
-          <th scope="col">종료일</th>
           <th scope="col">상세보기</th>
-          <th scope="col">수정</th>
         </tr>
       </thead>
       <tbody>
@@ -101,22 +98,12 @@ const ManagerCourseList = () => {
             </td>
             <td>{course.kdtCourseStatus ? "활성" : "비활성"}</td>
             <td>{course.kdtCourseType || "정보 없음"}</td>
-            <td>{formatDate(course.kdtCourseCreatedAt)}</td>
-            <td>{formatDate(course.kdtCourseUpdatedAt)}</td>
             <td>
               <Link to={`/manager/KDT/course/${course.kdtCourseId}`}
                 className={`${styles.btn} ${styles.btnWarning}`}
               >
                 상세보기
               </Link>
-            </td>
-            <td>
-              <button
-               
-                className={styles.editbtn}
-              ><a  href={`http://localhost:8091/manager/KDT/course/update/${course.kdtCourseId}`}>수정</a>
-                
-              </button>
             </td>
           </tr>
         ))}
