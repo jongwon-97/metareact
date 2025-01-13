@@ -9,7 +9,7 @@ const SessionList = () => {
   const navigate = useNavigate(); // 히스토리 백을 위한 useNavigate
   const [sessions, setSessions] = useState([]); // 회차 데이터 상태 관리
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태 관리
- 
+  const statusMap = {WAITING: "대기", ONGOING: "진행중",FINISHED: "종료",};
 
   useEffect(() => {
     const fetchSessions = async () => {
@@ -23,7 +23,7 @@ const SessionList = () => {
         const data = response.data; // 응답 데이터 추출
         console.log("서버 응답 데이터:", data); // 데이터 로그 출력
         console.log("응답 데이터:", response.data);
-        
+        console.log(response);
         if (response.status === 403 && data.message === "회차에 등록된 매니저가 아닙니다.") {
           // 403 에러 발생 시 알림 표시 후 리다이렉트
           alert(data.message); // 메시지 표시
@@ -50,14 +50,6 @@ const SessionList = () => {
     fetchSessions(); // 데이터 요청
   }, [courseId, navigate]);
 
-
-  // 날짜 포맷팅 함수
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
-      date.getDate()
-    ).padStart(2, "0")} ${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`;
-  };
 
   return (
     <div className={styles.sessionlistcontainer}>
@@ -93,12 +85,12 @@ const SessionList = () => {
 
                 <td>{session.kdtSessionNum}회차</td>
 
-                <td>{session.kdtSessionStatus}</td>
+                <td>{statusMap[session.kdtSessionStatus]}</td>
                 
                 <td>{session.kdtSessionStartDate}</td>
                 <td>{session.kdtSessionEndDate}</td>
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
+                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/part`}>수강생 등록하기</a>
                 </td>
         
                 <td>

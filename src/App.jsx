@@ -23,6 +23,7 @@ import ManagerSideBar from "./components/ManagerSideBar";
 import ManagerUserList from "./pages/manager/ManagerUsersList";
 import ManagerCourseList from "./pages/manager/ManagerCourseLIst";
 import ManagerSessionList from "./pages/manager/ManagerSessionList";
+import ManagerSessionDetail from "./pages/manager/ManagerSessionDetail";
 
 import InstrHeader from "./components/InstrHeader";
 import InstrSideBar from "./components/InstrSideBar";
@@ -90,6 +91,7 @@ function Layout() {
 
             <Route path="/manager/KDT/list" element={<ManagerCourseList />} />
             <Route path="/manager/KDT/course/:courseId" element={<ManagerSessionList />} />
+            <Route path="/manager/KDT/session/:sessionId" element={<ManagerSessionDetail />} />
             {/* Instructor Routes */}
             <Route path="/instr/dashboard" element={<InstrDashboard />} />
             <Route path="/instr/KDT/list" element={<InstrSessionList />} />
