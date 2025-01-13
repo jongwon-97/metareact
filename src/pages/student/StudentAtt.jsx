@@ -72,10 +72,11 @@ const AttListDetail = () => {
     try {
       
       const payload = {
-        kdtAttDate: getKSTday(),
+        kdtAttDate: currentDate,
         kdtAttEntryTime: getKST(), // 현재 시간을 ISO 형식으로 추가
         kdtPartId: detailInfo.kdtAttListDTO?.[0]?.kdtPartId, // kdtPartId를 포함
       };
+      console.log(payload);
 
       const response = await axios.post(
         `http://localhost:8091/api/student/KDT/${kdtSessionId}/att/new`,
@@ -85,21 +86,20 @@ const AttListDetail = () => {
           withCredentials: true,
         }
       );
-      console.log(getKST());
-      alert("입실 처리가 완료되었습니다.");
+      console.log("입실 처리 응답 데이터:", response.data);
 
-       // 이벤트 데이터 새로 생성
+      // 이벤트 데이터 새로 생성
       const newEvent = {
       title: "입실",
       start: currentDate,
       allDay: true,
       backgroundColor: "green",
-    };
+      };
 
     // 이벤트 상태 업데이트
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
-
-      setDetailInfo(response.data); // 상태 갱신
+    setDetailInfo(response.data); // detailInfo 상태 갱신
+    setEvents((prevEvents) => [...prevEvents, newEvent]); // 캘린더 이벤트 추가
+    alert("입실 처리가 완료되었습니다.");
     } catch (error) {
       console.error("입실 처리 중 오류 발생:", error);
       alert("입실 처리에 실패했습니다.");

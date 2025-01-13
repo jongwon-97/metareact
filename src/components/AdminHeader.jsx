@@ -1,12 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import axios from "axios";
 import styles from "../css/admin/AdminHeader.module.css";
 
 const AdminHeader = () => {
-  const [userName] = useState("코사장"); // 사용자 이름 상태
-  const LOGOUT_URL = "http://localhost:8091/logout"; // 로그아웃 API
-  const REDIRECT_URL = "http://localhost:8091/"; // 로그아웃 후 리디렉션 URL
-
+  const [userInfo, setUserInfo] = useState({ email: "", role: "" }); // 사용자 이름 상태
+  const LOGOUT_URL = "/logout"; // 로그아웃 API
+  const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
+  
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get("http://localhost:8091/api/admin/user/profile", {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        });
+        console.log(response.data);
+  
+        if (response.status === 200) {
+          setUserInfo({
+            name: response.data.name || "알 수 없음",
+            email: response.data.userEmail || "이메일 없음",
+            role: response.data.userRole || "권한 없음",
+          });
+        } else {
+          setErrorMessage("사용자 정보를 불러오지 못했습니다.");
+        }
+      } catch (error) {
+        console.error("사용자 정보 요청 중 에러 발생:", error);
+        setErrorMessage("사용자 정보를 불러오는 중 오류가 발생했습니다.");
+      }
+    };
+  
+    fetchUserInfo();
+  }, []);
 
   // 로그아웃 핸들러
   const handleLogout = async () => {
@@ -35,7 +61,7 @@ const AdminHeader = () => {
       </div>
 
       <div className={styles.rightSection}>
-        <span className={styles.userName}>{userName}</span>
+        <span className={styles.userName}>{userInfo.email}</span>
         <button className={`${styles.logoutButton}`} onClick={handleLogout}>
           로그아웃
         </button>

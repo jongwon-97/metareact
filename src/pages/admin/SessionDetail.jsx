@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const SessionDetail = () => {
   const { sessionId } = useParams();
   const [sessionDetail, setSessionDetail] = useState([]); // 회차 상세 정보
+  const [participantCount, setParticipantCount] = useState(null);
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
 
@@ -25,6 +26,14 @@ const SessionDetail = () => {
         });
 
         setSessionDetail(response.data); // 과정 데이터 설정
+        // 두 번째 요청
+        const countDataResponse = await axios.get(`http://localhost:8091/api/admin/part/${sessionId}/count`, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        });
+        console.log("추가 데이터:", countDataResponse.data);
+         // 두 번째 데이터를 상태에 저장
+        setParticipantCount(countDataResponse.data);
       } catch (error) {
         console.error("Error fetching courses:", error);
         setErrorMessage("데이터를 불러오는 데 실패했습니다.");
@@ -166,7 +175,7 @@ const SessionDetail = () => {
               <th>하루 교육 시간</th>
               <td>{sessionDetail.kdtSessionOnedayTime || 0}시간</td>
               <th>최대 수강 인원</th>
-              <td>{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
+              <td>{participantCount.studentCount || "정보 없음"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
             </tr>
           </tbody>
         </table>

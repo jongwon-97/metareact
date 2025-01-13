@@ -67,8 +67,7 @@ const CourseList = () => {
       alert(response.data.message || "과정을 삭제할 수 없습니다.");
     }
   } catch (error) {
-    console.error("Error deleting course:", error);
-    alert("삭제 요청 중 오류가 발생했습니다.");
+    alert("회차가 있는 경우에는 삭제가 불가합니다.");
   }
 };
 
@@ -84,8 +83,8 @@ const CourseList = () => {
           <th scope="col">과정명</th>
           <th scope="col">상태</th>
           <th scope="col">종류</th>
-          <th scope="col">시작일</th>
-          <th scope="col">종료일</th>
+          <th scope="col">생성일</th>
+          <th scope="col">수정일</th>
           <th scope="col">상세보기</th>
           <th scope="col">수정</th>
           <th scope="col">삭제</th>

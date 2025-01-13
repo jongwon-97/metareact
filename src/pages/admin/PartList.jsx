@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
 import Pagination from "/src/components/Pagination";
+import BackButton from "/src/components/BackButton";
  
 const PartList = () => {
   const roleMap = {STUDENT: "학생",MANAGER: "매니저",INSTRUCTOR: "강사",ADMIN: "관리자"};
@@ -16,7 +17,7 @@ const PartList = () => {
   const [users, setUsers] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage, setUsersPerPage] = useState(10);
+  const [usersPerPage, setUsersPerPage] = useState(5);
   const usersPerPageOptions = [5, 10, 20, 50]; // 보여주는 목록 수 
 
   const [searchType, setSearchType] = useState(""); // 검색 조건
@@ -119,26 +120,39 @@ const PartList = () => {
     }
   };
 
-   // 간단 수정
-   const handleEdit = (user) => {
-    setEditingUserId(user.userId);
-    setEditedUser(user);
-  };
+   // 참가자 수정 함수
+   const handleSave = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8091/api/admin/KDT/${kdtSessionId}/part/update/${editingUserId}`,
+        {
+          newStatus: editedUser.kdtPartStatus,
+          newEmploymentStatus: editedUser.kdtPartEmp,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedUser((prev) => ({ ...prev, [name]: value }));
-  };
-
-
-  const handleSave = () => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user.userId === editingUserId ? { ...user, ...editedUser } : user
-      )
-    );
-    setEditingUserId(null);
-    setEditedUser({});
+      if (response.status === 200) {
+        alert(response.data.message || "참가자 상태가 수정되었습니다.");
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user.kdtPartId === editingUserId ? { ...user, ...editedUser } : user
+          )
+        );
+        setEditingUserId(null);
+        setEditedUser({});
+      } else {
+        alert(response.data.message || "수정을 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("수정 요청 중 오류 발생:", error);
+      alert("수정 요청 중 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -213,18 +227,61 @@ const PartList = () => {
               <td>{formatDate(user.userBirth)}</td>
               <td>{user.userPhone}</td>
               <td>{roleMap[user.userRole] || "알 수 없음"}</td>
-              <td>{statusMap[user.kdtPartStatus] || "알 수 없음"}</td>
-              <td>{EmpMap[user.kdtPartEmp] || "알 수 없음"}</td>
+              <td>
+                {editingUserId === user.kdtPartId ? (
+                  <select
+                    value={editedUser.kdtPartStatus || user.kdtPartStatus}
+                    onChange={(e) =>
+                      setEditedUser((prev) => ({
+                        ...prev,
+                        kdtPartStatus: e.target.value,
+                      }))
+                    }
+                  >
+                    {Object.entries(statusMap).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {value}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  statusMap[user.kdtPartStatus] || "알 수 없음"
+                )}
+              </td>
+              <td>
+                {editingUserId === user.kdtPartId ? (
+                  <select
+                    value={editedUser.kdtPartEmp || user.kdtPartEmp}
+                    onChange={(e) =>
+                      setEditedUser((prev) => ({
+                        ...prev,
+                        kdtPartEmp: e.target.value === "true",
+                      }))
+                    }
+                  >
+                    {Object.entries(EmpMap).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {value}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  EmpMap[user.kdtPartEmp] || "알 수 없음"
+                )}
+              </td>
               <td><a href={`http://localhost:8091/admin/users/${user.userId}`}>상세보기</a></td>
               <td>
-                {editingUserId === user.userId ? (
+                {editingUserId === user.kdtPartId ? (
                   <button className={styles.saveButton} onClick={handleSave}>
                     저장
                   </button>
                 ) : (
                   <button
                     className={styles.editButton}
-                    onClick={() => handleEdit(user)}
+                    onClick={() => {
+                      setEditingUserId(user.kdtPartId);
+                      setEditedUser(user);
+                    }}
                   >
                     수정
                   </button>
@@ -250,6 +307,16 @@ const PartList = () => {
         onPageChange={setCurrentPage}
         pagesPerGroup={5}
       />
+
+      <div className={styles.buttonContainer}>
+        <a
+          href={`http://localhost:8091/admin/KDT/${kdtSessionId}/part`}
+          className={styles.createButton}
+        >
+          수강생등록
+        </a>
+        <BackButton label="Back" />
+      </div>
 
     </div>
   
