@@ -58,7 +58,7 @@ const InstrSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-person-workspace"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/instr/course/list/{status}">
+          <a className={`${styles.hlink} sidebar-link`} href="/instr/course/list/approved">
           강의관리
           </a>
           {showSubMenu && (
@@ -66,7 +66,7 @@ const InstrSideBar = () => {
               <a href="/instr/course" className={styles.subLink}>
                 강의등록
               </a>
-              <a href="/instr/course/list/{status}" className={styles.subLink}>
+              <a href="/instr/course/list/approved" className={styles.subLink}>
                 강의목록조회  
               </a>
             </div>

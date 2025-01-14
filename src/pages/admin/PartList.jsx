@@ -31,7 +31,7 @@ const PartList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`/api/admin/KDT/${kdtSessionId}/part/list`,{ // API 엔드포인트 수정
+        const response = await axios.get(`http://localhost:8091/api/admin/KDT/${kdtSessionId}/part/list`,{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
@@ -154,6 +154,7 @@ const PartList = () => {
 
   return (
     <div className={styles.tableContainer}>
+    <h1>참가자 명단</h1>
     {/* 검색창 */}
     <div className={styles.searchBar}>
         <div className={styles.searchButton}>실시간 검색</div>

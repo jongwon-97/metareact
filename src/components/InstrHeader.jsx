@@ -6,7 +6,7 @@ const InstrHeader = () => {
   
     const [userInfo, setUserInfo] = useState({ email: "", role: "" }); // 사용자 이름 상태
     const LOGOUT_URL = "/logout"; // 로그아웃 API
-    const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
+    const REDIRECT_URL = "/login"; // 로그아웃 후 리디렉션 URL
     const roleMap = {
       INSTR: "강사",
     };

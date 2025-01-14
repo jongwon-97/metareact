@@ -1,9 +1,13 @@
-import React , { useState } from "react";
+import React , { useState, useEffect } from "react";
 import styles from "../css/student/StudentSideBar.module.css";
 import { useParams } from "react-router-dom";
 const StudentSideBar = () => {
   const [showSubMenu, setShowSubMenu] = useState(false);
   const { kdtSessionId } = useParams(); // URL 파라미터
+console.log("파라미터값",kdtSessionId);
+useEffect(() => {
+  console.log("Session ID:", kdtSessionId);
+}, [kdtSessionId]);
 
   return (
     <div className={`${styles.sidebar} sb-sidenav accordion sb-sidenav-dark`}>
@@ -33,7 +37,7 @@ const StudentSideBar = () => {
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href={`view/student/KDT/${kdtSessionId}/att/detail`} className={styles.subLink}>
+              <a href={`/view/student/KDT/${kdtSessionId}/att/detail`} className={styles.subLink}>
                 출석부
               </a>
               <a href={`/student/KDT/${kdtSessionId}/coureoutline/list`} className={styles.subLink}>

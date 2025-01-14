@@ -83,6 +83,7 @@ const ManagerUserList = () => {
 
   return (
     <div className={styles.tableContainer}>
+      <h2 style={{ color: "black", marginBottom: "16px" }}>회원 관리</h2>
     {/* 검색창 */}
     <div className={styles.searchBar}>
         <div className={styles.searchButton}>실시간 검색</div>

@@ -12,7 +12,7 @@ import {
 import { Chart, Filler } from "chart.js";
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "../css/Dashboard.module.css"; // 스타일 모듈
+import styles from "../css/Dashboard.module.css";
 import axios from "axios";
 import { Line, Bar } from "react-chartjs-2";
 
@@ -30,44 +30,34 @@ ChartJS.register(
 Chart.register(Filler);
 
 function Dashboard() {
-  // 데이터 상태 관리
-  const [userCount, setUserCount] = useState(null); // 회원 수 카드 데이터
-  const [userGrowth, setUserGrowth] = useState(null); // 회원 증감율 데이터
-  const [upload, setUpload] = useState(null); // 강의 증감율 데이터
-  const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태
+  const [userCount, setUserCount] = useState(null); // 회원 수 상태
+  const [userGrowth, setUserGrowth] = useState([]); // 회원 증감율 데이터
+  const [upload, setUpload] = useState([]); // 강의 등록 수 데이터
+  const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지
 
-  // 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 회원 수 요약 데이터
-        const userCountResponse = await axios.get("/api/admin/user/role/list", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        });
+        const [userCountResponse, userGrowthResponse, uploadResponse] = await Promise.all([
+          axios.get("http://localhost:8091/api/admin/user/role/list", {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }),
+          axios.get("http://localhost:8091/api/admin/user/count", {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }),
+          axios.get("http://localhost:8091/api/admin/course/monthlycount", {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }),
+        ]);
 
-        // 회원 증감율 데이터
-        const userGrowthResponse = await axios.get("/api/admin/user/list", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        });
-
-        // 강의 증감율 데이터
-        const uploadResponse = await axios.get("/api/admin/course/monthlycount", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        });
-        // 데이터 상태 업데이트
         setUserCount(userCountResponse.data);
-        setUserGrowth(userGrowthResponse.data);
-        setUpload(uploadResponse.data);
+        setUserGrowth(removeDuplicates(userGrowthResponse.data));
+        setUpload(removeDuplicates(uploadResponse.data.data));
       } catch (error) {
+        console.error(error);
         setErrorMessage("데이터를 불러오는 중 문제가 발생했습니다.");
       }
     };
@@ -75,11 +65,28 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  if (!userCount || !userGrowth || !upload) {
+  // 중복 제거 함수
+  const removeDuplicates = (data) => {
+    const uniqueData = [];
+    const keys = new Set();
+
+    data.forEach((item) => {
+      const key = JSON.stringify(item);
+      if (!keys.has(key)) {
+        keys.add(key);
+        uniqueData.push(item);
+      }
+    });
+
+    return uniqueData;
+  };
+
+  // 데이터가 없으면 로딩 또는 에러 메시지 표시
+  if (!userCount || userGrowth.length === 0 || upload.length === 0) {
     return <p className={styles.errorMessage}>{errorMessage || "로딩 중..."}</p>;
   }
 
-  // 회원 증감율 차트 데이터 생성
+  // 회원 증감율 차트 데이터
   const userGrowthChartData = {
     labels: userGrowth.map((growth) => `${growth.month}월`),
     datasets: [
@@ -94,13 +101,13 @@ function Dashboard() {
     ],
   };
 
-  // 강의 증감율 차트 데이터 생성
+  // 강의 등록 수 차트 데이터
   const uploadChartData = {
-    labels: upload.data.map((stat) => `${stat.month}월`),
+    labels: upload.map((stat) => `${stat.month}월`),
     datasets: [
       {
         label: "강의 등록 수",
-        data: upload.data.map((stat) => stat.courseCount),
+        data: upload.map((stat) => stat.courseCount),
         backgroundColor: "rgba(54, 162, 235, 0.5)",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 1,
@@ -108,13 +115,48 @@ function Dashboard() {
     ],
   };
 
+  // 차트 옵션: 회원 증감율
+  const userGrowthChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: "top" },
+      title: { display: true, text: "월별 회원 증감율" },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 5, // 적절한 간격 설정
+          callback: (value) => `${Math.round(value)}명`,
+        },
+      },
+    },
+  };
+
+  // 차트 옵션: 강의 등록 수
+  const uploadChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: "top" },
+      title: { display: true, text: "월별 강의 등록 수" },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1, // 적절한 간격 설정
+          callback: (value) => `${Math.round(value)}개`,
+        },
+      },
+    },
+  };
+
   return (
     <div className={styles.dashboardContainer}>
       <div className="row">
-        {/* 왼쪽 위: 회원 수 카드 */}
         <div className="col-md-6">
           <div className={styles.card}>
-            <h3 className={styles.cardTitle}>회원 수 요약</h3>
+            <h3 className={styles.cardTitle}>현재 회원수</h3>
             <p><strong>관리자:</strong> {userCount.adminTotal}명</p>
             <p><strong>매니저:</strong> {userCount.managerTotal}명</p>
             <p><strong>강사:</strong> {userCount.instructorTotal}명</p>
@@ -122,7 +164,6 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* 오른쪽 위: 빈 공간 */}
         <div className="col-md-6">
           <div className={styles.emptySpace}>
             <h3 className={styles.emptySpaceText}>추가 콘텐츠 공간</h3>
@@ -131,37 +172,17 @@ function Dashboard() {
       </div>
 
       <div className="row mt-4">
-        {/* 왼쪽 아래: 회원 증감율 차트 */}
         <div className="col-md-6">
           <div className={styles.chartContainer}>
             <h3 className={styles.chartTitle}>회원 증감율</h3>
-            <Line
-              data={userGrowthChartData}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: { position: "top" },
-                  title: { display: true, text: "월별 회원 증감율" },
-                },
-              }}
-            />
+            <Line data={userGrowthChartData} options={userGrowthChartOptions} />
           </div>
         </div>
 
-        {/* 오른쪽 아래: 강의 증감율 차트 */}
         <div className="col-md-6">
           <div className={styles.chartContainer}>
-            <h3 className={styles.chartTitle}>강의 등록 수</h3>
-            <Bar
-              data={uploadChartData}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: { position: "top" },
-                  title: { display: true, text: "월별 강의 등록 수" },
-                },
-              }}
-            />
+            <h3 className={styles.chartTitle}>온라인 강의 등록 수</h3>
+            <Bar data={uploadChartData} options={uploadChartOptions} />
           </div>
         </div>
       </div>

@@ -43,7 +43,6 @@ const CourseList = () => {
   };
 
   // 과정 삭제 함수
- // 과정 삭제 함수
   const deleteCourse = async (courseId) => {
   const confirmDelete = window.confirm("정말로 이 과정을 삭제하시겠습니까?");
   if (!confirmDelete) return;
@@ -72,7 +71,7 @@ const CourseList = () => {
 
   return (
     <div className={styles.courselistcontainer}>
-
+       <h2 style={{ color: "black", marginBottom: "16px" }}>국비 과정 목록</h2>
     {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
 
     <table className={styles.courselisttable}>

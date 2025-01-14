@@ -5,7 +5,7 @@ import styles from "../css/admin/AdminHeader.module.css";
 const AdminHeader = () => {
   const [userInfo, setUserInfo] = useState({ email: "", role: "" }); // 사용자 이름 상태
   const LOGOUT_URL = "/logout"; // 로그아웃 API
-  const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
+  const REDIRECT_URL = "/login"; // 로그아웃 후 리디렉션 URL
   const roleMap = {
     ADMIN: "관리자",
   };
@@ -40,7 +40,7 @@ const AdminHeader = () => {
    const handleLogout = async () => {
     try {
       // 서버 로그아웃 요청
-      const response = await axios.post(LOGOUT_URL, {}, { withCredentials: true });
+      const response = await axios.get(LOGOUT_URL, {}, { withCredentials: true });
 
       if (response.status === 200) {
         // 로그아웃 성공 메시지

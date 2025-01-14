@@ -64,6 +64,7 @@ const handleDelete = async (sessionId) => {
   return (
     <div className={styles.sessionlistcontainer}>
 
+    <h2 style={{ color: "black", marginBottom: "16px" }}>{sessions.length > 0 && sessions[0].kdtSessionTitle} 회차 목록</h2>
       {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
       
       {sessions.length > 0 ? (

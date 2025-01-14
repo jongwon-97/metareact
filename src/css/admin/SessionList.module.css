@@ -103,6 +103,10 @@
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
   }
+  .editbtn a{
+    color: white !important; 
+    
+  }
 
   .editbtn:hover {
     background-color: #e0a800;
