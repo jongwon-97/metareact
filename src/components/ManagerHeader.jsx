@@ -41,7 +41,7 @@ const ManagerHeader = () => {
     const handleLogout = async () => {
       try {
         // 서버 로그아웃 요청
-        const response = await axios.post(LOGOUT_URL, {}, { withCredentials: true });
+        const response = await axios.get(LOGOUT_URL, {}, { withCredentials: true });
   
         if (response.status === 200) {
           // 로그아웃 성공 메시지

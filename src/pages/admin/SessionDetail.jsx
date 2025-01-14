@@ -12,6 +12,7 @@ const SessionDetail = () => {
   const [participantCount, setParticipantCount] = useState(null);
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
+  const [stafflist, setStafflist] = useState(null);
 
   useEffect(() => {
     // 더미 데이터
@@ -33,6 +34,12 @@ const SessionDetail = () => {
         });
          // 두 번째 데이터를 상태에 저장
         setParticipantCount(countDataResponse.data);
+        const staffDataResponse = await axios.get(`/api/admin/KDT/${sessionId}/staff/list`, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+          });
+           // 두 번째 데이터를 상태에 저장
+        setStafflist(staffDataResponse.data);
       } catch (error) {
         setErrorMessage("등록된 학생이 없습니다.");
       }finally {
@@ -134,7 +141,14 @@ const SessionDetail = () => {
               <th>카테고리</th>
               <td>{sessionDetail.kdtSessionCategory || "정보 없음"}</td>
               <th>담당자</th>
-              <td>강경준,박형배,강경연,박종원,이원재</td>
+              <td>
+              {[...stafflist.instructors, ...stafflist.managers].map((staff, index) => (
+                <span key={index}>
+                  {staff.name}
+                  {index !== stafflist.instructors.length + stafflist.managers.length - 1 && ", "}
+                </span>
+              ))}
+              </td>
             </tr>
             <tr>
               <th>설명</th>

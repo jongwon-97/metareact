@@ -79,7 +79,6 @@ const TrainList = () => {
           <option value="">전체</option>
           <option value="kdtTrainTitle">강의 제목</option>
           <option value="kdtTrainSubject">강의 주제</option>
-          <option value="kdtTrainContent">강의 내용</option>
         </select>
         <input
           type="text"
@@ -113,7 +112,6 @@ const TrainList = () => {
           <th>번호</th>
               <th>강의 제목</th>
               <th>강의 주제</th>
-              <th>강의 내용</th>
               <th>강의 날짜</th>
               <th>상세보기</th>
         </tr>
@@ -124,7 +122,6 @@ const TrainList = () => {
                 <td>{startIndex + index + 1}</td>
                 <td><a href={`/admin/KDT/${item.kdtSessionId}/train/${item.kdtTrainId}`}>{item.kdtTrainTitle}</a></td>
                 <td>{item.kdtTrainSubject}</td>
-                <td>{item.kdtTrainContent}</td>
                 <td>{formatDate(item.kdtTrainDate)}</td>
                 <td><a href={`/admin/KDT/${item.kdtSessionId}/train/${item.kdtTrainId}`}>상세보기</a></td>
               </tr>
