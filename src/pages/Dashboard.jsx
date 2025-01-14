@@ -39,15 +39,15 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const [userCountResponse, userGrowthResponse, uploadResponse] = await Promise.all([
-          axios.get("http://localhost:8091/api/admin/user/role/list", {
+          axios.get("/api/admin/user/role/list", {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }),
-          axios.get("http://localhost:8091/api/admin/user/count", {
+          axios.get("/api/admin/user/count", {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }),
-          axios.get("http://localhost:8091/api/admin/course/monthlycount", {
+          axios.get("/api/admin/course/monthlycount", {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }),
