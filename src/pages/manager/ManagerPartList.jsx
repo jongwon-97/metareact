@@ -31,16 +31,14 @@ const PartList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/manager/KDT/${kdtSessionId}/part/list`,{ // API 엔드포인트 수정
+        const response = await axios.get(`/api/manager/KDT/${kdtSessionId}/part/list`,{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
           });
-          console.log(response.data);  // API 응답 데이터 구조 확인
           setUsers(response.data); // 데이터 배열로 설정  
         } catch (error) {
-          console.error("사용자 데이터를 불러오는 중 오류 발생:", error);
         }
       };
 
@@ -98,7 +96,7 @@ const PartList = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:8091/api/manager/KDT/${kdtSessionId}/part/delete/${kdtPartId}`,
+        `/api/manager/KDT/${kdtSessionId}/part/delete/${kdtPartId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -124,7 +122,7 @@ const PartList = () => {
    const handleSave = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8091/api/manager/KDT/${kdtSessionId}/part/update/${editingUserId}`,
+        `/api/manager/KDT/${kdtSessionId}/part/update/${editingUserId}`,
         {
           newStatus: editedUser.kdtPartStatus,
           newEmploymentStatus: editedUser.kdtPartEmp,
@@ -150,7 +148,6 @@ const PartList = () => {
         alert(response.data.message || "수정을 실패했습니다.");
       }
     } catch (error) {
-      console.error("수정 요청 중 오류 발생:", error);
       alert("수정 요청 중 오류가 발생했습니다.");
     }
   };
@@ -270,7 +267,7 @@ const PartList = () => {
                   EmpMap[user.kdtPartEmp] || "알 수 없음"
                 )}
               </td>
-              <td><a href={`http://localhost:8091/manager/users/${user.userId}`}>상세보기</a></td>
+              <td><a href={`/manager/users/${user.userId}`}>상세보기</a></td>
               <td>
                 {editingUserId === user.kdtPartId ? (
                   <button className={styles.saveButton} onClick={handleSave}>
@@ -311,7 +308,7 @@ const PartList = () => {
 
       <div className={styles.buttonContainer}>
         <a
-          href={`http://localhost:8091/manager/KDT/${kdtSessionId}/part`}
+          href={`/manager/KDT/${kdtSessionId}/part`}
           className={styles.createButton}
         >
           수강생등록

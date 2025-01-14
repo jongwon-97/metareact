@@ -52,7 +52,7 @@ const AttLog = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/detail/${kdtPartId}`,
+          `/api/admin/KDT/${kdtSessionId}/att/detail/${kdtPartId}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
@@ -65,7 +65,6 @@ const AttLog = () => {
         setLogInfo(Array.isArray(response.data.kdtAttDTOs) ? response.data.kdtAttDTOs : []);
         setFilteredLogInfo(Array.isArray(response.data.kdtAttDTOs) ? response.data.kdtAttDTOs : []);
       } catch (error) {
-        console.error("데이터 재조회 중 오류 발생:", error);
         setErrorMessage("데이터를 다시 불러오는 데 실패했습니다.");
       } finally {
         setLoading(false);
@@ -89,7 +88,6 @@ const AttLog = () => {
     try {
       const formatToKST = (date, time) => {
         if (!date || !time || date === "" || time === "") {
-          console.warn("Invalid date or time:", { date, time });
           return null;
         }
         // 날짜와 시간을 결합하여 ISO 형식으로 변환
@@ -114,11 +112,8 @@ const AttLog = () => {
         kdtAttStatus: statusMapping[editData.kdtAttStatus] || "ERROR", // 한글 상태를 영문 상태로 변환
       };
   
-      // 디버깅용 로그
-      console.log("변환된 데이터:", formattedData);
-
       await axios.put(
-        `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/update/${editRow}`,
+        `/api/admin/KDT/${kdtSessionId}/att/update/${editRow}`,
         formattedData,
         {
           headers: { "Content-Type": "application/json" },
@@ -130,7 +125,6 @@ const AttLog = () => {
       setEditRow(null); // 수정 모드 종료
       await fetchLogData(); // 데이터 갱신
     } catch (error) {
-      console.error("수정 중 오류 발생:", error);
       alert("수정에 실패했습니다.");
     }
   };
@@ -148,7 +142,6 @@ const AttLog = () => {
     const handleEditChange = (e) => {
       const { name, value } = e.target;
       setEditData((prev) => ({ ...prev, [name]: value }));
-      console.log("Updated editData:", { ...editData, [name]: value });
     };
     
     const handleAddInputChange = (e) => {
@@ -176,7 +169,7 @@ const AttLog = () => {
           };
           
         await axios.post(
-          `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/new`,
+          `/api/admin/KDT/${kdtSessionId}/att/new`,
             formattedData, // 참가자 ID 추가
           {
             headers: { "Content-Type": "application/json" },
@@ -197,8 +190,6 @@ const AttLog = () => {
           kdtAttStatus: "",
         });
       } catch (error) {
-        console.log(formattedData);
-        console.error("추가 중 오류 발생:", error);
         alert("출석부 추가에 실패했습니다.");
       }
     };
@@ -263,7 +254,7 @@ const AttLog = () => {
     const handleDelete = async (id) => {
       try {
         await axios.delete(
-          `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/delete/${id}`,
+          `/api/admin/KDT/${kdtSessionId}/att/delete/${id}`,
           {
             withCredentials: true,
           }
@@ -271,7 +262,6 @@ const AttLog = () => {
         alert("삭제가 완료되었습니다.");
         setLogInfo((prev) => prev.filter((log) => log.kdtAttId !== id)); // 삭제된 데이터 제거
       } catch (error) {
-        console.error("삭제 중 오류 발생:", error);
         alert("삭제에 실패했습니다.");
       }
     };

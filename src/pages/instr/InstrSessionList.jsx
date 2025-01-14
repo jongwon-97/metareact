@@ -14,7 +14,7 @@ const SessionList = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/instr/KDT/sessionlist", {
+        const response = await axios.get("/api/instr/KDT/sessionlist", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -96,13 +96,13 @@ const SessionList = () => {
                 <td>{session.kdtSessionStatus}</td>
 
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
+                  <a href={`/manager/KDT/${session.kdtSessionId}/staff/student`}>수강생 등록하기</a>
                 </td>
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
+                  <a href={`/manager/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
                 </td>
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
+                  <a href={`/manager/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
                 </td>
                 <td>
                   <Link to={`/manager/KDT/session/${session.kdtSessionId}`}>
@@ -110,7 +110,7 @@ const SessionList = () => {
                   </Link>
                 </td>
                 <td>
-                  <button href={`http://localhost:8091/manager/KDT/session/update/${session.kdtSessionId}`} 
+                  <button href={`/manager/KDT/session/update/${session.kdtSessionId}`} 
                   className={styles.editbtn}>수정</button>
                 </td>
                 <td>

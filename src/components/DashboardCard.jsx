@@ -15,7 +15,7 @@ function AreaChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/user/count", {
+        const response = await axios.get("/api/admin/user/count", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -23,7 +23,6 @@ function AreaChart() {
         });
 
         const apiData = response.data; // 서버로부터 가져온 데이터
-        console.log("API 데이터:", apiData);
 
         // 데이터 가공 (월별 데이터 생성)
         const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
@@ -58,7 +57,7 @@ function AreaChart() {
           ],
         });
       } catch (error) {
-        console.error("데이터 로드 실패:", error);
+ 
         setErrorMessage("데이터를 불러오는 중 문제가 발생했습니다.");
       }
     };

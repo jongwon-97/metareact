@@ -11,7 +11,6 @@ dayjs.extend(timezone);
 
 const getKST = () => dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
 const getKSTday = () =>dayjs().tz("Asia/Seoul").format("YYYY-MM-DD");
-console.log(getKSTday());
 const AttListDetail = () => {
   const { kdtSessionId } = useParams(); // URL 파라미터
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -33,14 +32,12 @@ const AttListDetail = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:8091/api/student/KDT/${kdtSessionId}/att/detail`,
+          `/api/student/KDT/${kdtSessionId}/att/detail`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }
         );  
-        console.log("서버 응답 :", response.status);
-        console.log("서버 응답 데이터:", response.data);
         setDetailInfo(response.data);
 
         // 이벤트 데이터 가공
@@ -57,7 +54,6 @@ const AttListDetail = () => {
         navigate(-1); // 히스토리 백
       } else {
           setErrorMessage("상세 데이터를 불러오는 데 실패했습니다.");
-          console.error("상세 데이터를 불러오는 중 오류 발생:", error);
         }
       }finally {
         setLoading(false);
@@ -78,14 +74,13 @@ const AttListDetail = () => {
       };
 
       const response = await axios.post(
-        `http://localhost:8091/api/student/KDT/${kdtSessionId}/att/new`,
+        `/api/student/KDT/${kdtSessionId}/att/new`,
         payload,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      console.log(getKST());
       alert("입실 처리가 완료되었습니다.");
 
        // 이벤트 데이터 새로 생성
@@ -101,7 +96,6 @@ const AttListDetail = () => {
 
       setDetailInfo(response.data); // 상태 갱신
     } catch (error) {
-      console.error("입실 처리 중 오류 발생:", error);
       alert("입실 처리에 실패했습니다.");
     }
   };
@@ -129,7 +123,7 @@ const AttListDetail = () => {
       };
 
       const response = await axios.put(
-        `http://localhost:8091/api/student/KDT/${kdtSessionId}/att/update/${kdtAttId}`,
+        `/api/student/KDT/${kdtSessionId}/att/update/${kdtAttId}`,
         payload,
         {
           headers: { "Content-Type": "application/json" },
@@ -147,7 +141,6 @@ const AttListDetail = () => {
       } else if (updatedStatus === "입실") {
         alertMessage = "복귀 완료.";
       }
-        console.log(updatedStatus);
       alert(alertMessage);
 
       setDetailInfo(response.data); // 상태 갱신
@@ -169,7 +162,6 @@ const AttListDetail = () => {
     });
 
     } catch (error) {
-      console.error(`${status} 처리 중 오류 발생:`, error);
       alert(`${status} 처리에 실패했습니다.`);
     }
   };

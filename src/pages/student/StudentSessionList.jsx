@@ -14,15 +14,13 @@ const StudentSessionList = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/student/KDT/sessionlist", {
+        const response = await axios.get("/api/student/KDT/sessionlist", {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
         });
         const data = response.data; // 응답 데이터 추출
-        console.log("서버 응답 데이터:", data); // 데이터 로그 출력
-        console.log("응답 데이터:", response.data);
         
         if (response.status === 403 && data.message === "회차에 등록된 학생이 아닙니다.") {
           // 403 에러 발생 시 알림 표시 후 리다이렉트
@@ -34,8 +32,7 @@ const StudentSessionList = () => {
         // 세션 데이터가 정상일 경우 상태 업데이트
         setSessions(data);
       } catch (error) {
-        console.error("데이터 요청 중 오류 발생:", error);
-
+  
         // 오류 메시지를 설정
         if (error.response) {
           // 서버가 응답을 반환했을 경우

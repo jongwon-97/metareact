@@ -23,17 +23,17 @@ const TestList = () => {
   useEffect(() => {
     const  fetchTestList = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/manager/KDT/${kdtSessionId}/test/list`,{ // API 엔드포인트 수정
+        const response = await axios.get(`/api/manager/KDT/${kdtSessionId}/test/list`,{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
           });
-          console.log(response.data); // 응답 데이터 구조 확인
+      
           setSessionInfo(response.data.KDTSessionDTO || {}); // 회차 정보
           setTestList(response.data.kdtTestListDTOs || []); // 시험 목록
         } catch (error) {
-          console.error("사용자 데이터를 불러오는 중 오류 발생:", error);
+          
           setTestList([]); // 오류 발생 시 빈 배열로 설정
         }
       };
@@ -132,7 +132,7 @@ const TestList = () => {
             <tr key={test.kdtTestId}>
               <td>{startIndex + index + 1}</td>
               <td>
-                <a href={`http://localhost:8091/manager/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
+                <a href={`/manager/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
                   {test.kdtTestTitle}
                 </a>
               </td>
@@ -146,7 +146,7 @@ const TestList = () => {
                 <Link to={`/manager/KDT/${kdtSessionId}/test/submit/${test.kdtTestId}/list`}>{test.actualCnt}/{test.totalCnt}</Link>
               </td>
               <td>
-                <a href={`http://localhost:8091/manager/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
+                <a href={`/manager/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
                   상세보기
                 </a>
               </td>
@@ -165,7 +165,7 @@ const TestList = () => {
 
       <div className={styles.buttonContainer}>
           <a
-            href={`http://localhost:8091/manager/KDT/${kdtSessionId}/test`}
+            href={`/manager/KDT/${kdtSessionId}/test`}
             className={styles.createButton}
           >
             시험제출

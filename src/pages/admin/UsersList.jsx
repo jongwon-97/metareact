@@ -28,16 +28,14 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/user/list",{ // API 엔드포인트 수정
+        const response = await axios.get("/api/admin/user/list",{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
           });
-          console.log(response.data);  // API 응답 데이터 구조 확인
           setUsers(response.data); // 데이터 배열로 설정
         } catch (error) {
-          console.error("사용자 데이터를 불러오는 중 오류 발생:", error);
         }
       };
 
@@ -152,7 +150,7 @@ const UserList = () => {
             <td>{statusMap[user.userStatus] || "알 수 없음"}</td>
             <td>{formatDate(user.userCreatedAt)}</td>
             <td>{formatDate(user.userUpdatedAt)}</td>
-            <td><a className={styles.godetail} href={`http://localhost:8091/admin/users/${user.userId}`}>상세정보</a></td>
+            <td><a className={styles.godetail} href={`/admin/users/${user.userId}`}>상세정보</a></td>
           </tr>
         ))}
       </tbody>

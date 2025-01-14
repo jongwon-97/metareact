@@ -11,7 +11,7 @@ const InstrSideBar = () => {
         <div className={`${styles.sidebarSection}`}>
            
           {/* Home */}
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
+          <a className={`${styles.link} sidebar-link`} href="/">
           <i className="bi bi-house-door me-2"></i> {/* Home 아이콘 */}
           Home
           </a>
@@ -94,7 +94,7 @@ const InstrSideBar = () => {
           )}
           </div>
 
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
+          <a className={`${styles.link} sidebar-link`} href="/">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
           결제관리
           </a>

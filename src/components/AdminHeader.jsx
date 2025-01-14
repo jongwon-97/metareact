@@ -13,11 +13,10 @@ const AdminHeader = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/user/profile", {
+        const response = await axios.get("/api/admin/user/profile", {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
-        console.log(response.data);
   
         if (response.status === 200) {
           setUserInfo({
@@ -29,7 +28,7 @@ const AdminHeader = () => {
           setErrorMessage("사용자 정보를 불러오지 못했습니다.");
         }
       } catch (error) {
-        console.error("사용자 정보 요청 중 에러 발생:", error);
+
         setErrorMessage("사용자 정보를 불러오는 중 오류가 발생했습니다.");
       }
     };
@@ -48,7 +47,6 @@ const AdminHeader = () => {
       alert("로그아웃 완료");
       window.location.href = REDIRECT_URL; // 로그아웃 후 홈으로 리디렉트
     } catch (error) {
-      console.error("로그아웃 요청 중 에러 발생:", error);
       alert("로그아웃 요청 중 문제가 발생했습니다. 다시 시도해주세요.");
     }
   };

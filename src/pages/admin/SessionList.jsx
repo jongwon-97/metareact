@@ -13,20 +13,18 @@ const SessionList = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/admin/KDT/course/${courseId}`, {
+        const response = await axios.get(`/api/admin/KDT/course/${courseId}`, {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
         });
-        console.log("응답 데이터:", response.data);
         if (response.data && Array.isArray(response.data)) {
           setSessions(response.data); // 세션 데이터 설정
         } else {
           setErrorMessage(response.data.message || "회차 정보가 없습니다.");
         }
       } catch (error) {
-        console.error("Error fetching sessions:", error);
         setErrorMessage("데이터를 불러오는 데 실패했습니다.");
       }
     };
@@ -40,7 +38,7 @@ const handleDelete = async (sessionId) => {
   if (!confirmDelete) return;
 
   try {
-    const response = await axios.delete(`http://localhost:8091/api/admin/KDT/session/delete/${sessionId}`,
+    const response = await axios.delete(`/api/admin/KDT/session/delete/${sessionId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -59,18 +57,9 @@ const handleDelete = async (sessionId) => {
       alert(response.data.message || "회차 삭제에 실패했습니다.");
     }
   } catch (error) {
-    console.error("Error deleting session:", error);
     alert("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
   }
 };
-
-  // 날짜 포맷팅 함수
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
-      date.getDate()
-    ).padStart(2, "0")} ${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`;
-  };
 
   return (
     <div className={styles.sessionlistcontainer}>
@@ -109,13 +98,13 @@ const handleDelete = async (sessionId) => {
                 <td>{session.kdtSessionStatus}</td>
 
                 <td>
-                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/part`}>수강생 등록하기</a>
+                  <a href={`/admin/KDT/${session.kdtSessionId}/part`}>수강생 등록하기</a>
                 </td>
                 <td>
-                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
+                  <a href={`/admin/KDT/${session.kdtSessionId}/staff/manager`}>매니저 등록하기</a>
                 </td>
                 <td>
-                  <a href={`http://localhost:8091/admin/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
+                  <a href={`/admin/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
                 </td>
                 <td>
                   <Link to={`/admin/KDT/session/${session.kdtSessionId}`}>
@@ -124,7 +113,7 @@ const handleDelete = async (sessionId) => {
                 </td>
                 <td>
                   <button className={styles.editbtn}>
-                    <a href={`http://localhost:8091/admin/KDT/session/update/${session.kdtSessionId}`}>수정</a></button>
+                    <a href={`/admin/KDT/session/update/${session.kdtSessionId}`}>수정</a></button>
                 </td>
                 <td>
                 <button

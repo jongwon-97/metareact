@@ -14,16 +14,13 @@ const ManagerSessionList = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/manager/KDT/course/${courseId}`, {
+        const response = await axios.get(`/api/manager/KDT/course/${courseId}`, {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
         });
         const data = response.data; // 응답 데이터 추출
-        console.log("서버 응답 데이터:", data); // 데이터 로그 출력
-        console.log("응답 데이터:", response.data);
-        console.log(response);
         if (response.status === 403 && data.message === "회차에 등록된 매니저가 아닙니다.") {
           // 403 에러 발생 시 알림 표시 후 리다이렉트
           alert(data.message); // 메시지 표시
@@ -34,8 +31,6 @@ const ManagerSessionList = () => {
         // 세션 데이터가 정상일 경우 상태 업데이트
         setSessions(data);
       } catch (error) {
-        console.error("데이터 요청 중 오류 발생:", error);
-
         // 오류 메시지를 설정
         if (error.response) {
           // 서버가 응답을 반환했을 경우
@@ -90,11 +85,11 @@ const ManagerSessionList = () => {
                 <td>{session.kdtSessionStartDate}</td>
                 <td>{session.kdtSessionEndDate}</td>
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/part`}>수강생 등록하기</a>
+                  <a href={`/manager/KDT/${session.kdtSessionId}/part`}>수강생 등록하기</a>
                 </td>
         
                 <td>
-                  <a href={`http://localhost:8091/manager/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
+                  <a href={`/manager/KDT/${session.kdtSessionId}/staff/instr`}>강사 등록하기</a>
                 </td>
                 <td>
                   <Link to={`/manager/KDT/session/${session.kdtSessionId}`}>
@@ -103,7 +98,7 @@ const ManagerSessionList = () => {
                 </td>
                 <td>
                   <button className={styles.editbtn}>
-                    <a href={`http://localhost:8091/manager/KDT/session/update/${session.kdtSessionId}`} >수정</a></button>
+                    <a href={`/manager/KDT/session/update/${session.kdtSessionId}`} >수정</a></button>
                 </td>
               </tr>
             ))}

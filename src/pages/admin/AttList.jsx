@@ -38,7 +38,7 @@ const AttList = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8091/api/admin/KDT/${kdtSessionId}/att/list`,
+        `/api/admin/KDT/${kdtSessionId}/att/list`,
         {
           params: { date }, // 선택된 날짜를 쿼리 파라미터로 전달
           headers: {
@@ -47,12 +47,10 @@ const AttList = () => {
           withCredentials: true, // 쿠키 포함
         }
       );
-      console.log(response.data);
       setSessionInfo(response.data.KDTSessionDTO || null); // 회차 정보
       setAttendanceList(response.data.attendanceList || []); // 출석부 데이터
       setErrorMessage(""); // 오류 메시지 초기화
     } catch (error) {
-      console.error("출석부 데이터를 불러오는 중 오류 발생:", error);
       setSessionInfo(null); // 회차 정보 초기화
       setAttendanceList([]); // 출석부 초기화
       setErrorMessage("출석부 데이터를 불러오는 데 실패했습니다.");

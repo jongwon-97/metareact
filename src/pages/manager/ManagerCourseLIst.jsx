@@ -12,16 +12,14 @@ const ManagerCourseList = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/manager/KDT/list", {
+        const response = await axios.get("/api/manager/KDT/list", {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
         });
-        console.log(response.data)
         setCourses(response.data); // 과정 데이터 설정
       } catch (error) {
-        console.error("Error fetching courses:", error);
         setErrorMessage("데이터를 불러오는 데 실패했습니다.");
       }
     };

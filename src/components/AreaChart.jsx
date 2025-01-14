@@ -14,8 +14,7 @@ function AreaChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/user/count");
-        console.log("API 데이터:", response.data);
+        const response = await axios.get("/api/admin/user/count");
         const apiData = response.data;
 
         // 데이터 정리: 월 이름 변환
@@ -50,7 +49,6 @@ function AreaChart() {
           ],
         });
       } catch (error) {
-        console.error("데이터 로드 실패:", error);
       }
     };
 

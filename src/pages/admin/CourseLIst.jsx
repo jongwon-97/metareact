@@ -12,7 +12,7 @@ const CourseList = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/KDT/list", {
+        const response = await axios.get("/api/admin/KDT/list", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -21,7 +21,6 @@ const CourseList = () => {
 
         setCourses(response.data); // 과정 데이터 설정
       } catch (error) {
-        console.error("Error fetching courses:", error);
         setErrorMessage("데이터를 불러오는 데 실패했습니다.");
       }
     };
@@ -50,7 +49,7 @@ const CourseList = () => {
   if (!confirmDelete) return;
 
   try {
-    const response = await axios.delete(`http://localhost:8091/api/admin/KDT/course/delete/${courseId}`, {
+    const response = await axios.delete(`/api/admin/KDT/course/delete/${courseId}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -114,7 +113,7 @@ const CourseList = () => {
               <button
                
                 className={styles.editbtn}
-              ><a  href={`http://localhost:8091/admin/KDT/course/update/${course.kdtCourseId}`}>수정</a>
+              ><a  href={`/admin/KDT/course/update/${course.kdtCourseId}`}>수정</a>
                 
               </button>
             </td>

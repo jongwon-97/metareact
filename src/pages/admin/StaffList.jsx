@@ -30,16 +30,14 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8091/api/admin/user/list",{ // API 엔드포인트 수정
+        const response = await axios.get("/api/admin/user/list",{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
           });
-          console.log(response.data);  // API 응답 데이터 구조 확인
           setUsers(response.data); // 데이터 배열로 설정
         } catch (error) {
-          console.error("사용자 데이터를 불러오는 중 오류 발생:", error);
         }
       };
 

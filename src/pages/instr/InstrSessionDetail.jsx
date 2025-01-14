@@ -17,7 +17,7 @@ const ManagerSessionDetail = () => {
     const fetchSessionDetail = async()=>{
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8091/api/admin/KDT/session/${sessionId}`, {
+        const response = await axios.get(`/api/admin/KDT/session/${sessionId}`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -26,7 +26,6 @@ const ManagerSessionDetail = () => {
 
         setSessionDetail(response.data); // 과정 데이터 설정
       } catch (error) {
-        console.error("Error fetching courses:", error);
         setErrorMessage("데이터를 불러오는 데 실패했습니다.");
       }finally {
         setLoading(false);
@@ -53,7 +52,7 @@ const ManagerSessionDetail = () => {
           </Link>
           
           <a className={`${styles.partsessionNavLink}`} 
-          href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/staff/list`}>
+          href={`/admin/KDT/${sessionDetail.kdtSessionId}/staff/list`}>
             담당자 명단
           </a>
 
@@ -81,7 +80,7 @@ const ManagerSessionDetail = () => {
               <div 
               className={styles.counseldropdownMenu}>
                 <Link to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>훈련일지 목록</Link>
-                <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/train`}>훈련일지 작성</a>
+                <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/train`}>훈련일지 작성</a>
               </div>
           </div>
 
@@ -90,8 +89,8 @@ const ManagerSessionDetail = () => {
               {/* 하위 메뉴 */}
               <div 
               className={styles.counseldropdownMenu}>
-                <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/appconsult/list`}>신청상담 목록</a>
-                <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/consult/list`}>수강생상담 목록</a>
+                <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/appconsult/list`}>신청상담 목록</a>
+                <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/consult/list`}>수강생상담 목록</a>
               </div>
           </div>
 
@@ -99,9 +98,9 @@ const ManagerSessionDetail = () => {
           <a>게시판</a>
             {/* 하위 메뉴 */}
             <div className={styles.boarddropdownMenu}>
-              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/board/materiallist`}>강의 자료실</a>
-              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/courseoutline/list`}>강의 영상</a>
-              <a href={`http://localhost:8091/admin/KDT/${sessionDetail.kdtSessionId}/detail/detail`}>홍보게시글</a>
+              <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/board/materiallist`}>강의 자료실</a>
+              <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/courseoutline/list`}>강의 영상</a>
+              <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/detail/detail`}>홍보게시글</a>
             </div>
           </div>  
         </nav>

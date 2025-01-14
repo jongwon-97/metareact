@@ -11,13 +11,13 @@ const AdminSideBar = () => {
         <div className={`${styles.sidebarSection}`}>
            
           {/* Home */}
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
+          <a className={`${styles.link} sidebar-link`} href="/">
           <i className="bi bi-house-door me-2"></i> {/* Home 아이콘 */}
           Home
           </a>
 
           {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/admin/mypage">
+          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
           <i className="bi bi-person-circle me-2"></i> {/* 개인정보 아이콘 */}
           개인정보
           </a>
@@ -71,7 +71,7 @@ const AdminSideBar = () => {
               <a href="/view/admin/users/list?userRole=MANAGER" className={styles.subLink}>
                 매니저관리
               </a>
-              <a href="http://localhost:8091/admin/instr/list" className={styles.subLink}>
+              <a href="/admin/instr/list" className={styles.subLink}>
                 강사신청조회
               </a>
             </div>
@@ -88,13 +88,13 @@ const AdminSideBar = () => {
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="http://localhost:8091/admin/KDT/accountmanagement" className={styles.subLink}>
+              <a href="/admin/KDT/accountmanagement" className={styles.subLink}>
                 국비계정생성
               </a>
-              <a href="http://localhost:8091/admin/KDT/course" className={styles.subLink}>
+              <a href="/admin/KDT/course" className={styles.subLink}>
                 국비과정등록
               </a>
-              <a href="http://localhost:8091/admin/KDT/session" className={styles.subLink}>
+              <a href="/admin/KDT/session" className={styles.subLink}>
                 국비회차등록
               </a>
               <a href="/view/admin/KDT/list" className={styles.subLink}>
@@ -130,18 +130,18 @@ const AdminSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-person-workspace"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="http://localhost:8091/admin/course/list/approved">
+          <a className={`${styles.hlink} sidebar-link`} href="/admin/course/list/approved">
           강의관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="http://localhost:8091/admin/course" className={styles.subLink}>
+              <a href="/admin/course" className={styles.subLink}>
                 강의등록
               </a>
-              <a href="http://localhost:8091/admin/course/list/approved" className={styles.subLink}>
+              <a href="/admin/course/list/approved" className={styles.subLink}>
                 강의목록조회  
               </a>
-              <a href="http://localhost:8091/admin/course/list/pending" className={styles.subLink}>
+              <a href="/admin/course/list/pending" className={styles.subLink}>
                 강의 승인 대기 목록
               </a>
             </div>
@@ -168,7 +168,7 @@ const AdminSideBar = () => {
           )}
           </div>
 
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/admin/paylist">
+          <a className={`${styles.link} sidebar-link`} href="/admin/paylist">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
           결제관리
           </a>

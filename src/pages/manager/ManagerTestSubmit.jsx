@@ -21,18 +21,16 @@ const TestSubmit = () => {
   useEffect(() => {
     const fetchSubmitList = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/manager/KDT/${kdtSessionId}/test/submit/${kdtTestId}/list`,{ // API 엔드포인트 수정
+        const response = await axios.get(`/api/manager/KDT/${kdtSessionId}/test/submit/${kdtTestId}/list`,{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
           });
-          console.log(response.data); // 응답 데이터 확인
           setSubmitList(response.data.kdtTestSubmitListDTOs || []); // 제출 목록 설정
           setSessionInfo(response.data.KDTSessionDTO || {}); // 회차 정보 설정
           setTestInfo(response.data.kdtTestListDTO || {}); // 시험 정보 설정
         } catch (error) {
-          console.error("사용자 데이터를 불러오는 중 오류 발생:", error);
           setTrainList([]); // 오류 발생 시 빈 배열로 설정
         }
       };
@@ -102,7 +100,7 @@ const TestSubmit = () => {
             <tr key={submit.kdtPartId}>
               <td>{startIndex + index + 1}</td>
               <td>
-                <a href={`http://localhost:8091/manager/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
+                <a href={`/manager/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
                   {submit.kdtPartName}
                 </a>
               </td>
@@ -119,7 +117,7 @@ const TestSubmit = () => {
               </td>
               <td>
                 {submit.kdtTestSubmitCreatedAt && (
-                  <a href={`http://localhost:8091/manager/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
+                  <a href={`/manager/KDT/${sessionInfo.kdtSessionId}/test/submit/detail/${testInfo.kdtTestId}/${submit.kdtPartId}`}>
                     상세보기
                   </a>
                 )}

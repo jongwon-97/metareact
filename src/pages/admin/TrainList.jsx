@@ -23,17 +23,15 @@ const TrainList = () => {
   useEffect(() => {
     const fetchTrainList = async () => {
       try {
-        const response = await axios.get(`http://localhost:8091/api/admin/KDT/${kdtSessionId}/train/list`,{ // API 엔드포인트 수정
+        const response = await axios.get(`/api/admin/KDT/${kdtSessionId}/train/list`,{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
           });
-          console.log(response.data);  // API 응답 데이터 구조 확인
           setTrainList(response.data.trainList|| []); // 데이터 배열로 설정
           setSessionInfo(response.data.KDTSessionDTO|| []);
         } catch (error) {
-          console.error("사용자 데이터를 불러오는 중 오류 발생:", error);
           setTrainList([]); // 오류 발생 시 빈 배열로 설정
         }
       };
@@ -124,11 +122,11 @@ const TrainList = () => {
         {currentItems.map((item, index) => (
               <tr key={item.kdtTrainId}>
                 <td>{startIndex + index + 1}</td>
-                <td><a href={`http://localhost:8091/admin/KDT/${item.kdtSessionId}/train/${item.kdtTrainId}`}>{item.kdtTrainTitle}</a></td>
+                <td><a href={`/admin/KDT/${item.kdtSessionId}/train/${item.kdtTrainId}`}>{item.kdtTrainTitle}</a></td>
                 <td>{item.kdtTrainSubject}</td>
                 <td>{item.kdtTrainContent}</td>
                 <td>{formatDate(item.kdtTrainDate)}</td>
-                <td><a href={`http://localhost:8091/admin/KDT/${item.kdtSessionId}/train/${item.kdtTrainId}`}>상세보기</a></td>
+                <td><a href={`/admin/KDT/${item.kdtSessionId}/train/${item.kdtTrainId}`}>상세보기</a></td>
               </tr>
             ))}
       </tbody>
@@ -143,7 +141,7 @@ const TrainList = () => {
       {/* 훈련일지 작성 버튼 */}
     <div className={styles.buttonContainer}>
       <a
-        href={`http://localhost:8091/admin/KDT/${kdtSessionId}/train`}
+        href={`/admin/KDT/${kdtSessionId}/train`}
         className={styles.createButton}
       >
         훈련일지 작성

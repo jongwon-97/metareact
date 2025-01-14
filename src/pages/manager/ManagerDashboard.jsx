@@ -41,7 +41,7 @@ function ManagerDashboard() {
     const fetchData = async () => {
       try {
         // 회원 수 요약 데이터
-        const userCountResponse = await axios.get("http://localhost:8091/api/manager/users/list", {
+        const userCountResponse = await axios.get("/api/manager/users/list", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -49,7 +49,7 @@ function ManagerDashboard() {
         });
 
         // 회원 증감율 데이터
-        const userGrowthResponse = await axios.get("http://localhost:8091/api/manager/users/list", {
+        const userGrowthResponse = await axios.get("/api/manager/users/list", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -57,7 +57,7 @@ function ManagerDashboard() {
         });
 
         // 강의 증감율 데이터
-        // const uploadResponse = await axios.get("http://localhost:8091/api/manager/course/monthlycount", {
+        // const uploadResponse = await axios.get("/api/manager/course/monthlycount", {
         //   headers: {
         //     "Content-Type": "application/json",
         //   },
@@ -65,12 +65,12 @@ function ManagerDashboard() {
         // });
 
         // 데이터 상태 업데이트
-        console.log(userCountResponse.data,userGrowthResponse.data,uploadResponse.data);
+
         setUserCount(userCountResponse.data);
         setUserGrowth(userGrowthResponse.data);
         //setUpload(uploadResponse.data);
       } catch (error) {
-        console.error("데이터 로드 실패:", error);
+
         setErrorMessage("데이터를 불러오는 중 문제가 발생했습니다.");
       }
     };

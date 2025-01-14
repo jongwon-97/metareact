@@ -11,13 +11,13 @@ const ManagerSideBar = () => {
         <div className={`${styles.sidebarSection}`}>
            
           {/* Home */}
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/">
+          <a className={`${styles.link} sidebar-link`} href="/">
           <i className="bi bi-house-door me-2"></i> {/* Home 아이콘 */}
           Home
           </a>
 
           {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="http://localhost:8091/manager/mypage">
+          <a className={`${styles.link} sidebar-link`} href="/manager/mypage">
           <i className="bi bi-person-circle me-2"></i> {/* 개인정보 아이콘 */}
           개인정보
           </a>
