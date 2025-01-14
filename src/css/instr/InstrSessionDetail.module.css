@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #2c3e50; /* LMS 기본 색상 */
-    --hover-color: #34495e;  /* 호버 색상 */
+    --primary-color: #2c5039; /* LMS 기본 색상 */
+    --hover-color: #2c5039;  /* 호버 색상 */
     --text-color: #ecf0f1;   /* 텍스트 색상 */
     --background-color: #f4f6f7; /* 배경색 */
     --font-family: "Roboto", sans-serif; /* LMS 기본 폰트 */

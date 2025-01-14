@@ -1,15 +1,68 @@
-import React from "react";
+import React, {useEffect, useState } from "react";
 import styles from "../css/student/StudentHeader.module.css";
 
 const StudentHeader = () => {
+  const [userInfo, setUserInfo] = useState({ email: "", role: "" }); // 사용자 이름 상태
+  const LOGOUT_URL = "/logout"; // 로그아웃 API
+  const REDIRECT_URL = "/"; // 로그아웃 후 리디렉션 URL
+  const roleMap = {
+    STUDENT: "학생",
+  };
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get("http:localhost:8091/api/student/user/profile", {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        });
+        console.log(response.data);
   
-    const userName = "ko1597@naver.com"; // 로그인된 사용자 이름 (임시 데이터)
-    
-    const handleLogout = () => {
-      alert("로그아웃되었습니다.");
-      // 실제 로그아웃 로직 추가 (예: API 호출 후 리디렉션)
+        if (response.status === 200) {
+          setUserInfo({
+            name: response.data.name || "알 수 없음",
+            email: response.data.userEmail || "이메일 없음",
+            role:  roleMap[response.data.userRole] || "권한 없음",
+          });
+        } else {
+          setErrorMessage("사용자 정보를 불러오지 못했습니다.");
+        }
+      } catch (error) {
+
+        setErrorMessage("사용자 정보를 불러오는 중 오류가 발생했습니다.");
+      }
     };
   
+    fetchUserInfo();
+  }, []);
+
+    
+    // 로그아웃 핸들러
+    const handleLogout = async () => {
+      try {
+        // 서버 로그아웃 요청
+        const response = await axios.post(LOGOUT_URL, {}, { withCredentials: true });
+  
+        if (response.status === 200) {
+          // 로그아웃 성공 메시지
+          alert("로그아웃이 완료되었습니다.");
+  
+          // 사용자 정보 초기화
+          setUserInfo({ name: "", email: "", role: "" });
+  
+          // 로그인 화면으로 리디렉션
+          window.location.href = REDIRECT_URL;
+        } else {
+          alert("로그아웃 요청이 실패했습니다.");
+        }
+      } catch (error) {
+        // 오류 처리
+        console.error("로그아웃 에러:", error);
+        alert("로그아웃 요청 중 문제가 발생했습니다. 다시 시도해주세요.");
+      }
+    };
+
+
     return (
     <nav className={`${styles.navbar} navbar`}>
       <div className={styles.leftSection}>
@@ -19,9 +72,9 @@ const StudentHeader = () => {
       
       <div className={styles.rightSection}>
     
-        <span className={styles.userName}>{userName}</span>
+        <span className={styles.userName}>환영합니다! {userInfo.name} ({userInfo.role}) <i className="bi bi-person-fill"></i> 로그인중</span>
         <button className={`${styles.logoutButton}`} onClick={handleLogout}>
-          로그아웃
+        <i className="bi bi-box-arrow-right"style={{ marginRight: "7px" }}></i>로그아웃
         </button>
       </div>
     </nav>

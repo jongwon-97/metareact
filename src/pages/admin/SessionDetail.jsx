@@ -34,7 +34,7 @@ const SessionDetail = () => {
          // 두 번째 데이터를 상태에 저장
         setParticipantCount(countDataResponse.data);
       } catch (error) {
-        setErrorMessage("데이터를 불러오는 데 실패했습니다.");
+        setErrorMessage("등록된 학생이 없습니다.");
       }finally {
         setLoading(false);
       }
@@ -133,14 +133,12 @@ const SessionDetail = () => {
             <tr>
               <th>카테고리</th>
               <td>{sessionDetail.kdtSessionCategory || "정보 없음"}</td>
-              <th>상태</th>
-              <td>{sessionDetail.kdtSessionStatus}</td>
+              <th>담당자</th>
+              <td>강경준,박형배,강경연,박종원,이원재</td>
             </tr>
             <tr>
-              <th>담당매니저</th>
-              <td>{sessionDetail.kdtSessionDescript || "매니저 없음"}</td>
-              <th>담당 강사</th>
-              <td>{sessionDetail.kdtSessionDescript || "강사 없음"}</td>
+              <th>설명</th>
+              <td colSpan="3">{sessionDetail.kdtSessionDescript || "설명 없음"}</td>
             </tr>
           </tbody>
         </table>
@@ -173,7 +171,7 @@ const SessionDetail = () => {
               <th>하루 교육 시간</th>
               <td>{sessionDetail.kdtSessionOnedayTime || 0}시간</td>
               <th>최대 수강 인원</th>
-              <td>{sessionDetail.studentCount || "정보 없음"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
+              <td>{participantCount.studentCount || "정보 없음"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
             </tr>
           </tbody>
         </table>
@@ -201,18 +199,6 @@ const SessionDetail = () => {
             </tr>
           </tbody>
         </table>
-
-        {/* 썸네일 이미지 */}
-        {sessionDetail.kdtSessionThumbnail && (
-          <div className={styles.thumbnailContainer}>
-            <h3>썸네일</h3>
-            <img
-              src={sessionDetail.kdtSessionThumbnail}
-              alt="Session Thumbnail"
-              className={`img-fluid mt-2 ${styles.thumbnail}`}
-            />
-          </div>
-        )}
       </div>
     </div>
   ) : (

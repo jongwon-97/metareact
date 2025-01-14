@@ -20,13 +20,13 @@
   .rightSection {
     display: flex;
     align-items: center;
-    margin-right: 50px;
+    margin-right: 20px;
   }
  
   
   .userName {
     margin-right: 15px; /* 이름과 버튼 간 간격 */
-    color: #fff; /* 텍스트 색상 */
+    color: #000000; /* 텍스트 색상 */
     font-weight: 500;
   }
   

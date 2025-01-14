@@ -17,7 +17,7 @@ const InstrSideBar = () => {
           </a>
 
           {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          <a className={`${styles.link} sidebar-link`} href="/instr/mypage">
           <i className="bi bi-person-circle me-2"></i> {/* 개인정보 아이콘 */}
           개인정보
           </a>
@@ -28,29 +28,28 @@ const InstrSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-bar-chart me-2"></i>
-          <a className={`${styles.hlink} sidebar-link`} href="view/admin/userchart">
+          <a className={`${styles.hlink} sidebar-link`} href="#">
           통계관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 학생증감율
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 강의증감율
               </a>
-              <a href="/admin/overview" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 결제 통계
               </a>
             </div>
           )}
           </div>
           
-        
-          {/* 개인정보 */}
-          <a className={`${styles.link} sidebar-link`} href="/admin/mypage">
+          {/* 국비과정 조회 */}
+          <a className={`${styles.link} sidebar-link`} href="/view/instr/KDT/list">
           <i className="bi bi-book"></i> {/* 개인정보 아이콘 */}
-          국비관리
+          국비 과정 조회
           </a>
           
 
@@ -59,15 +58,15 @@ const InstrSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-person-workspace"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/tables">
+          <a className={`${styles.hlink} sidebar-link`} href="/instr/course/list/{status}">
           강의관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="/instr/course" className={styles.subLink}>
                 강의등록
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="/instr/course/list/{status}" className={styles.subLink}>
                 강의목록조회  
               </a>
             </div>
@@ -79,22 +78,22 @@ const InstrSideBar = () => {
              onMouseLeave={() => setShowSubMenu(false)}  // 마우스를 떼면 하위 메뉴 숨김
           >
           <i className="bi bi-star"></i> {/* 강의관리 아이콘 */}
-          <a className={`${styles.hlink} sidebar-link`} href="/tables">
+          <a className={`${styles.hlink} sidebar-link`} href="#">
           리뷰관리
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href="/admin/userchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 국비 리뷰 목록 조회
               </a>
-              <a href="/admin/teacherchart" className={styles.subLink}>
+              <a href="#" className={styles.subLink}>
                 강사 리뷰 목록 조회
               </a>
             </div>
           )}
           </div>
 
-          <a className={`${styles.link} sidebar-link`} href="/">
+          <a className={`${styles.link} sidebar-link`} href="#">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
           결제관리
           </a>

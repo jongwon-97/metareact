@@ -36,13 +36,19 @@ import ManagerTestSubmit from "./pages/manager/ManagerTestSubmit";
 import InstrHeader from "./components/InstrHeader";
 import InstrSideBar from "./components/InstrSideBar";
 import InstrDashboard from "./pages/instr/InstrDashboard";
+
+import InstrCourseList from "./pages/instr/InstrCourseLIst";
 import InstrSessionList from "./pages/instr/InstrSessionList";
+import InstrSessionDetail from "./pages/instr/InstrSessionDetail";
+
+import InstrPartList from "./pages/instr/InstrPartList"
+
+import InstrTestList from "./pages/instr/InstrTestLIst";
+import InstrTestSubmit from "./pages/instr/InstrTestSubmit";
 
 import StudentHeader from "./components/StudentHeader";
 import StudentSidebar from "./components/StudentSidebar";
 
-import StudentDashboard from "./pages/student/StudentDashboard";
-import StudentSessionList from "./pages/student/StudentSessionList";
 import StudentAtt from "./pages/student/StudentAtt";
 
 function Layout() {
@@ -113,10 +119,17 @@ function Layout() {
             <Route path="/manager/KDT/:kdtSessionId/test/submit/:kdtTestId/list" element={<ManagerTestSubmit />} />
             {/* Instructor Routes */}
             <Route path="/instr/dashboard" element={<InstrDashboard />} />
-            <Route path="/instr/KDT/list" element={<InstrSessionList />} />
+
+            <Route path="/instr/KDT/list" element={<InstrCourseList />} />
+            <Route path="/instr/KDT/course/:courseId" element={<InstrSessionList />} />
+            <Route path="/instr/KDT/session/:sessionId" element={<InstrSessionDetail />} />
+
+            <Route path="/instr/KDT/:kdtSessionId/part/list" element={<InstrPartList />} />
+
+            <Route path="/instr/KDT/:kdtSessionId/test/list" element={<InstrTestList />} />
+            <Route path="/instr/KDT/:kdtSessionId/test/submit/:kdtTestId/list" element={<InstrTestSubmit />} />
             {/* Student Routes */}
-            <Route path="/student/dashboard" element={<StudentDashboard />} />
-            <Route path="/student/KDT/list" element={<StudentSessionList />} />
+ 
             <Route path="/student/KDT/:kdtSessionId/att/detail" element={<StudentAtt />} />
 
           </Routes>

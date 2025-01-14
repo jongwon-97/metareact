@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react";
-import styles from "/src/css/admin/TestList.module.css";
+import styles from "/src/css/instr/InstrTestList.module.css";
 import { useParams , Link } from "react-router-dom";
 import dayjs from "dayjs"; //날짜 포매팅 모듈듈
 import axios from "axios";
@@ -23,12 +23,12 @@ const TestList = () => {
   useEffect(() => {
     const  fetchTestList = async () => {
       try {
-        const response = await axios.get(`/api/admin/KDT/${kdtSessionId}/test/list`,{ // API 엔드포인트 수정
+        const response = await axios.get(`/api/instr/KDT/${kdtSessionId}/test/list`,{ // API 엔드포인트 수정
           headers: {
           "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
-          });   
+          });
           setSessionInfo(response.data.KDTSessionDTO || {}); // 회차 정보
           setTestList(response.data.kdtTestListDTOs || []); // 시험 목록
         } catch (error) {
@@ -130,20 +130,21 @@ const TestList = () => {
             <tr key={test.kdtTestId}>
               <td>{startIndex + index + 1}</td>
               <td>
-                <a href={`/admin/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
+                <a href={`/instr/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
                   {test.kdtTestTitle}
                 </a>
               </td>
               <td>{test.authorName}</td>
+              
               <td>{test.stdDev ? `${test.stdDev.toFixed(2)}%` : '-'}</td>
               <td>{formatDate(test.kdtTestStartDate)}</td>
               <td>{formatDate(test.kdtTestEndDate)}</td>
 
               <td>
-                <Link to={`/admin/KDT/${kdtSessionId}/test/submit/${test.kdtTestId}/list`}>{test.actualCnt}/{test.totalCnt}</Link>
+                <Link to={`/instr/KDT/${kdtSessionId}/test/submit/${test.kdtTestId}/list`}>{test.actualCnt}/{test.totalCnt}</Link>
               </td>
               <td>
-                <a href={`/admin/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
+                <a href={`/instr/KDT/${kdtSessionId}/test/${test.kdtTestId}`}>
                   상세보기
                 </a>
               </td>
@@ -162,7 +163,7 @@ const TestList = () => {
 
       <div className={styles.buttonContainer}>
           <a
-            href={`/admin/KDT/${kdtSessionId}/test`}
+            href={`/instr/KDT/${kdtSessionId}/test`}
             className={styles.createButton}
           >
             시험제출

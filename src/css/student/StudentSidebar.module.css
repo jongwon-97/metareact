@@ -5,7 +5,8 @@
     top: 0;
     left: 0; /* 사이드바를 왼쪽에 고정 */
     width: 230px; /* 사이드바 너비 */
-    background-color: #305fece6;
+    background-color: #4e73df;
+    color: white;
     overflow-y: auto; /* 스크롤 가능 */
     display: flex; /* 플렉스 레이아웃 */
     flex-direction: column; /* 세로 정렬 */
@@ -62,7 +63,7 @@
   /* 하위 메뉴 */
   .subMenu {
     display: none;
-    background-color: rgba(255, 255, 255, 0.2); /* 하위 메뉴 배경색 */
+    background-color:#496bcc; /* 하위 메뉴 배경색 */
     padding: 10px 0; /* 내부 여백 */
     flex-direction: column;
     position: absolute; /* 부모 요소의 흐름을 따라 위치 */
@@ -78,16 +79,6 @@
     display: flex; /* 마우스를 올리면 보이도록 설정 */
   }
   
-  
-  .sidebarSection .dropdown:nth-child(4):hover + .link {
-    margin-top: 110px; /* 원하는 높이로 조정 */
-    transition: margin 0.3s ease, opacity ease;
-  }
-  
-  .sidebarSection .dropdown:nth-child(6):hover + .link {
-    margin-top: 110px; /* 원하는 높이로 조정 */
-    transition: margin 0.3s ease, opacity ease;
-  }
   /* 하위 메뉴 링크 */
   .subLink {
     padding: 10px 20px; /* 하위 메뉴 여백 */

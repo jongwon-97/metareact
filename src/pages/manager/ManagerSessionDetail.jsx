@@ -205,18 +205,6 @@ const ManagerSessionDetail = () => {
             </tr>
           </tbody>
         </table>
-
-        {/* 썸네일 이미지 */}
-        {sessionDetail.kdtSessionThumbnail && (
-          <div className={styles.thumbnailContainer}>
-            <h3>썸네일</h3>
-            <img
-              src={sessionDetail.kdtSessionThumbnail}
-              alt="Session Thumbnail"
-              className={`img-fluid mt-2 ${styles.thumbnail}`}
-            />
-          </div>
-        )}
       </div>
     </div>
   ) : (

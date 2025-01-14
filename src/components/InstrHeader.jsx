@@ -37,17 +37,27 @@ const InstrHeader = () => {
       fetchUserInfo();
     }, []);
 
-      // 로그아웃 핸들러
-  const handleLogout = async () => {
+       // 로그아웃 핸들러
+   const handleLogout = async () => {
     try {
-      await axios.post(
-        LOGOUT_URL, // 요청 바디 (필요 없으므로 빈 객체 전달)
-        { withCredentials: true } // 인증 쿠키 포함
-      );
+      // 서버 로그아웃 요청
+      const response = await axios.post(LOGOUT_URL, {}, { withCredentials: true });
 
-      alert("로그아웃 완료");
-      window.location.href = REDIRECT_URL; // 로그아웃 후 홈으로 리디렉트
+      if (response.status === 200) {
+        // 로그아웃 성공 메시지
+        alert("로그아웃이 완료되었습니다.");
+
+        // 사용자 정보 초기화
+        setUserInfo({ name: "", email: "", role: "" });
+
+        // 로그인 화면으로 리디렉션
+        window.location.href = REDIRECT_URL;
+      } else {
+        alert("로그아웃 요청이 실패했습니다.");
+      }
     } catch (error) {
+      // 오류 처리
+      console.error("로그아웃 에러:", error);
       alert("로그아웃 요청 중 문제가 발생했습니다. 다시 시도해주세요.");
     }
   };
@@ -56,7 +66,7 @@ const InstrHeader = () => {
     return (
     <nav className={`${styles.navbar} navbar`}>
       <div className={styles.leftSection}>
-      <a className={`${styles.brand}`} href="/view/instr/dashboard">
+      <a className={`${styles.brand}`} href="/instr/main/mypage">
         메타러닝 강사 페이지
       </a>
     
@@ -64,9 +74,9 @@ const InstrHeader = () => {
       
       <div className={styles.rightSection}>
     
-        <span className={styles.userName}>{userInfo.email} {userInfo.role}</span>
+        <span className={styles.userName}>환영합니다! {userInfo.name} ({userInfo.role})  <i className="bi bi-person-fill"></i> 로그인중</span>
         <button className={`${styles.logoutButton}`} onClick={handleLogout}>
-          로그아웃
+        <i className="bi bi-box-arrow-right"style={{ marginRight: "7px" }}></i>로그아웃
         </button>
       </div>
     </nav>

@@ -168,7 +168,7 @@ const AdminSideBar = () => {
           )}
           </div>
 
-          <a className={`${styles.link} sidebar-link`} href="/admin/paylist">
+          <a className={`${styles.link} sidebar-link`} href="/admin/pay/list">
           <i className="bi bi-credit-card"></i> {/* 결제관리 아이콘 */}
           결제관리
           </a>

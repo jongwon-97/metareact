@@ -56,7 +56,7 @@ const ManagerSideBar = () => {
           회원관리
           </a>
 
-          {/* 회원관리 */}
+          {/* 국비과정 조회 */}
           <a className={`${styles.link} sidebar-link`} href="/view/manager/KDT/list">
           <i className="bi bi-book"></i> {/* 개인정보 아이콘 */}
           국비 과정 조회

@@ -1,30 +1,45 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "/src/css/manager/ManagerSessionDetail.module.css";
+import styles from "/src/css/instr/InstrSessionDetail.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 
-const ManagerSessionDetail = () => {
+const InstrSessionDetail = () => {
   const { sessionId } = useParams();
   const [sessionDetail, setSessionDetail] = useState([]); // 회차 상세 정보
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지
+  const [participantCount, setParticipantCount] = useState(null);
+  //const [stafflist, setStafflist] = useState(null);
 
   useEffect(() => {
     // 더미 데이터
     const fetchSessionDetail = async()=>{
       setLoading(true);
       try {
-        const response = await axios.get(`/api/admin/KDT/session/${sessionId}`, {
+        const response = await axios.get(`/api/instr/KDT/session/${sessionId}`, {
           headers: {
             "Content-Type": "application/json",
           },
           withCredentials: true, // 쿠키 포함
         });
-
         setSessionDetail(response.data); // 과정 데이터 설정
+        // 두 번째 요청
+        const countDataResponse = await axios.get(`/api/instr/part/${sessionId}/count`, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        });
+         // 두 번째 데이터를 상태에 저장
+        setParticipantCount(countDataResponse.data);
+        
+        // const staffDataResponse = await axios.get(`/api/instr/KDT/${sessionId}/staff/list`, {
+        //   headers: { "Content-Type": "application/json" },
+        //   withCredentials: true,
+        //   });
+        //    // 두 번째 데이터를 상태에 저장
+        //   setStafflist(staffDataResponse.data);
       } catch (error) {
         setErrorMessage("데이터를 불러오는 데 실패했습니다.");
       }finally {
@@ -46,63 +61,32 @@ const ManagerSessionDetail = () => {
         <nav className={`${styles.sessionNavbar}`}>
           <Link
           className={`${styles.attsessionNavLink}`}
-          to={`/admin/KDT/${sessionDetail.kdtSessionId}/part/list`}
+          to={`/instr/KDT/${sessionDetail.kdtSessionId}/part/list`}
           >
           참가자명단
           </Link>
           
           <a className={`${styles.partsessionNavLink}`} 
-          href={`/admin/KDT/${sessionDetail.kdtSessionId}/staff/list`}>
+          href={`/instr/KDT/${sessionDetail.kdtSessionId}/staff/list`}>
             담당자 명단
           </a>
-
-          <Link
-          className={`${styles.attsessionNavLink}`}
-          to={`/admin/KDT/${sessionDetail.kdtSessionId}/att/list`}
-           >
-          출석부
-          </Link>
 
           <div className={styles.testsessionNavLink}>
 
           <Link
           className={`${styles.attsessionNavLink}`}
-          to={`/admin/KDT/${sessionDetail.kdtSessionId}/test/list`}
+          to={`/instr/KDT/${sessionDetail.kdtSessionId}/test/list`}
            >
           시험
           </Link>
         
           </div>
 
-          <div className={styles.counselsessionNavLink}>
-            <a>훈련일지</a>
-              {/* 하위 메뉴 */}
-              <div 
-              className={styles.counseldropdownMenu}>
-                <Link to={`/admin/KDT/${sessionDetail.kdtSessionId}/train/list`}>훈련일지 목록</Link>
-                <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/train`}>훈련일지 작성</a>
-              </div>
-          </div>
+          <a className={`${styles.partsessionNavLink}`} 
+          href={`/instr/KDT/${sessionDetail.kdtSessionId}/board/materiallist`}>
+            강의 자료실
+          </a>
 
-          <div className={styles.counselsessionNavLink}>
-            <a>상담일지</a>
-              {/* 하위 메뉴 */}
-              <div 
-              className={styles.counseldropdownMenu}>
-                <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/appconsult/list`}>신청상담 목록</a>
-                <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/consult/list`}>수강생상담 목록</a>
-              </div>
-          </div>
-
-          <div className={styles.boardsessionNavLink}>
-          <a>게시판</a>
-            {/* 하위 메뉴 */}
-            <div className={styles.boarddropdownMenu}>
-              <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/board/materiallist`}>강의 자료실</a>
-              <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/courseoutline/list`}>강의 영상</a>
-              <a href={`/admin/KDT/${sessionDetail.kdtSessionId}/detail/detail`}>홍보게시글</a>
-            </div>
-          </div>  
         </nav>
       </div>
       <div className={styles.sessionContent}>
@@ -125,14 +109,12 @@ const ManagerSessionDetail = () => {
             <tr>
               <th>카테고리</th>
               <td>{sessionDetail.kdtSessionCategory || "정보 없음"}</td>
-              <th>상태</th>
-              <td>{sessionDetail.kdtSessionStatus}</td>
+              <th>담당자</th>
+              <td>강경준,박형배,강경연,박종원,이원재</td>
             </tr>
             <tr>
-              <th>담당매니저</th>
-              <td>{sessionDetail.kdtSessionDescript || "매니저 없음"}</td>
-              <th>담당 강사</th>
-              <td>{sessionDetail.kdtSessionDescript || "강사 없음"}</td>
+              <th>설명</th>
+              <td colSpan="3">{sessionDetail.kdtSessionDescript || "설명 없음"}</td>
             </tr>
           </tbody>
         </table>
@@ -165,7 +147,7 @@ const ManagerSessionDetail = () => {
               <th>하루 교육 시간</th>
               <td>{sessionDetail.kdtSessionOnedayTime || 0}시간</td>
               <th>최대 수강 인원</th>
-              <td>{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
+              <td>{participantCount.studentCount || "0"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
             </tr>
           </tbody>
         </table>
@@ -194,17 +176,6 @@ const ManagerSessionDetail = () => {
           </tbody>
         </table>
 
-        {/* 썸네일 이미지 */}
-        {sessionDetail.kdtSessionThumbnail && (
-          <div className={styles.thumbnailContainer}>
-            <h3>썸네일</h3>
-            <img
-              src={sessionDetail.kdtSessionThumbnail}
-              alt="Session Thumbnail"
-              className={`img-fluid mt-2 ${styles.thumbnail}`}
-            />
-          </div>
-        )}
       </div>
     </div>
   ) : (
@@ -215,4 +186,4 @@ const ManagerSessionDetail = () => {
   );
 };
 
-export default ManagerSessionDetail;
+export default InstrSessionDetail;

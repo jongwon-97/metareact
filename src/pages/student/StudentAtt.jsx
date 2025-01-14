@@ -96,7 +96,7 @@ const AttListDetail = () => {
 
       setDetailInfo(response.data); // 상태 갱신
     } catch (error) {
-      alert("입실 처리에 실패했습니다.");
+      alert("이미 출석하셨습니다.");
     }
   };
 
