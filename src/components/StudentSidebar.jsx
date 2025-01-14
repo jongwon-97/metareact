@@ -1,14 +1,28 @@
-import React , { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../css/student/StudentSideBar.module.css";
-import { useParams } from "react-router-dom";
+import axios from "axios";
+
 const StudentSideBar = () => {
   const [showSubMenu, setShowSubMenu] = useState(false);
-  const { kdtSessionId } = useParams(); // URL 파라미터
-console.log("파라미터값",kdtSessionId);
-useEffect(() => {
-  console.log("Session ID:", kdtSessionId);
-}, [kdtSessionId]);
+  const [sessionIds, setSessionIds] = useState([]); // Session ID 리스트 상태
+  
+  // API 호출로 sessionId 가져오기
+  useEffect(() => {
+    const fetchSessionIds = async () => {
+      try {
+        const response = await axios.get("/api/student/KDT/sessionlist", {
+          withCredentials: true, // 인증 쿠키 포함
+        });
+        if (response.status === 200) {
+          setSessionIds(response.data); // 회차 정보 저장
+        } else {
+        }
+      } catch (error) {
+      }
+    };
 
+    fetchSessionIds();
+  }, []);
   return (
     <div className={`${styles.sidebar} sb-sidenav accordion sb-sidenav-dark`}>
       <div className="sb-sidenav-menu">     
@@ -37,18 +51,34 @@ useEffect(() => {
           </a>
           {showSubMenu && (
             <div className={styles.subMenu}>
-              <a href={`/view/student/KDT/${kdtSessionId}/att/detail`} className={styles.subLink}>
-                출석부
-              </a>
-              <a href={`/student/KDT/${kdtSessionId}/coureoutline/list`} className={styles.subLink}>
-                강의영상
-              </a>
-              <a href={`/student/KDT/${kdtSessionId}/board/meteriallist`} className={styles.subLink}>
-                자료실
-              </a>
-              <a href={`/student/KDT/${kdtSessionId}/test/list`} className={styles.subLink}>
-                시험
-              </a>
+             {sessionIds.map((session) => (
+                  <React.Fragment key={session.kdtSessionId}>
+                    <a
+                      href={`/view/student/KDT/${session.kdtSessionId}/att/detail`}
+                      className={styles.subLink}
+                    >
+                      출석부
+                    </a>
+                    <a
+                      href={`/student/KDT/${session.kdtSessionId}/coureoutline/list`}
+                      className={styles.subLink}
+                    >
+                      강의영상
+                    </a>
+                    <a
+                      href={`/student/KDT/${session.kdtSessionId}/board/meteriallist`}
+                      className={styles.subLink}
+                    >
+                      자료실
+                    </a>
+                    <a
+                      href={`/student/KDT/${session.kdtSessionId}/test/list`}
+                      className={styles.subLink}
+                    >
+                      시험
+                    </a>
+                  </React.Fragment>
+                ))}
             </div>
           )}
           </div>

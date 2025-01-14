@@ -57,7 +57,6 @@ function Dashboard() {
         setUserGrowth(removeDuplicates(userGrowthResponse.data));
         setUpload(removeDuplicates(uploadResponse.data.data));
       } catch (error) {
-        console.error(error);
         setErrorMessage("데이터를 불러오는 중 문제가 발생했습니다.");
       }
     };
@@ -165,8 +164,22 @@ function Dashboard() {
         </div>
 
         <div className="col-md-6">
-          <div className={styles.emptySpace}>
-            <h3 className={styles.emptySpaceText}>추가 콘텐츠 공간</h3>
+          <div className={styles.card}>
+            <h3 className={styles.cardTitle}>공지사항</h3>
+            <ul className={styles.noticeList}>
+              <li>
+                <strong>[2025-01-12]</strong> 시스템 점검 예정: 2025년 1월 15일 오후 2시 ~ 4시
+              </li>
+              <li>
+                <strong>[2025-01-10]</strong> 새로운 강의 "React 고급 과정"이 추가되었습니다.
+              </li>
+              <li>
+                <strong>[2025-01-08]</strong> 설날 이벤트: 수강료 20% 할인 (~2025년 1월 20일)
+              </li>
+              <li>
+                <strong>[2025-01-05]</strong> 관리자 대시보드 기능이 업데이트되었습니다.
+              </li>
+            </ul>
           </div>
         </div>
       </div>

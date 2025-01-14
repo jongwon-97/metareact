@@ -13,7 +13,7 @@ const AdminHeader = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("/api/admin/user/profile", {
+        const response = await axios.get("http://localhost:8091/api/admin/user/profile", {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
