@@ -185,7 +185,7 @@ const SessionDetail = () => {
               <th>하루 교육 시간</th>
               <td>{sessionDetail.kdtSessionOnedayTime || 0}시간</td>
               <th>최대 수강 인원</th>
-              <td>{participantCount.studentCount || "정보 없음"}/{sessionDetail.kdtSessionMaxCapacity || "정보 없음"}</td>
+              <td>{participantCount.studentCount || 0}/{sessionDetail.kdtSessionMaxCapacity || "정보없음"}</td>
             </tr>
           </tbody>
         </table>
